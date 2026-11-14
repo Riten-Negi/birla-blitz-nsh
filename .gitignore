@@ -1,0 +1,25 @@
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Python environment & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.env
+venv/
+env/
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Log and diagnostic files
+*.log
+debug/

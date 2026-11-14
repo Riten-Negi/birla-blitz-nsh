@@ -1,0 +1,21 @@
+{
+  "name": "Birla Blitz Sound to Text",
+  "short_name": "Birla Blitz",
+  "description": "Real-time acoustic audio-to-text receiver and decoder",
+  "start_url": "phone.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1d4ed8",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
