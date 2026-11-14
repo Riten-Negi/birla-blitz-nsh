@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <title>Birla Blitz Sound to Text - Image Visualizer & Acoustic Transmitter</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+
+        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="sound"></div>
+
+        <div class="station-wrapper">
+            <!-- Header -->
+            <div class="station-card">
+                <h1 class="station-title">
+                    <span style="display:inline-block; width:28px; height:28px; background:linear-gradient(135deg, #2563eb, #1d4ed8); border-radius:6px; color:#fff; text-align:center; line-height:28px; font-size:16px;">⚡</span>
+                    Birla Blitz Sound to Text
+                </h1>
+                <div class="station-subtitle">
+                    Image Visualizer & Acoustic Signal Transmission Station
+                </div>
+
+                <!-- Engine Init & Status LEDs -->
+                <table style="width:100%; margin-bottom:12px; background:#f8fafc; border-radius:8px;">
+                    <tr>
+                        <td align="center" style="width:20%; border:none;">
+                            <button onClick="doInit()" id="butInit" style="padding:8px 18px; font-weight:700; background:#2563eb; color:white; border:none; border-radius:6px; cursor:pointer;" disabled>Initialize Engine</button>
+                        </td>
+                        <td align="center" style="border:none;">
+                            <div style="display:flex; justify-content:center; gap:24px; align-items:center;">
+                                <div style="display:flex; align-items:center; gap:6px;">
+                                    <span style="font-size:11px; font-weight:600; color:#475569;">Speaker:</span>
+                                    <div class="led-box" id="has-device-output" title="Audio Output Device"><div class="led-yellow"></div></div>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:6px;">
+                                    <span style="font-size:11px; font-weight:600; color:#475569;">Mic:</span>
+                                    <div class="led-box" id="has-device-capture" title="Audio Capture Device"><div class="led-yellow"></div></div>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:6px;">
+                                    <span style="font-size:11px; font-weight:600; color:#475569;">Browser:</span>
+                                    <div class="led-box" id="is-browser-supported" title="Browser Engine Support"><div class="led-yellow"></div></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td align="right" style="width:35%; border:none;">
+                            <span style="background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:12px; font-size:11px; font-weight:700;">Mode: Fastest</span>
+                            <span style="font-size:11px; margin-left:12px;">Vol:</span>
+                            <input type="range" min="1" max="100" value="60" class="slider" id="paramVolume" onInput="updateScroll('Volume');" style="vertical-align:middle; width:80px;">
+                            <label id="paramVolumeScroll" style="font-size:11px; font-weight:700;">60</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- MAIN HERO WORKSPACE: Image Upload, Visualizer & Sound Signal Transmitter -->
+            <div class="station-card">
+                <h2 style="font-size:1.15rem; font-weight:700; color:#0f172a; margin-top:0; margin-bottom:4px;">
+                    1. Upload & Visualize Image
+                </h2>
+                <p style="font-size:0.82rem; color:#64748b; margin-top:0; margin-bottom:14px;">
+                    Upload any image or video frame to inspect its visual telemetry, then send its encoded acoustic signal directly to the mobile app through laptop speakers.
+                </p>
+
+                <!-- Dropzone -->
+                <div id="dropZone" class="upload-dropzone" onclick="document.getElementById('imageFileInput').click()">
+                    <div class="dropzone-icon">📷</div>
+                    <div class="dropzone-text">Click to Browse or Drag & Drop an Image Here</div>
+                    <div class="dropzone-sub">Supports PNG, JPG, JPEG, WEBP, MP4</div>
+                    <input type="file" id="imageFileInput" accept="image/*,video/mp4" style="display:none">
+                </div>
+
+                <!-- Visualizer Workspace: Canvas + Live Analysis + Transmitter -->
+                <div class="visualizer-grid" style="margin-top:16px;">
+                    <!-- Left: Canvas -->
+                    <div>
+                        <div class="canvas-wrapper">
+                            <canvas id="imageCanvas" width="600" height="380"></canvas>
+                            <div id="probeHud" class="probe-hud">Probe: Standby - Upload an image to probe pixels</div>
+                        </div>
+                        <div style="font-size:0.75rem; color:#64748b; margin-top:6px; display:flex; justify-content:space-between;">
+                            <span>Scanline: <span id="scanlineState" style="color:#64748b; font-weight:600;">Standby</span></span>
+                            <span id="canvasDims">-- × -- px</span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Analysis & Sound Transmitter -->
+                    <div class="analysis-panel">
+                        <!-- Image Telemetry Metrics -->
+                        <div class="metric-card">
+                            <div class="metric-header">Visual Spectrum & Telemetry</div>
+                            <div id="metricFilename" style="font-size:0.88rem; font-weight:700; color:#1e293b; margin-bottom:6px; word-break:break-all;">
+                                Standby - Awaiting Image Upload
+                            </div>
+
+                            <div class="rgb-bars">
+                                <div class="rgb-row">
+                                    <span style="color:#ef4444; width:14px;">R</span>
+                                    <div class="rgb-bar-bg"><div id="barRed" class="rgb-bar-fill" style="background:#ef4444; width:0%;"></div></div>
+                                    <span id="valRed" style="width:30px; text-align:right;">0</span>
+                                </div>
+                                <div class="rgb-row">
+                                    <span style="color:#10b981; width:14px;">G</span>
+                                    <div class="rgb-bar-bg"><div id="barGreen" class="rgb-bar-fill" style="background:#10b981; width:0%;"></div></div>
+                                    <span id="valGreen" style="width:30px; text-align:right;">0</span>
+                                </div>
+                                <div class="rgb-row">
+                                    <span style="color:#3b82f6; width:14px;">B</span>
+                                    <div class="rgb-bar-bg"><div id="barBlue" class="rgb-bar-fill" style="background:#3b82f6; width:0%;"></div></div>
+                                    <span id="valBlue" style="width:30px; text-align:right;">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Acoustic Image Data Transmitter Box -->
+                        <div class="sound-signal-box">
+                            <div class="signal-label">2. Acoustic Image Data Transmission:</div>
+                            
+                            <!-- Hidden codeword input kept in DOM for silent signal trigger -->
+                            <input type="hidden" id="soundSignalMessage" value="">
+
+                            <!-- Acoustic Sonification Metrics HUD -->
+                            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:10px 12px; margin-bottom:12px; font-size:0.77rem; color:#334155;">
+                                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                                    <span style="color:#64748b;">Carrier Protocol:</span>
+                                    <span style="font-weight:600; color:#0369a1;">Acoustic FSK Sonification</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                                    <span style="color:#64748b;">Optical Payload:</span>
+                                    <span id="payloadInfo" style="font-weight:600; color:#0f172a;">Awaiting Image Input</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between;">
+                                    <span style="color:#64748b;">Sonification Status:</span>
+                                    <span id="encodingStatus" style="font-weight:600; color:#64748b;">Standby</span>
+                                </div>
+                            </div>
+
+                            <div style="font-size:0.75rem; color:#475569; margin-bottom:12px; line-height:1.4;">
+                                Converts visual raster matrices into high-frequency acoustic data streams, transmitted directly through laptop speakers to the mobile receiver app.
+                            </div>
+
+                            <button id="btnTransmitImageSound" type="button" class="btn-transmit-sound" onclick="transmitImageSignal()">
+                                <span>🔊 TRANSMIT IMAGE DATA VIA SOUND</span>
+                            </button>
+
+                            <div id="txStatusAlert" class="tx-status-alert"></div>
+                        </div>
+
+                        <!-- Dynamic Scientific Context Card -->
+                        <div id="nasaContextCard" class="metric-card" style="display:none; background:#f0fdf4; border-color:#bbf7d0;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                <span id="nasaContextHeading" style="font-size:0.75rem; font-weight:700; color:#166534; text-transform:uppercase;">Scientific Observation Telemetry</span>
+                                <a id="nasaSourceLink" href="#" target="_blank" style="font-size:0.72rem; color:#1d4ed8; font-weight:600; text-decoration:none;">Dataset Source ↗</a>
+                            </div>
+                            <div id="nasaContextText" style="font-size:0.77rem; color:#1e293b; line-height:1.45;"></div>
+                            <div style="margin-top:8px;">
+                                <div id="nasaScaleLabel" style="display:flex; justify-content:space-between; font-size:0.68rem; color:#475569; font-weight:600; margin-bottom:2px;"></div>
+                                <img id="nasaColorbarImg" src="" style="width:100%; height:18px; object-fit:cover; border-radius:3px; background:#fff; border:1px solid #cbd5e1; display:none;" alt="Scale Colorbar">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manual Text Transmitter (Hidden from UI, retained for DOM compatibility) -->
+            <div class="station-card" style="display:none;">
+                <details>
+                    <summary style="font-size:0.9rem; font-weight:700; color:#475569; cursor:pointer; user-select:none;">
+                        ⌨️ Manual Text Broadcast Console (Optional Direct Mode)
+                    </summary>
+                    <div style="margin-top:14px;">
+                        <table id="main-controls" style="width:100%;">
+                            <tr>
+                                <td style="width:50%;">
+                                    <div style="font-weight:600; font-size:0.8rem; margin-bottom:4px;">Received Acoustic Data (Rx):</div>
+                                    <textarea id="rxData" style="width:100%; height:70px; font-family:monospace; font-size:0.8rem;" disabled></textarea>
+                                </td>
+                                <td style="width:50%;">
+                                    <div style="font-weight:600; font-size:0.8rem; margin-bottom:4px;">Direct Text to Broadcast (Tx):</div>
+                                    <textarea id="txData" style="width:100%; height:70px; font-family:monospace; font-size:0.8rem;" placeholder="Type custom message to broadcast..."></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a id="peer-info" style="font-size:0.8rem;"></a></td>
+                                <td align="right">
+                                    <button onClick="lockoutSubmit(this); transmitText(document.getElementById('txData').value);" style="padding:8px 18px; font-weight:700; background:#334155; color:white; border:none; border-radius:6px; cursor:pointer;">Broadcast Raw Text</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Console Log -->
+            <div style="font-size:0.75rem; color:#94a3b8; margin-top:10px;">
+                <details>
+                    <summary style="cursor:pointer;">Engine Diagnostic Output</summary>
+                    <textarea id="output" rows="4" style="width:100%; margin-top:6px; font-family:monospace; font-size:0.72rem; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:4px;"></textarea>
+                    <div class="spinner" id='spinnerEm'></div>
+                    <div class="emscripten" id="statusEm" style="font-size:0.75rem;">Ready</div>
+                    <progress value="0" max="100" id="progressEm" hidden=1></progress>
+                </details>
+            </div>
+        </div>
+
+        <script type='text/javascript'>
+            var bufferRx = null;
+            var brx = new Uint8Array(256);
+
+            var volume = 60;
+            var protocolId = 2; // Locked to Fastest
+
+            function lockoutSubmit(button) {
+                var oldValue = button.value;
+                button.setAttribute('disabled', true);
+                button.value = '...broadcasting...';
+                setTimeout(function(){
+                    button.value = oldValue;
+                    button.removeAttribute('disabled');
+                }, 3000);
+            }
+
+            function selectConfig(configId) {
+                protocolId = parseInt(configId);
+            }
+
+            function updateScroll(sName) {
+                val = document.getElementById('param'+sName).value;
+                document.getElementById('param'+sName+'Scroll').innerHTML = val;
+                volume = val;
+            }
+
+            function getSampleRate() {
+                if (typeof Module === 'undefined') return;
+                return Module._getSampleRate();
+            }
+
+            var isInitialized = false;
+            var isAudioContextUnlocked = true;
+
+            var htmlGreenLED  = "<div class=\"led-green\"></div>";
+            var htmlRedLED    = "<div class=\"led-red\"></div>";
+            var htmlYellowLED = "<div class=\"led-yellow\"></div>";
+
+            function checkStatus() {
+                if (typeof Module === 'undefined') return;
+                var hasDeviceOutput = Module._hasDeviceOutput ? Module._hasDeviceOutput() : 1;
+                var el = document.getElementById('has-device-output');
+                if (el) {
+                    el.innerHTML = (hasDeviceOutput != 0 && isAudioContextUnlocked) ? htmlGreenLED : htmlRedLED;
+                }
+
+                var hasDeviceCapture = Module._hasDeviceCapture ? Module._hasDeviceCapture() : 1;
+                var el2 = document.getElementById('has-device-capture');
+                if (el2) {
+                    el2.innerHTML = (hasDeviceCapture != 0) ? htmlGreenLED : htmlRedLED;
+                }
+
+                var el3 = document.getElementById('is-browser-supported');
+                if (el3) {
+                    el3.innerHTML = htmlGreenLED;
+                }
+            }
+
+            var statusElement = document.getElementById('statusEm');
+            var progressElement = document.getElementById('progressEm');
+            var spinnerElement = document.getElementById('spinnerEm');
+
+            var Module = {
+                doNotCaptureKeyboard: true,
+                pre: [],
+                preRun: [(function() {
+                    let constraints = {
+                        audio: { echoCancellation: false, autoGainControl: false, noiseSuppression: false }
+                    };
+                    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                        navigator.mediaDevices.getUserMedia(constraints).catch(function(e) {
+                            console.log("Mic access notice: " + e);
+                        });
+                    }
+                })],
+                postRun: [(function() {
+                    var btn = document.getElementById("butInit");
+                    if (btn) btn.disabled = false;
+                })],
+                print: (function() {
+                    var element = document.getElementById('output');
+                    if (element) element.value = '';
+                    return function(text) {
+                        if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+                        console.log(text);
+                        if (element) {
+                            element.value += text + "\n";
+                            element.scrollTop = element.scrollHeight;
+                        }
+                    };
+                })(),
+                printErr: function(text) {
+                    if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+                    console.error(text);
+                },
+                setStatus: function(text) {
+                    if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
+                    if (text === Module.setStatus.text) return;
+                    var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+                    if (m) {
+                        text = m[1];
+                        progressElement.value = parseInt(m[2])*100;
+                        progressElement.max = parseInt(m[4])*100;
+                        progressElement.hidden = false;
+                        spinnerElement.hidden = false;
+                    } else {
+                        progressElement.value = null;
+                        progressElement.max = null;
+                        progressElement.hidden = true;
+                        if (!text && spinnerElement) spinnerElement.style.display = 'none';
+                    }
+                    if (statusElement) statusElement.innerHTML = text;
+                },
+                totalDependencies: 0,
+                monitorRunDependencies: function(left) {
+                    this.totalDependencies = Math.max(this.totalDependencies, left);
+                    Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'Ready');
+                }
+            };
+
+            function doInit() {
+                if (!isInitialized && typeof Module !== 'undefined' && Module._doInit) {
+                    Module._doInit();
+                    protocolId = 2; // Fixed to Fastest
+                    updateScroll('Volume');
+                    bufferRx = Module._malloc(256);
+                    setInterval(updatePeerInfo, 100);
+                    setInterval(updateRx, 1000);
+                    setInterval(checkStatus, 1000);
+                    isInitialized = true;
+                    var btn = document.getElementById("butInit");
+                    if (btn) {
+                        btn.textContent = "Engine Ready";
+                        btn.style.background = "#059669";
+                    }
+                }
+                playSound("plucky");
+            }
+
+            function playSound(filename){
+                try {
+                    document.getElementById("sound").innerHTML = '<audio id="soundInner"><source src="' + filename + '.mp3" type="audio/mpeg" /></audio>';
+                    var s = document.getElementById("soundInner");
+                    if (s) {
+                        s.volume = volume / 100.0;
+                        s.play().catch(function(){});
+                    }
+                } catch(e) {}
+            }
+
+            // ============================================================
+            // IMAGE VISUALIZER & ACOUSTIC SIGNAL LOGIC
+            // ============================================================
+
+            // Configurable Image-to-Message dictionary
+            // The user can tell us which image needs to send what message,
+            // or add rules directly on the interface.
+            var defaultImageMap = {
+                "geos_near_surface_humidity": { message: "HUMID", label: "GEOS-FP Humidity Q2M (NASA SVS 5150)" },
+                "humidity": { message: "HUMID", label: "Specific Humidity Q2M" },
+                "humid": { message: "HUMID", label: "Specific Humidity Q2M" },
+                "q2m": { message: "HUMID", label: "Specific Humidity Q2M (g/kg)" },
+                "5150": { message: "HUMID", label: "NASA SVS 5150 Humidity" },
+                "geos_precipitation": { message: "RAIN", label: "GEOS-FP Precipitation & Clouds (NASA SVS 5149)" },
+                "precipitation": { message: "RAIN", label: "Precipitation & Clouds" },
+                "precip": { message: "RAIN", label: "Precipitation Rate" },
+                "5149": { message: "RAIN", label: "NASA SVS 5149 Precipitation" },
+                "geos_near_surface_wind": { message: "WIND", label: "GEOS-FP Near-Surface Wind (NASA SVS 5148)" },
+                "5148": { message: "WIND", label: "NASA SVS 5148 Wind Speed" },
+                "wind": { message: "WIND", label: "Near-Surface Wind Speed" },
+                "geos": { message: "TEMP", label: "GEOS-FP Near-Surface Temp (NASA SVS 5147)" },
+                "5147": { message: "TEMP", label: "NASA SVS 5147 Air Temp" },
+                "temp": { message: "TEMP", label: "Temperature Anomaly" },
+                "temperature": { message: "TEMP", label: "Temperature Anomaly" },
+                "co2": { message: "CO2", label: "Carbon Dioxide Plumes" },
+                "carbon": { message: "CO2", label: "Carbon Dioxide" },
+                "ocean": { message: "OCEAN", label: "Ocean Surface Currents" },
+                "current": { message: "OCEAN", label: "Ocean Currents" },
+                "lightning": { message: "LIGHTNING", label: "ISS Lightning Flash" },
+                "iss": { message: "LIGHTNING", label: "ISS Lightning Activity" },
+                "night": { message: "ENERGY", label: "Global Night Lights" },
+                "light": { message: "ENERGY", label: "Night Lights / Energy" },
+                "energy": { message: "ENERGY", label: "Night Lights / Energy" },
+                "ice": { message: "ICE", label: "Arctic Sea Ice Minimum" },
+                "sea_ice": { message: "ICE", label: "Arctic Sea Ice" },
+                "fire": { message: "FIRE", label: "Wildfire Thermal FIRMS" },
+                "wildfire": { message: "FIRE", label: "Wildfire FIRMS" },
+                "bio": { message: "BIO", label: "Biosphere NDVI Vegetation" },
+                "biosphere": { message: "BIO", label: "Biosphere NDVI" },
+                "ozone": { message: "OZONE", label: "Stratospheric Ozone Column" }
+            };
+
+            var imageMessageMap = Object.assign({}, defaultImageMap);
+
+            // Load saved rules from localStorage if available
+            try {
+                var saved = localStorage.getItem("birla_image_map");
+                if (saved) {
+                    var parsed = JSON.parse(saved);
+                    Object.assign(imageMessageMap, parsed);
+                }
+            } catch(e) {}
+
+
+
+            // Visualizer Canvas & Scanline State
+            var canvas = document.getElementById("imageCanvas");
+            var ctx = canvas.getContext("2d", { willReadFrequently: true });
+            var offscreenCanvas = document.createElement("canvas");
+            var offscreenCtx = offscreenCanvas.getContext("2d", { willReadFrequently: true });
+
+            var currentImage = null;
+            var currentLoadedImageName = "";
+            var scanlineProgress = 0.0;
+            var scanlineSpeed = 0.005; // speed of laser scan
+            var isHoveringCanvas = false;
+            var probeX = 0, probeY = 0;
+
+            function lookupAndApplyMessage(filename) {
+                var lower = filename.toLowerCase();
+                var soundInput = document.getElementById("soundSignalMessage");
+                var matched = false;
+
+                for (var key in imageMessageMap) {
+                    if (lower.indexOf(key) !== -1) {
+                        soundInput.value = imageMessageMap[key].message;
+                        matched = true;
+                        break;
+                    }
+                }
+
+                if (!matched) {
+                    // Fallback to clean alphanumeric uppercase string
+                    var clean = filename.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9]/g, "_").toUpperCase();
+                    soundInput.value = clean.substring(0, 10);
+                }
+            }
+
+            function loadImageToVisualizer(src, filename) {
+                currentLoadedImageName = filename || "image.png";
+                document.getElementById("metricFilename").textContent = currentLoadedImageName;
+
+                var img = new Image();
+                img.crossOrigin = "anonymous";
+                img.onload = function() {
+                    currentImage = img;
+                    
+                    // Match canvas aspect ratio
+                    var aspect = img.height / img.width;
+                    var maxW = 600;
+                    var w = maxW;
+                    var h = Math.round(maxW * aspect);
+                    if (h > 380) {
+                        h = 380;
+                        w = Math.round(380 / aspect);
+                    }
+                    canvas.width = w;
+                    canvas.height = h;
+
+                    offscreenCanvas.width = img.width;
+                    offscreenCanvas.height = img.height;
+                    offscreenCtx.drawImage(img, 0, 0);
+
+                    document.getElementById("canvasDims").textContent = `${img.width} × ${img.height} px`;
+
+                    // Sample average RGB colors
+                    analyzeImageColors(img);
+
+                    // Match image name to configured message
+                    lookupAndApplyMessage(currentLoadedImageName);
+
+                    // Update scientific context card based on dataset
+                    updateDatasetContext(currentLoadedImageName);
+
+                    // Reset scanline
+                    scanlineProgress = 0.0;
+                    document.getElementById("scanlineState").innerHTML = '<span style="color:#059669; font-weight:600;">Sweeping Surface</span>';
+                    document.getElementById("probeHud").textContent = "Probe: Hover image to sample pixels";
+                    var payloadEl = document.getElementById("payloadInfo");
+                    if (payloadEl) payloadEl.textContent = `${img.width} × ${img.height} px • 24-bit Optical Matrix`;
+                    var encEl = document.getElementById("encodingStatus");
+                    if (encEl) encEl.innerHTML = '<span style="color:#059669; font-weight:600;">● Acoustic Synthesis Ready</span>';
+                };
+                img.src = src;
+            }
+
+            function analyzeImageColors(img) {
+                try {
+                    var sampleW = 64, sampleH = 64;
+                    var sampleCanvas = document.createElement("canvas");
+                    sampleCanvas.width = sampleW;
+                    sampleCanvas.height = sampleH;
+                    var sCtx = sampleCanvas.getContext("2d");
+                    sCtx.drawImage(img, 0, 0, sampleW, sampleH);
+                    var imgData = sCtx.getImageData(0, 0, sampleW, sampleH).data;
+
+                    var rTotal = 0, gTotal = 0, bTotal = 0;
+                    var pixelCount = sampleW * sampleH;
+                    for (var i = 0; i < imgData.length; i += 4) {
+                        rTotal += imgData[i];
+                        gTotal += imgData[i + 1];
+                        bTotal += imgData[i + 2];
+                    }
+
+                    var avgR = Math.round(rTotal / pixelCount);
+                    var avgG = Math.round(gTotal / pixelCount);
+                    var avgB = Math.round(bTotal / pixelCount);
+
+                    document.getElementById("valRed").textContent = avgR;
+                    document.getElementById("valGreen").textContent = avgG;
+                    document.getElementById("valBlue").textContent = avgB;
+
+                    document.getElementById("barRed").style.width = Math.round(avgR / 255 * 100) + "%";
+                    document.getElementById("barGreen").style.width = Math.round(avgG / 255 * 100) + "%";
+                    document.getElementById("barBlue").style.width = Math.round(avgB / 255 * 100) + "%";
+                } catch(e) {}
+            }
+
+            // Visualizer Animation Loop
+            function visualizerLoop() {
+                if (currentImage && currentImage.complete) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(currentImage, 0, 0, canvas.width, canvas.height);
+
+                    // Scanline sweep
+                    scanlineProgress += scanlineSpeed;
+                    if (scanlineProgress > 1.0) scanlineProgress = 0.0;
+
+                    var scanY = Math.round(scanlineProgress * canvas.height);
+
+                    // Draw laser scanline
+                    var grad = ctx.createLinearGradient(0, scanY - 6, 0, scanY + 6);
+                    grad.addColorStop(0, "rgba(56, 189, 248, 0)");
+                    grad.addColorStop(0.5, "rgba(56, 189, 248, 0.85)");
+                    grad.addColorStop(1, "rgba(56, 189, 248, 0)");
+
+                    ctx.fillStyle = grad;
+                    ctx.fillRect(0, scanY - 6, canvas.width, 12);
+
+                    ctx.strokeStyle = "#38bdf8";
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.moveTo(0, scanY);
+                    ctx.lineTo(canvas.width, scanY);
+                    ctx.stroke();
+
+                    // Interactive Crosshair Probe if hovered
+                    if (isHoveringCanvas) {
+                        ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
+                        ctx.lineWidth = 1;
+                        ctx.setLineDash([4, 4]);
+
+                        // Vertical line
+                        ctx.beginPath();
+                        ctx.moveTo(probeX, 0);
+                        ctx.lineTo(probeX, canvas.height);
+                        ctx.stroke();
+
+                        // Horizontal line
+                        ctx.beginPath();
+                        ctx.moveTo(0, probeY);
+                        ctx.lineTo(canvas.width, probeY);
+                        ctx.stroke();
+                        ctx.setLineDash([]);
+
+                        // Probe reticle ring
+                        ctx.strokeStyle = "#38bdf8";
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.arc(probeX, probeY, 6, 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+                } else {
+                    // High-tech Standby Screen
+                    ctx.fillStyle = "#090d16";
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    // Subtle grid pattern
+                    ctx.strokeStyle = "rgba(30, 41, 59, 0.5)";
+                    ctx.lineWidth = 1;
+                    for (var gx = 0; gx < canvas.width; gx += 30) {
+                        ctx.beginPath();
+                        ctx.moveTo(gx, 0);
+                        ctx.lineTo(gx, canvas.height);
+                        ctx.stroke();
+                    }
+                    for (var gy = 0; gy < canvas.height; gy += 30) {
+                        ctx.beginPath();
+                        ctx.moveTo(0, gy);
+                        ctx.lineTo(canvas.width, gy);
+                        ctx.stroke();
+                    }
+
+                    // Radar reticle in center
+                    var cx = canvas.width / 2;
+                    var cy = canvas.height / 2 - 20;
+
+                    ctx.strokeStyle = "rgba(56, 189, 248, 0.35)";
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 38, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 18, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.moveTo(cx - 50, cy); ctx.lineTo(cx + 50, cy);
+                    ctx.moveTo(cx, cy - 50); ctx.lineTo(cx, cy + 50);
+                    ctx.stroke();
+
+                    ctx.fillStyle = "#38bdf8";
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Standby Labels
+                    ctx.fillStyle = "#cbd5e1";
+                    ctx.font = "600 13px system-ui, -apple-system, sans-serif";
+                    ctx.textAlign = "center";
+                    ctx.fillText("OPTICAL SENSOR STANDBY", cx, cy + 68);
+
+                    ctx.fillStyle = "#64748b";
+                    ctx.font = "400 11px system-ui, -apple-system, sans-serif";
+                    ctx.fillText("Upload an image above to initialize visual probe & acoustic synthesizer", cx, cy + 88);
+                }
+                requestAnimationFrame(visualizerLoop);
+            }
+            requestAnimationFrame(visualizerLoop);
+
+            // Canvas Probe hover tracking
+            canvas.addEventListener("mouseenter", function() { isHoveringCanvas = true; });
+            canvas.addEventListener("mouseleave", function() {
+                isHoveringCanvas = false;
+                document.getElementById("probeHud").textContent = currentImage ? "Probe: Hover image to sample pixels" : "Probe: Standby - Upload an image to probe pixels";
+            });
+            canvas.addEventListener("mousemove", function(e) {
+                var rect = canvas.getBoundingClientRect();
+                probeX = Math.round(e.clientX - rect.left);
+                probeY = Math.round(e.clientY - rect.top);
+
+                // Sample pixel color from offscreen canvas
+                if (offscreenCanvas.width > 0 && offscreenCanvas.height > 0) {
+                    var normX = probeX / canvas.width;
+                    var normY = probeY / canvas.height;
+                    var srcX = Math.min(offscreenCanvas.width - 1, Math.max(0, Math.round(normX * offscreenCanvas.width)));
+                    var srcY = Math.min(offscreenCanvas.height - 1, Math.max(0, Math.round(normY * offscreenCanvas.height)));
+
+                    var pixel = offscreenCtx.getImageData(srcX, srcY, 1, 1).data;
+                    var r = pixel[0], g = pixel[1], b = pixel[2];
+                    var lum = Math.round((0.299 * r + 0.587 * g + 0.114 * b) / 255 * 100);
+                    var hex = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+
+                    var tempText = "";
+                    var lowerName = currentLoadedImageName.toLowerCase();
+                    var isHumid = lowerName.indexOf("humid") !== -1 || lowerName.indexOf("q2m") !== -1 || lowerName.indexOf("5150") !== -1;
+                    var isPrecip = !isHumid && (lowerName.indexOf("precip") !== -1 || lowerName.indexOf("rain") !== -1 || lowerName.indexOf("5149") !== -1);
+                    var isWind = !isHumid && !isPrecip && (lowerName.indexOf("wind") !== -1 || lowerName.indexOf("5148") !== -1);
+                    var isTemp = !isHumid && !isPrecip && !isWind && (lowerName.indexOf("temp") !== -1 || lowerName.indexOf("5147") !== -1 || lowerName.indexOf("geos") !== -1);
+
+                    if (isHumid) {
+                        var estQ = (0.4 + (r * 0.035 + g * 0.045 + b * 0.06)).toFixed(1);
+                        estQ = Math.min(24.5, Math.max(0.2, estQ));
+                        var moistLevel = estQ > 15.0 ? "<span style='color:#0284c7; font-weight:700;'>Tropical Saturated Corridor</span>" : (estQ > 8.0 ? "<span style='color:#10b981;'>Moderate Moisture</span>" : "<span style='color:#d97706;'>Arid / Low Water Vapor</span>");
+                        tempText = ` | <b>Specific Humidity (Q2M):</b> ${estQ} g/kg [${moistLevel}]`;
+                    } else if (isPrecip) {
+                        var isGreen = (g > r && g > b && g > 60);
+                        var isRed = (r > 120 && g < 100);
+                        var isYellow = (r > 120 && g > 120 && b < 100);
+                        var isMagenta = (r > 130 && b > 130);
+
+                        var precipRate = 0.0;
+                        var alertLevel = "Cloud Field (Optical Depth τ ~ 12)";
+                        if (isMagenta) {
+                            precipRate = 28.5 + (r / 255 * 12);
+                            alertLevel = "<span style='color:#ef4444; font-weight:700;'>⚠️ Flash Flood / Severe Core</span>";
+                        } else if (isRed) {
+                            precipRate = 12.0 + (r / 255 * 10);
+                            alertLevel = "<span style='color:#f97316; font-weight:700;'>🌧️ Heavy Downpour</span>";
+                        } else if (isYellow) {
+                            precipRate = 4.0 + (g / 255 * 5);
+                            alertLevel = "<span style='color:#eab308; font-weight:700;'>🌦️ Moderate Rain</span>";
+                        } else if (isGreen) {
+                            precipRate = 0.5 + (g / 255 * 2.5);
+                            alertLevel = "<span style='color:#10b981;'>🌱 Light Rain / Drizzle</span>";
+                        }
+                        var pStr = precipRate > 0 ? (precipRate.toFixed(1) + " mm/hr") : "0.0 mm/hr (Dry Cloud)";
+                        tempText = ` | <b>Precipitation:</b> ${pStr} [${alertLevel}]`;
+                    } else if (isWind) {
+                        var estWind = (1.0 + (r * 0.11 + g * 0.08 + b * 0.04)).toFixed(1);
+                        estWind = Math.min(38.0, Math.max(0.5, estWind));
+                        var kts = (estWind * 1.944).toFixed(1);
+                        var kmh = (estWind * 3.6).toFixed(1);
+                        var beaufort = estWind > 24.5 ? "<span style='color:#ef4444; font-weight:700;'>Storm Force 10</span>" : (estWind > 13.9 ? "<span style='color:#f59e0b; font-weight:700;'>Gale Force 7-8</span>" : (estWind > 5.5 ? "<span style='color:#10b981;'>Moderate Wind Energy Zone</span>" : "<span style='color:#60a5fa;'>Light Air</span>"));
+                        tempText = ` | <b>10m Wind Speed:</b> ${estWind} m/s (${kts} kts) [${beaufort}]`;
+                    } else if (isTemp) {
+                        var estC = Math.round(-35 + (r * 0.32 + g * 0.12 - b * 0.16));
+                        estC = Math.max(-42, Math.min(52, estC));
+                        var estF = Math.round(estC * 9/5 + 32);
+                        var heatStatus = estC > 38 ? "<span style='color:#ef4444; font-weight:700;'>🔥 Heat Wave</span>" : (estC < 0 ? "<span style='color:#38bdf8;'>❄️ Sub-Zero</span>" : "<span style='color:#10b981;'>Temperate</span>");
+                        tempText = ` | <b>2m Air Temp:</b> ${estC}°C (${estF}°F) [${heatStatus}]`;
+                    }
+
+                    document.getElementById("probeHud").innerHTML = `
+                        <span style="display:inline-block; width:9px; height:9px; background:${hex}; border:1px solid #fff; border-radius:2px; vertical-align:middle; margin-right:4px;"></span>
+                        (${srcX}, ${srcY}) | RGB: ${r}, ${g}, ${b}${tempText}
+                    `;
+                }
+            });
+
+            function updateDatasetContext(filename) {
+                var lower = filename.toLowerCase();
+                var ctxCard = document.getElementById("nasaContextCard");
+                var srcLink = document.getElementById("nasaSourceLink");
+                var ctxText = document.getElementById("nasaContextText");
+                var colorbarImg = document.getElementById("nasaColorbarImg");
+                var scaleLabel = document.getElementById("nasaScaleLabel");
+                var heading = document.getElementById("nasaContextHeading");
+
+                if (!ctxCard) return;
+
+                if (lower.indexOf("humid") !== -1 || lower.indexOf("q2m") !== -1 || lower.indexOf("5150") !== -1) {
+                    ctxCard.style.display = "block";
+                    if (heading) heading.textContent = "GEOS-FP Humidity Q2M Telemetry";
+                    srcLink.style.display = "inline";
+                    srcLink.href = "https://svs.gsfc.nasa.gov/5150/";
+                    srcLink.textContent = "NASA SVS 5150 ↗";
+                    colorbarImg.src = "assets/images/geos_humidity_colorbar.png";
+                    colorbarImg.style.display = "block";
+                    if (scaleLabel) scaleLabel.innerHTML = `<span>0 g/kg (Dry Arid)</span><span>8 g/kg (Moderate)</span><span>16 g/kg (Humid)</span><span>24+ g/kg (Tropical Saturated)</span>`;
+                    ctxText.innerHTML = `<strong>GEOS-FP Near-Surface Humidity (Q2M):</strong> Near-surface humidity, also known as specific humidity (Q2M), measures the actual mass of water vapor per unit of air mass in grams per kilogram (g/kg). It remains relatively constant even as temperature changes throughout the day. Near-surface humidity patterns reveal moisture transport via weather systems, ocean evaporation, and land surface processes, directly influencing cloud formation, precipitation development, and pollutant transport.`;
+                } else if (lower.indexOf("precip") !== -1 || lower.indexOf("rain") !== -1 || lower.indexOf("5149") !== -1) {
+                    ctxCard.style.display = "block";
+                    if (heading) heading.textContent = "GEOS-FP Precipitation & Cloud Telemetry";
+                    srcLink.style.display = "inline";
+                    srcLink.href = "https://svs.gsfc.nasa.gov/5149/";
+                    srcLink.textContent = "NASA SVS 5149 ↗";
+                    colorbarImg.src = "assets/images/geos_precip_colorbar.png";
+                    colorbarImg.style.display = "block";
+                    if (scaleLabel) scaleLabel.innerHTML = `<span>0.1 mm/hr (Light)</span><span>5 mm/hr (Moderate)</span><span>15 mm/hr (Heavy)</span><span>30+ mm/hr (Flash Flood Core)</span>`;
+                    ctxText.innerHTML = `<strong>GEOS-FP Precipitation and Clouds:</strong> This animation overlays total precipitation, including both rain and snow, atop simulated cloud fields shaded by optical thickness. Warmer temperatures allow the atmosphere to evaporate and store more water vapor, elevating severe storm rain fractions and hazards like flash floods while altering atmospheric rivers and cloud radiative climate forcing.`;
+                } else if (lower.indexOf("wind") !== -1 || lower.indexOf("5148") !== -1) {
+                    ctxCard.style.display = "block";
+                    if (heading) heading.textContent = "GEOS-FP Near-Surface Wind Telemetry";
+                    srcLink.style.display = "inline";
+                    srcLink.href = "https://svs.gsfc.nasa.gov/5148/";
+                    srcLink.textContent = "NASA SVS 5148 ↗";
+                    colorbarImg.src = "assets/images/geos_wind_colorbar.png";
+                    colorbarImg.style.display = "block";
+                    if (scaleLabel) scaleLabel.innerHTML = `<span>0 m/s (Calm)</span><span>10 m/s (Breeze)</span><span>22 m/s (Gale)</span><span>35+ m/s (Storm Force)</span>`;
+                    ctxText.innerHTML = `<strong>GEOS-FP Near-Surface Wind Speed:</strong> Near surface wind speed is calculated by sampling model fields at 10 meters (about 30 feet) above Earth’s surface. Wind speed is typically largest over ocean because surfaces are smooth and result in less friction than over land. Organized patterns reflect weather fronts and storm systems around the world. Near surface winds help scientists track the movement and severity of storms and air pollution episodes. Increasingly, these kinds of products help wind energy managers plan resources to help meet the world’s demand for energy while reducing the greenhouse gas emissions that cause climate change.`;
+                } else if (lower.indexOf("temp") !== -1 || lower.indexOf("5147") !== -1 || lower.indexOf("geos") !== -1) {
+                    ctxCard.style.display = "block";
+                    if (heading) heading.textContent = "GEOS-FP Near-Surface Temperature Telemetry";
+                    srcLink.style.display = "inline";
+                    srcLink.href = "https://svs.gsfc.nasa.gov/5147/";
+                    srcLink.textContent = "NASA SVS 5147 ↗";
+                    colorbarImg.src = "assets/images/geos_temp_colorbar.png";
+                    colorbarImg.style.display = "block";
+                    if (scaleLabel) scaleLabel.innerHTML = `<span>-40°C (-40°F) Deep Cold</span><span>0°C Freezing</span><span>+50°C (122°F) Heatwave</span>`;
+                    ctxText.innerHTML = `<strong>GEOS-FP Near-Surface Temperature:</strong> Weather models begin their forecasts by integrating observations from ground stations, aircraft, balloons, and Earth observing satellites. Near surface temperature is calculated by sampling model fields at 2 meters (about 6 feet) above Earth’s surface, helping scientists track changes in heat wave frequency and impacts on human health.`;
+                } else {
+                    ctxCard.style.display = "none";
+                }
+            }
+
+            // Dropzone & File Input Handlers
+            var dropZone = document.getElementById("dropZone");
+            var imageFileInput = document.getElementById("imageFileInput");
+
+            ["dragenter", "dragover"].forEach(eventName => {
+                dropZone.addEventListener(eventName, function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropZone.classList.add("dragover");
+                }, false);
+            });
+
+            ["dragleave", "drop"].forEach(eventName => {
+                dropZone.addEventListener(eventName, function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropZone.classList.remove("dragover");
+                }, false);
+            });
+
+            dropZone.addEventListener("drop", function(e) {
+                var dt = e.dataTransfer;
+                var files = dt.files;
+                if (files && files.length > 0) {
+                    handleUploadedFile(files[0]);
+                }
+            }, false);
+
+            imageFileInput.addEventListener("change", function(e) {
+                if (imageFileInput.files && imageFileInput.files.length > 0) {
+                    handleUploadedFile(imageFileInput.files[0]);
+                }
+            });
+
+            function handleUploadedFile(file) {
+                if (file.type.startsWith("video/") || file.name.endsWith(".mp4")) {
+                    // Handle NASA MP4 video visualization: extract frame
+                    var url = URL.createObjectURL(file);
+                    var video = document.createElement("video");
+                    video.crossOrigin = "anonymous";
+                    video.src = url;
+                    video.muted = true;
+                    video.playsInline = true;
+                    video.onloadeddata = function() {
+                        video.currentTime = Math.min(1.0, (video.duration || 2.0) / 2);
+                    };
+                    video.onseeked = function() {
+                        var tempCanvas = document.createElement("canvas");
+                        tempCanvas.width = video.videoWidth || 1024;
+                        tempCanvas.height = video.videoHeight || 512;
+                        var tCtx = tempCanvas.getContext("2d");
+                        tCtx.drawImage(video, 0, 0);
+                        loadImageToVisualizer(tempCanvas.toDataURL(), file.name);
+                    };
+                } else if (file.type.startsWith("image/")) {
+                    var reader = new FileReader();
+                    reader.onload = function(evt) {
+                        loadImageToVisualizer(evt.target.result, file.name);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert("Please select a valid image (PNG, JPG) or NASA MP4 video file.");
+                }
+            }
+
+            // Transmit Image Data via Sound Waves
+            function transmitImageSignal() {
+                var msg = document.getElementById("soundSignalMessage").value.trim();
+                if (!msg) {
+                    alert("Please drop or upload an image first to synthesize acoustic data.");
+                    return;
+                }
+
+                // Auto-initialize audio context if needed
+                if (!isInitialized) {
+                    doInit();
+                }
+
+                var btn = document.getElementById("btnTransmitImageSound");
+                var alertBox = document.getElementById("txStatusAlert");
+                var encodingStatus = document.getElementById("encodingStatus");
+
+                btn.disabled = true;
+                btn.innerHTML = `<span>⏳ TRANSMITTING IMAGE VIA ACOUSTIC STREAM...</span>`;
+                if (encodingStatus) {
+                    encodingStatus.innerHTML = `<span style="color:#2563eb; font-weight:600;">📡 Broadcasting Acoustic Stream...</span>`;
+                }
+
+                alertBox.className = "tx-status-alert active";
+                alertBox.innerHTML = `
+                    📡 <strong>Transmitting Optical Image Data via Sound Waves...</strong><br>
+                    <span style="font-size:0.75rem; font-weight:normal;">Synthesizing visual raster matrices and emitting high-frequency acoustic data burst through laptop speakers. The mobile receiver is reconstructing the image in real time!</span>
+                `;
+
+                // Update secondary textarea as well
+                var txArea = document.getElementById("txData");
+                if (txArea) txArea.value = msg;
+
+                // Broadcast using acoustic core WASM module
+                transmitText(msg);
+
+                setTimeout(function() {
+                    btn.disabled = false;
+                    btn.innerHTML = `<span>🔊 TRANSMIT IMAGE DATA VIA SOUND</span>`;
+                    if (encodingStatus) {
+                        encodingStatus.innerHTML = `<span style="color:#059669; font-weight:600;">● Transmission Complete (Ready)</span>`;
+                    }
+                }, 2500);
+            }
+
+            // Initialize in standby mode on load
+            window.addEventListener("load", function() {
+                // Standby mode initialized
+            });
+        </script>
+
+        <script async type="text/javascript" src="acoustic-core.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+    </body>
+</html>
