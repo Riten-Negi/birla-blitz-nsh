@@ -446,37 +446,81 @@
             // IMAGE VISUALIZER & ACOUSTIC SIGNAL LOGIC
             // ============================================================
 
-            // Strict Earth Dataset Detector: Validates genuine NASA Earth observations
+            // Strict & Robust Earth Dataset Detector: Validates genuine NASA Earth observations
             function isEarthDataset(filename) {
-                var lower = (filename || "").toLowerCase();
-                // 1. SVS 5150: Specific Humidity Q2M
-                if (lower.indexOf("5150") !== -1 || lower.indexOf("geos_near_surface_humidity") !== -1 || lower.indexOf("geos_humidity") !== -1 || lower.indexOf("q2m") !== -1) {
+                if (!filename) return null;
+                var name = filename.toLowerCase();
+
+                // 1. SVS 5150: Specific Humidity Q2M (MC04 / GMAO / GEOS-FP)
+                if (
+                    name.indexOf("5150") !== -1 ||
+                    name.indexOf("mc04") !== -1 ||
+                    name.indexOf("q2m") !== -1 ||
+                    name.indexOf("humidity") !== -1 ||
+                    name.indexOf("humid") !== -1 ||
+                    (name.indexOf("gmao") !== -1 && name.indexOf("humid") !== -1)
+                ) {
                     return "HUMID";
                 }
-                // 2. SVS 5149: Precipitation and Clouds
-                if (lower.indexOf("5149") !== -1 || lower.indexOf("geos_precipitation") !== -1 || lower.indexOf("precipitation_clouds") !== -1 || lower.indexOf("geos_precip") !== -1) {
+
+                // 2. SVS 5149: Precipitation and Clouds (MC03 / GMAO / GEOS-FP)
+                if (
+                    name.indexOf("5149") !== -1 ||
+                    name.indexOf("mc03") !== -1 ||
+                    name.indexOf("precipitation") !== -1 ||
+                    name.indexOf("precip") !== -1 ||
+                    /\b(rain|rainfall)\b/i.test(name) ||
+                    (name.indexOf("gmao") !== -1 && name.indexOf("precip") !== -1)
+                ) {
                     return "RAIN";
                 }
-                // 3. SVS 5148: Near-Surface Wind Speed
-                if (lower.indexOf("5148") !== -1 || lower.indexOf("geos_near_surface_wind") !== -1 || lower.indexOf("near_surface_wind") !== -1 || lower.indexOf("geos_wind") !== -1) {
+
+                // 3. SVS 5148: Near-Surface Wind Speed (MC02 / GMAO / GEOS-FP)
+                if (
+                    name.indexOf("5148") !== -1 ||
+                    name.indexOf("mc02") !== -1 ||
+                    /\b(wind|winds|windspeed)\b/i.test(name) ||
+                    (name.indexOf("gmao") !== -1 && name.indexOf("wind") !== -1) ||
+                    name.indexOf("near_surface_wind") !== -1
+                ) {
                     return "WIND";
                 }
-                // 4. SVS 5147: Near-Surface Air Temperature
-                if (lower.indexOf("5147") !== -1 || lower.indexOf("geos_near_surface_temp") !== -1 || lower.indexOf("near_surface_temp") !== -1 || lower.indexOf("geos_temp") !== -1 || lower.indexOf("global_temperature") !== -1) {
+
+                // 4. SVS 5147: Near-Surface Air Temperature (MC01 / GMAO / GEOS-FP)
+                if (
+                    name.indexOf("5147") !== -1 ||
+                    name.indexOf("mc01") !== -1 ||
+                    name.indexOf("temperature") !== -1 ||
+                    name.indexOf("temp_anomaly") !== -1 ||
+                    name.indexOf("global_temperature") !== -1 ||
+                    name.indexOf("near_surface_temp") !== -1 ||
+                    (name.indexOf("gmao") !== -1 && (name.indexOf("temp") !== -1 || name.indexOf("temperature") !== -1)) ||
+                    (name.indexOf("geos") !== -1 && (name.indexOf("temp") !== -1 || name.indexOf("temperature") !== -1)) ||
+                    /\b(temp)\b/i.test(name)
+                ) {
                     return "TEMP";
                 }
+
                 return null;
             }
 
             var defaultImageMap = {
-                "geos_near_surface_humidity": { message: "HUMID", label: "GEOS-FP Humidity Q2M (NASA SVS 5150)" },
+                "mc04": { message: "HUMID", label: "GEOS-FP Humidity Q2M (NASA SVS 5150)" },
                 "5150": { message: "HUMID", label: "NASA SVS 5150 Humidity" },
-                "geos_precipitation": { message: "RAIN", label: "GEOS-FP Precipitation & Clouds (NASA SVS 5149)" },
+                "geos_near_surface_humidity": { message: "HUMID", label: "GEOS-FP Humidity Q2M (NASA SVS 5150)" },
+                "humidity": { message: "HUMID", label: "Specific Humidity Q2M" },
+                "q2m": { message: "HUMID", label: "Specific Humidity Q2M" },
+                "mc03": { message: "RAIN", label: "GEOS-FP Precipitation & Clouds (NASA SVS 5149)" },
                 "5149": { message: "RAIN", label: "NASA SVS 5149 Precipitation" },
-                "geos_near_surface_wind": { message: "WIND", label: "GEOS-FP Near-Surface Wind (NASA SVS 5148)" },
+                "geos_precipitation": { message: "RAIN", label: "GEOS-FP Precipitation & Clouds (NASA SVS 5149)" },
+                "precipitation": { message: "RAIN", label: "Precipitation & Clouds" },
+                "mc02": { message: "WIND", label: "GEOS-FP Near-Surface Wind (NASA SVS 5148)" },
                 "5148": { message: "WIND", label: "NASA SVS 5148 Wind Speed" },
+                "geos_near_surface_wind": { message: "WIND", label: "GEOS-FP Near-Surface Wind (NASA SVS 5148)" },
+                "mc01": { message: "TEMP", label: "GEOS-FP Near-Surface Temp (NASA SVS 5147)" },
+                "5147": { message: "TEMP", label: "NASA SVS 5147 Air Temp" },
                 "geos_near_surface_temp": { message: "TEMP", label: "GEOS-FP Near-Surface Temp (NASA SVS 5147)" },
-                "5147": { message: "TEMP", label: "NASA SVS 5147 Air Temp" }
+                "temperature": { message: "TEMP", label: "Global Near-Surface Temperature" }
             };
 
             var imageMessageMap = Object.assign({}, defaultImageMap);
