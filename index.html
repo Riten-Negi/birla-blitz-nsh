@@ -446,26 +446,37 @@
             // IMAGE VISUALIZER & ACOUSTIC SIGNAL LOGIC
             // ============================================================
 
-            // Configurable Image-to-Message dictionary
-            // The user can tell us which image needs to send what message,
-            // or add rules directly on the interface.
+            // Strict Earth Dataset Detector: Validates genuine NASA Earth observations
+            function isEarthDataset(filename) {
+                var lower = (filename || "").toLowerCase();
+                // 1. SVS 5150: Specific Humidity Q2M
+                if (lower.indexOf("5150") !== -1 || lower.indexOf("geos_near_surface_humidity") !== -1 || lower.indexOf("geos_humidity") !== -1 || lower.indexOf("q2m") !== -1) {
+                    return "HUMID";
+                }
+                // 2. SVS 5149: Precipitation and Clouds
+                if (lower.indexOf("5149") !== -1 || lower.indexOf("geos_precipitation") !== -1 || lower.indexOf("precipitation_clouds") !== -1 || lower.indexOf("geos_precip") !== -1) {
+                    return "RAIN";
+                }
+                // 3. SVS 5148: Near-Surface Wind Speed
+                if (lower.indexOf("5148") !== -1 || lower.indexOf("geos_near_surface_wind") !== -1 || lower.indexOf("near_surface_wind") !== -1 || lower.indexOf("geos_wind") !== -1) {
+                    return "WIND";
+                }
+                // 4. SVS 5147: Near-Surface Air Temperature
+                if (lower.indexOf("5147") !== -1 || lower.indexOf("geos_near_surface_temp") !== -1 || lower.indexOf("near_surface_temp") !== -1 || lower.indexOf("geos_temp") !== -1 || lower.indexOf("global_temperature") !== -1) {
+                    return "TEMP";
+                }
+                return null;
+            }
+
             var defaultImageMap = {
                 "geos_near_surface_humidity": { message: "HUMID", label: "GEOS-FP Humidity Q2M (NASA SVS 5150)" },
-                "humidity": { message: "HUMID", label: "Specific Humidity Q2M" },
-                "humid": { message: "HUMID", label: "Specific Humidity Q2M" },
-                "q2m": { message: "HUMID", label: "Specific Humidity Q2M (g/kg)" },
                 "5150": { message: "HUMID", label: "NASA SVS 5150 Humidity" },
                 "geos_precipitation": { message: "RAIN", label: "GEOS-FP Precipitation & Clouds (NASA SVS 5149)" },
-                "precipitation": { message: "RAIN", label: "Precipitation & Clouds" },
-                "precip": { message: "RAIN", label: "Precipitation Rate" },
                 "5149": { message: "RAIN", label: "NASA SVS 5149 Precipitation" },
                 "geos_near_surface_wind": { message: "WIND", label: "GEOS-FP Near-Surface Wind (NASA SVS 5148)" },
                 "5148": { message: "WIND", label: "NASA SVS 5148 Wind Speed" },
-                "wind": { message: "WIND", label: "Near-Surface Wind Speed" },
-                "geos": { message: "TEMP", label: "GEOS-FP Near-Surface Temp (NASA SVS 5147)" },
-                "5147": { message: "TEMP", label: "NASA SVS 5147 Air Temp" },
-                "temp": { message: "TEMP", label: "Temperature Anomaly" },
-                "temperature": { message: "TEMP", label: "Temperature Anomaly" }
+                "geos_near_surface_temp": { message: "TEMP", label: "GEOS-FP Near-Surface Temp (NASA SVS 5147)" },
+                "5147": { message: "TEMP", label: "NASA SVS 5147 Air Temp" }
             };
 
             var imageMessageMap = Object.assign({}, defaultImageMap);
@@ -499,22 +510,12 @@
             var probeX = 0, probeY = 0;
 
             function lookupAndApplyMessage(filename) {
-                var lower = (filename || "").toLowerCase();
                 var soundInput = document.getElementById("soundSignalMessage");
-                var matched = false;
-
-                for (var key in imageMessageMap) {
-                    if (lower.indexOf(key) !== -1) {
-                        soundInput.value = imageMessageMap[key].message;
-                        matched = true;
-                        break;
-                    }
-                }
-
-                if (!matched) {
-                    // Fallback to clean alphanumeric uppercase string
-                    var clean = filename.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9]/g, "_").toUpperCase();
-                    soundInput.value = clean.substring(0, 10);
+                var dsType = isEarthDataset(filename);
+                if (dsType) {
+                    soundInput.value = dsType;
+                } else {
+                    soundInput.value = "OPTICAL";
                 }
             }
 
@@ -574,10 +575,23 @@
                     scanlineProgress = 0.0;
                     document.getElementById("scanlineState").innerHTML = '<span style="color:#059669; font-weight:600;">Sweeping Surface</span>';
                     document.getElementById("probeHud").textContent = "Probe: Hover image to sample pixels";
+                    var dsType = isEarthDataset(currentLoadedImageName);
                     var payloadEl = document.getElementById("payloadInfo");
-                    if (payloadEl) payloadEl.textContent = `${img.width} × ${img.height} px • 24-bit Optical Matrix`;
+                    if (payloadEl) {
+                        if (dsType) {
+                            payloadEl.textContent = `${img.width} × ${img.height} px • Planetary Telemetry (${dsType})`;
+                        } else {
+                            payloadEl.textContent = `${img.width} × ${img.height} px • Optical Raster (General Visual)`;
+                        }
+                    }
                     var encEl = document.getElementById("encodingStatus");
-                    if (encEl) encEl.innerHTML = '<span style="color:#059669; font-weight:600;">● Acoustic Synthesis Ready</span>';
+                    if (encEl) {
+                        if (dsType) {
+                            encEl.innerHTML = '<span style="color:#059669; font-weight:600;">● Acoustic Synthesis Ready (Planetary)</span>';
+                        } else {
+                            encEl.innerHTML = '<span style="color:#2563eb; font-weight:600;">● Acoustic Synthesis Ready (Optical Mode)</span>';
+                        }
+                    }
                 };
                 img.src = src;
             }
@@ -616,10 +630,15 @@
                     var vh = uploadedVideo.videoHeight || 720;
                     document.getElementById("canvasDims").textContent = vw + " × " + vh + " px";
 
+                    var dsType = isEarthDataset(file.name);
                     var payloadEl = document.getElementById("payloadInfo");
                     if (payloadEl) {
                         var sizeMb = (file.size / (1024 * 1024)).toFixed(2);
-                        payloadEl.textContent = vw + " × " + vh + " px • Video Stream (" + sizeMb + " MB)";
+                        if (dsType) {
+                            payloadEl.textContent = `${vw} × ${vh} px • Planetary Stream (${dsType}, ${sizeMb} MB)`;
+                        } else {
+                            payloadEl.textContent = `${vw} × ${vh} px • Video Stream (${sizeMb} MB, General Visual)`;
+                        }
                     }
 
                     offscreenCanvas.width = vw;
@@ -633,7 +652,11 @@
 
                     var encEl = document.getElementById("encodingStatus");
                     if (encEl) {
-                        encEl.innerHTML = '<span style="color:#059669; font-weight:600;">● Acoustic Synthesis Ready</span>';
+                        if (dsType) {
+                            encEl.innerHTML = '<span style="color:#059669; font-weight:600;">● Acoustic Synthesis Ready (Planetary)</span>';
+                        } else {
+                            encEl.innerHTML = '<span style="color:#2563eb; font-weight:600;">● Acoustic Synthesis Ready (Optical Mode)</span>';
+                        }
                     }
 
                     sampleVideoFrame();
@@ -814,19 +837,21 @@
             requestAnimationFrame(visualizerLoop);
 
             function computeTelemetryText(filename, r, g, b) {
-                var tempText = "";
-                var lowerName = (filename || "").toLowerCase();
-                var isHumid = lowerName.indexOf("humid") !== -1 || lowerName.indexOf("q2m") !== -1 || lowerName.indexOf("5150") !== -1;
-                var isPrecip = !isHumid && (lowerName.indexOf("precip") !== -1 || lowerName.indexOf("rain") !== -1 || lowerName.indexOf("5149") !== -1);
-                var isWind = !isHumid && !isPrecip && (lowerName.indexOf("wind") !== -1 || lowerName.indexOf("5148") !== -1);
-                var isTemp = !isHumid && !isPrecip && !isWind && (lowerName.indexOf("temp") !== -1 || lowerName.indexOf("5147") !== -1 || lowerName.indexOf("geos") !== -1);
+                var dsType = isEarthDataset(filename);
+                if (!dsType) {
+                    // Non-Earth Image: Strictly calculate standard optical raster characteristics only (Luminance, Hex)
+                    var lum = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
+                    var lumPct = Math.round((lum / 255) * 100);
+                    return ` | <b>Luminance:</b> ${lumPct}% | <span style="color:#64748b;">Standard Visual Target</span>`;
+                }
 
-                if (isHumid) {
+                var tempText = "";
+                if (dsType === "HUMID") {
                     var estQ = (0.4 + (r * 0.035 + g * 0.045 + b * 0.06)).toFixed(1);
                     estQ = Math.min(24.5, Math.max(0.2, estQ));
                     var moistLevel = estQ > 15.0 ? "<span style='color:#0284c7; font-weight:700;'>Tropical Saturated Corridor</span>" : (estQ > 8.0 ? "<span style='color:#10b981;'>Moderate Moisture</span>" : "<span style='color:#d97706;'>Arid / Low Water Vapor</span>");
                     tempText = ` | <b>Specific Humidity (Q2M):</b> ${estQ} g/kg [${moistLevel}]`;
-                } else if (isPrecip) {
+                } else if (dsType === "RAIN") {
                     var isGreen = (g > r && g > b && g > 60);
                     var isRed = (r > 120 && g < 100);
                     var isYellow = (r > 120 && g > 120 && b < 100);
@@ -849,14 +874,14 @@
                     }
                     var pStr = precipRate > 0 ? (precipRate.toFixed(1) + " mm/hr") : "0.0 mm/hr (Dry Cloud)";
                     tempText = ` | <b>Precipitation:</b> ${pStr} [${alertLevel}]`;
-                } else if (isWind) {
+                } else if (dsType === "WIND") {
                     var estWind = (1.0 + (r * 0.11 + g * 0.08 + b * 0.04)).toFixed(1);
                     estWind = Math.min(38.0, Math.max(0.5, estWind));
                     var kts = (estWind * 1.944).toFixed(1);
                     var kmh = (estWind * 3.6).toFixed(1);
                     var beaufort = estWind > 24.5 ? "<span style='color:#ef4444; font-weight:700;'>Storm Force 10</span>" : (estWind > 13.9 ? "<span style='color:#f59e0b; font-weight:700;'>Gale Force 7-8</span>" : (estWind > 5.5 ? "<span style='color:#10b981;'>Moderate Wind Energy Zone</span>" : "<span style='color:#60a5fa;'>Light Air</span>"));
                     tempText = ` | <b>10m Wind Speed:</b> ${estWind} m/s (${kts} kts) [${beaufort}]`;
-                } else if (isTemp) {
+                } else if (dsType === "TEMP") {
                     var estC = Math.round(-35 + (r * 0.32 + g * 0.12 - b * 0.16));
                     estC = Math.max(-42, Math.min(52, estC));
                     var estF = Math.round(estC * 9/5 + 32);
@@ -931,17 +956,19 @@
             }
 
             function updateDatasetContext(filename) {
-                var lower = filename.toLowerCase();
                 var ctxCard = document.getElementById("nasaContextCard");
                 var srcLink = document.getElementById("nasaSourceLink");
                 var ctxText = document.getElementById("nasaContextText");
                 var colorbarImg = document.getElementById("nasaColorbarImg");
                 var scaleLabel = document.getElementById("nasaScaleLabel");
                 var heading = document.getElementById("nasaContextHeading");
+                var metricFilename = document.getElementById("metricFilename");
+
+                var dsType = isEarthDataset(filename);
 
                 if (!ctxCard) return;
 
-                if (lower.indexOf("humid") !== -1 || lower.indexOf("q2m") !== -1 || lower.indexOf("5150") !== -1) {
+                if (dsType === "HUMID") {
                     ctxCard.style.display = "block";
                     if (heading) heading.textContent = "GEOS-FP Humidity Q2M Telemetry";
                     srcLink.style.display = "inline";
@@ -951,7 +978,8 @@
                     colorbarImg.style.display = "block";
                     if (scaleLabel) scaleLabel.innerHTML = `<span>0 g/kg (Dry Arid)</span><span>8 g/kg (Moderate)</span><span>16 g/kg (Humid)</span><span>24+ g/kg (Tropical Saturated)</span>`;
                     ctxText.innerHTML = `<strong>GEOS-FP Near-Surface Humidity (Q2M):</strong> This atmospheric moisture visualization displays near-surface specific humidity, measuring the actual mass of water vapor per kilogram of air spanning from 0 g/kg (bone-dry arid) to 24+ g/kg (tropical saturation).<br><br><strong>Colorbar Analysis:</strong> Pale yellow and tan depict dry continental air masses (0–3 g/kg); mint green and cyan denote moderate continental humidity (4–10 g/kg); rich turquoise and cobalt blue mark high water vapor transport (12–18 g/kg); while dark indigo and saturated violet plumes trace hyper-saturated equatorial moisture corridors (>20 g/kg) fueling storm formation.`;
-                } else if (lower.indexOf("precip") !== -1 || lower.indexOf("rain") !== -1 || lower.indexOf("5149") !== -1) {
+                    if (metricFilename) metricFilename.innerHTML = `${filename} <span style="display:inline-block; margin-left:6px; padding:2px 7px; font-size:0.68rem; background:#ecfdf5; color:#065f46; border-radius:4px; border:1px solid #a7f3d0; font-weight:700;">🌍 NASA Earth Observation (SVS 5150)</span>`;
+                } else if (dsType === "RAIN") {
                     ctxCard.style.display = "block";
                     if (heading) heading.textContent = "GEOS-FP Precipitation & Cloud Telemetry";
                     srcLink.style.display = "inline";
@@ -961,7 +989,8 @@
                     colorbarImg.style.display = "block";
                     if (scaleLabel) scaleLabel.innerHTML = `<span>0.1 mm/hr (Light)</span><span>5 mm/hr (Moderate)</span><span>15 mm/hr (Heavy)</span><span>30+ mm/hr (Flash Flood Core)</span>`;
                     ctxText.innerHTML = `<strong>GEOS-FP Precipitation and Clouds:</strong> This satellite imagery overlays active precipitation rates atop atmospheric cloud optical thickness, measuring rainfall intensity from light drizzle at 0.1 mm/hr to cloudbursts exceeding 30 mm/hr.<br><br><strong>Colorbar Analysis:</strong> Monochrome white and translucent gray show cloud optical depth; cool aqua and soft green show light steady rain (0.1–2.5 mm/hr); bright yellow and orange indicate heavy convective downpours (5–15 mm/hr); while intense crimson and deep violet cores demarcate severe storm cells and tropical deluges exceeding 20–30+ mm/hr capable of flash floods.`;
-                } else if (lower.indexOf("wind") !== -1 || lower.indexOf("5148") !== -1) {
+                    if (metricFilename) metricFilename.innerHTML = `${filename} <span style="display:inline-block; margin-left:6px; padding:2px 7px; font-size:0.68rem; background:#ecfdf5; color:#065f46; border-radius:4px; border:1px solid #a7f3d0; font-weight:700;">🌍 NASA Earth Observation (SVS 5149)</span>`;
+                } else if (dsType === "WIND") {
                     ctxCard.style.display = "block";
                     if (heading) heading.textContent = "GEOS-FP Near-Surface Wind Telemetry";
                     srcLink.style.display = "inline";
@@ -971,7 +1000,8 @@
                     colorbarImg.style.display = "block";
                     if (scaleLabel) scaleLabel.innerHTML = `<span>0 m/s (Calm)</span><span>10 m/s (Breeze)</span><span>22 m/s (Gale)</span><span>35+ m/s (Storm Force)</span>`;
                     ctxText.innerHTML = `<strong>GEOS-FP Near-Surface Wind Speed:</strong> This atmospheric visualization maps surface wind velocity sampled at 10 meters above Earth, spanning from 0 m/s (calm) to 35+ m/s (hurricane-force gusts, >70 kts).<br><br><strong>Colorbar Analysis:</strong> Dark indigo and navy represent gentle breezes (0–5 m/s); cyan and emerald green indicate fresh maritime trade winds (6–14 m/s); bright yellow and amber mark strong near-gale corridors (15–24 m/s); and vibrant magenta, violet, and bright white streaks highlight dangerous storm tracks and roaring circumpolar westerly gale belts exceeding 25–35+ m/s.`;
-                } else if (lower.indexOf("temp") !== -1 || lower.indexOf("5147") !== -1 || lower.indexOf("geos") !== -1) {
+                    if (metricFilename) metricFilename.innerHTML = `${filename} <span style="display:inline-block; margin-left:6px; padding:2px 7px; font-size:0.68rem; background:#ecfdf5; color:#065f46; border-radius:4px; border:1px solid #a7f3d0; font-weight:700;">🌍 NASA Earth Observation (SVS 5148)</span>`;
+                } else if (dsType === "TEMP") {
                     ctxCard.style.display = "block";
                     if (heading) heading.textContent = "GEOS-FP Near-Surface Temperature Telemetry";
                     srcLink.style.display = "inline";
@@ -981,8 +1011,11 @@
                     colorbarImg.style.display = "block";
                     if (scaleLabel) scaleLabel.innerHTML = `<span>-40°C (-40°F) Deep Cold</span><span>0°C Freezing</span><span>+25°C Warm</span><span>+50°C (122°F) Heatwave</span>`;
                     ctxText.innerHTML = `<strong>GEOS-FP Near-Surface Temperature:</strong> This visualization reveals global surface air temperature at 2 meters above Earth, spanning an extreme range from -40°C (-40°F) in polar cold up to +50°C (+122°F) in desert heatwaves.<br><br><strong>Colorbar Analysis:</strong> Deep purple and dark indigo signify freezing polar zones (-40°C to -10°C) over Antarctica, Greenland, and Arctic ice; cyan and soft green mark cool to temperate mid-latitudes (0°C to +15°C); vibrant yellow and warm orange indicate tropical daytime warmth (+20°C to +35°C); while dark crimson, maroon, and white-hot cores highlight dangerous extreme heatwaves exceeding +40°C to +50°C across the Sahara, Persian Gulf, and Australian Outback.`;
+                    if (metricFilename) metricFilename.innerHTML = `${filename} <span style="display:inline-block; margin-left:6px; padding:2px 7px; font-size:0.68rem; background:#ecfdf5; color:#065f46; border-radius:4px; border:1px solid #a7f3d0; font-weight:700;">🌍 NASA Earth Observation (SVS 5147)</span>`;
                 } else {
+                    // Non-Earth Image: Strictly hide the scientific context card!
                     ctxCard.style.display = "none";
+                    if (metricFilename) metricFilename.innerHTML = `${filename} <span style="display:inline-block; margin-left:6px; padding:2px 7px; font-size:0.68rem; background:#f1f5f9; color:#475569; border-radius:4px; border:1px solid #cbd5e1; font-weight:600;">📷 Standard Visual Image (Non-Earth)</span>`;
                 }
             }
 
@@ -1089,10 +1122,18 @@
                 }
 
                 alertBox.className = "tx-status-alert active";
-                alertBox.innerHTML = `
-                    📡 <strong>Transmitting Optical / Video Telemetry via Sound Waves...</strong><br>
-                    <span style="font-size:0.75rem; font-weight:normal;">Synthesizing visual raster matrices and emitting high-frequency acoustic data burst through laptop speakers. The mobile receiver is reconstructing the dataset in real time!</span>
-                `;
+                var dsType = isEarthDataset(currentLoadedImageName);
+                if (dsType) {
+                    alertBox.innerHTML = `
+                        📡 <strong>Transmitting Planetary Earth Observation Telemetry (${dsType})...</strong><br>
+                        <span style="font-size:0.75rem; font-weight:normal;">Synthesizing atmospheric ${dsType} telemetry into high-frequency acoustic data burst. Mobile receiver will reconstruct the corresponding NASA observation dataset.</span>
+                    `;
+                } else {
+                    alertBox.innerHTML = `
+                        📡 <strong>Transmitting Standard Optical Visual Telemetry...</strong><br>
+                        <span style="font-size:0.75rem; font-weight:normal;">Synthesizing visual optical matrix into high-frequency acoustic data burst. Mobile receiver will identify as a standard non-Earth visual image.</span>
+                    `;
+                }
 
                 // Update secondary textarea as well
                 var txArea = document.getElementById("txData");

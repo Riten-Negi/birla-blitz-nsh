@@ -891,37 +891,97 @@
       if (rxStatusDot) rxStatusDot.classList.add("active");
       if (rxStatusLabel) rxStatusLabel.textContent = "Signal Decoded";
 
-      logTerminal(`[ACOUSTIC RX] Demodulating high-frequency audio stream...`, false);
+      logTerminal(`[ACOUSTIC RX] Demodulating high-frequency audio stream: "${text}"`, false);
 
       const matchedDs = detectHiddenKeywords(text);
       if (matchedDs) {
         logTerminal(`[IMAGE RECONSTRUCTED] Rendered: ${matchedDs.title}`, true);
         triggerSecretRetraction(matchedDs);
+      } else {
+        logTerminal(`[OPTICAL RX] Non-Earth / Standard Visual Payload decoded: "${text}"`, true);
+        triggerNonEarthPayload(text);
       }
     }
 
-    // Hidden keyword matching engine (completely invisible to UI)
+    // Strict Earth observation keyword matching engine
     function detectHiddenKeywords(token) {
       const datasets = window.EARTH_DATASETS ? window.EARTH_DATASETS.datasets : [];
       if (!datasets || datasets.length === 0) return null;
 
       const upper = (token || "").toUpperCase().trim();
 
-      if (upper.includes("HUMID") || upper.includes("Q2M") || upper.includes("5150") || upper.includes("MOISTURE") || upper.includes("VAPOR")) {
-        return datasets.find(d => d.id === "geos-near-surface-humidity") || datasets[0];
+      if (upper === "HUMID" || upper.includes("5150") || upper.includes("Q2M") || upper === "HUMIDITY") {
+        return datasets.find(d => d.id === "geos-near-surface-humidity");
       }
-      if (upper.includes("RAIN") || upper.includes("PRECIP") || upper.includes("CLOUD") || upper.includes("5149") || upper.includes("FLOOD")) {
-        return datasets.find(d => d.id === "geos-precipitation-clouds") || datasets[0];
+      if (upper === "RAIN" || upper.includes("5149") || upper.includes("PRECIP")) {
+        return datasets.find(d => d.id === "geos-precipitation-clouds");
       }
-      if (upper.includes("WIND") || upper.includes("5148") || upper.includes("GALE") || upper.includes("KNOTS")) {
-        return datasets.find(d => d.id === "near-surface-wind") || datasets[0];
+      if (upper === "WIND" || upper.includes("5148")) {
+        return datasets.find(d => d.id === "near-surface-wind");
       }
-      if (upper.includes("TEMP") || upper.includes("5147") || upper.includes("3912") || upper.includes("SST") || upper.includes("WARMING") || upper.includes("GEOS")) {
-        return datasets.find(d => d.id === "global-temperature") || datasets[0];
+      if (upper === "TEMP" || upper.includes("5147") || upper === "GEOS_TEMP" || upper === "TEMPERATURE") {
+        return datasets.find(d => d.id === "global-temperature");
       }
 
-      // Default fallback so it NEVER fails to display the visualization & paragraph!
-      return datasets.find(d => d.id === "global-temperature") || datasets[0];
+      // If token does NOT match any Earth observation dataset, return null (do NOT fall back to Earth temperature!)
+      return null;
+    }
+
+    function triggerNonEarthPayload(token) {
+      currentUnlockedDataset = null;
+      currentFrameIdx = 0;
+
+      const scrubberRow = document.getElementById("scrubberRow");
+      if (scrubberRow) scrubberRow.style.display = "none";
+
+      const categoryText = "STANDARD OPTICAL VISUAL TELEMETRY";
+      if (vaultCategory) vaultCategory.textContent = categoryText;
+      if (vaultTitle) vaultTitle.textContent = "General Visual Image Received";
+      if (vaultTag) {
+        vaultTag.textContent = "NON-ATMOSPHERIC";
+        vaultTag.style.background = "#f1f5f9";
+        vaultTag.style.color = "#475569";
+        vaultTag.style.borderColor = "#cbd5e1";
+      }
+
+      // Hide satellite image and frame label
+      if (vaultImage) vaultImage.style.display = "none";
+      if (vaultFrameLabel) vaultFrameLabel.style.display = "none";
+
+      // Show non-earth visual banner in imageryScreen
+      const standbyScreen = document.getElementById("standbyScreen");
+      if (standbyScreen) {
+        standbyScreen.style.display = "flex";
+        standbyScreen.innerHTML = `
+          <div style="font-size:2.8rem; margin-bottom:10px;">🖼️</div>
+          <div style="font-size:1.05rem; font-weight:800; color:#f8fafc; margin-bottom:6px;">Standard Visual Image Received</div>
+          <div style="font-size:0.8rem; font-weight:600; color:#38bdf8; margin-bottom:8px; font-family:var(--font-mono);">Optical Payload: "${token || 'CUSTOM'}"</div>
+          <div style="font-size:0.75rem; color:#94a3b8; max-width:320px; line-height:1.45; text-align:center;">
+            This file is classified as a general visual image (portrait, personal photo, or non-Earth target). NASA Earth observation telemetry (surface temperature, wind speed, precipitation, and humidity) is not applicable and has been deactivated.
+          </div>
+        `;
+      }
+
+      if (vaultMetricName) vaultMetricName.textContent = "Payload Classification";
+      if (vaultMetricVal) vaultMetricVal.textContent = "Standard Optical Matrix (" + (token || 'CUSTOM') + ")";
+
+      const narrative = "Acoustic optical transmission received for payload '" + (token || 'CUSTOM') + "'. This visual transmission is recognized as a standard optical image (such as a portrait, general photograph, or non-Earth visual). Because this is not a NASA Earth Observation dataset, atmospheric planetary telemetry models (including surface air temperatures, wind velocity, precipitation intensity, and specific humidity) are not applicable.";
+      if (vaultNarrative) {
+        vaultNarrative.textContent = narrative;
+      }
+
+      if (vaultSvsLink) {
+        vaultSvsLink.style.display = "none";
+      }
+
+      const hero = document.getElementById("heroDisplay");
+      if (hero) hero.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      // Spoken Accessibility Narration for Non-Earth Image
+      const speechText = "Acoustic signal decoded for custom payload: " + (token || 'CUSTOM') + ". Standard optical image received. Atmospheric Earth observation telemetry is not applicable.";
+      setTimeout(function() {
+        speakNarrative(speechText);
+      }, 350);
     }
 
     function triggerSecretRetraction(matchedDs) {
@@ -1084,6 +1144,9 @@
         if (currentUnlockedDataset) {
           const textToNarrate = currentUnlockedDataset.description || (currentUnlockedDataset.frames && currentUnlockedDataset.frames[currentFrameIdx] ? currentUnlockedDataset.frames[currentFrameIdx].audioNarrative : "");
           speakNarrative(textToNarrate);
+        } else {
+          const narrative = vaultNarrative ? vaultNarrative.textContent : "";
+          if (narrative) speakNarrative(narrative);
         }
       });
     }
