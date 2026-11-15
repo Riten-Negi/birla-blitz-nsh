@@ -96,26 +96,6 @@
                     grid-template-columns: 1fr !important;
                 }
             }
-            .preset-chip {
-                background: #f1f5f9;
-                border: 1px solid #cbd5e1;
-                border-radius: 14px;
-                padding: 4px 10px;
-                font-size: 0.73rem;
-                font-weight: 600;
-                color: #334155;
-                cursor: pointer;
-                transition: all 0.15s ease;
-                display: inline-flex;
-                align-items: center;
-                gap: 4px;
-            }
-            .preset-chip:hover {
-                background: #e2e8f0;
-                color: #0f172a;
-                border-color: #94a3b8;
-                transform: translateY(-1px);
-            }
             .custom-text-input {
                 width: 100%;
                 height: 82px;
@@ -328,17 +308,6 @@
                     Transmit simple text messages, operational notes, or test telemetry directly over physical sound waves to the phone app without uploading an image or video file.
                 </p>
 
-                <!-- Quick Presets -->
-                <div style="margin-bottom:12px; display:flex; flex-wrap:wrap; align-items:center; gap:6px;">
-                    <span style="font-size:0.72rem; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.04em; margin-right:4px;">Quick Presets:</span>
-                    <button type="button" class="preset-chip" onclick="setPresetText('Hello Birla Blitz')">⚡ Hello Birla Blitz</button>
-                    <button type="button" class="preset-chip" onclick="setPresetText('TEAM_DEMO_READY_OK')">🎯 Team Demo OK</button>
-                    <button type="button" class="preset-chip" onclick="setPresetText('SATELLITE_LINK_ESTABLISHED')">🛰️ Satellite Link Established</button>
-                    <button type="button" class="preset-chip" onclick="setPresetText('TEMP')">🌡️ Temp Telemetry</button>
-                    <button type="button" class="preset-chip" onclick="setPresetText('RAIN')">🌧️ Rain Telemetry</button>
-                    <button type="button" class="preset-chip" onclick="setPresetText('')" style="color:#ef4444; border-color:#fca5a5;">✕ Clear</button>
-                </div>
-
                 <div style="display:grid; grid-template-columns:minmax(0, 1.4fr) minmax(0, 1fr); gap:16px;">
                     <!-- Text to Transmit (Tx) -->
                     <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
@@ -347,7 +316,10 @@
                                 <span style="display:inline-block; width:8px; height:8px; background:#2563eb; border-radius:50%;"></span>
                                 Direct Text to Broadcast (Tx):
                             </label>
-                            <span id="charCount" style="font-size:0.72rem; color:#64748b; font-weight:600;">0 / 140 chars</span>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span id="charCount" style="font-size:0.72rem; color:#64748b; font-weight:600;">0 / 140 chars</span>
+                                <button type="button" onclick="document.getElementById('txData').value=''; updateCharCount();" style="background:transparent; border:none; color:#64748b; font-size:0.7rem; cursor:pointer; text-decoration:underline;">Clear</button>
+                            </div>
                         </div>
                         <textarea id="txData" class="custom-text-input" placeholder="Type custom message to broadcast over audio (e.g., 'Team Birla Blitz ready for demo')..." oninput="updateCharCount()"></textarea>
                         
@@ -439,14 +411,6 @@
                     counter.style.color = "#64748b";
                     counter.style.fontWeight = "600";
                 }
-            }
-
-            function setPresetText(text) {
-                var txInput = document.getElementById("txData");
-                if (!txInput) return;
-                txInput.value = text;
-                updateCharCount();
-                txInput.focus();
             }
 
             function escapeHtml(text) {
