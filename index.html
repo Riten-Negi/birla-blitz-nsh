@@ -737,7 +737,7 @@
                     colorbarImg.src = "assets/images/geos_humidity_colorbar.png";
                     colorbarImg.style.display = "block";
                     if (scaleLabel) scaleLabel.innerHTML = `<span>0 g/kg (Dry Arid)</span><span>8 g/kg (Moderate)</span><span>16 g/kg (Humid)</span><span>24+ g/kg (Tropical Saturated)</span>`;
-                    ctxText.innerHTML = `<strong>GEOS-FP Near-Surface Humidity (Q2M):</strong> Near-surface humidity, also known as specific humidity (Q2M), measures the actual mass of water vapor per unit of air mass in grams per kilogram (g/kg). It remains relatively constant even as temperature changes throughout the day. Near-surface humidity patterns reveal moisture transport via weather systems, ocean evaporation, and land surface processes, directly influencing cloud formation, precipitation development, and pollutant transport.`;
+                    ctxText.innerHTML = `<strong>GEOS-FP Near-Surface Humidity (Q2M):</strong> This atmospheric moisture visualization displays near-surface specific humidity, measuring the actual mass of water vapor per kilogram of air spanning from 0 g/kg (bone-dry arid) to 24+ g/kg (tropical saturation).<br><br><strong>Colorbar Analysis:</strong> Pale yellow and tan depict dry continental air masses (0–3 g/kg); mint green and cyan denote moderate continental humidity (4–10 g/kg); rich turquoise and cobalt blue mark high water vapor transport (12–18 g/kg); while dark indigo and saturated violet plumes trace hyper-saturated equatorial moisture corridors (>20 g/kg) fueling storm formation.`;
                 } else if (lower.indexOf("precip") !== -1 || lower.indexOf("rain") !== -1 || lower.indexOf("5149") !== -1) {
                     ctxCard.style.display = "block";
                     if (heading) heading.textContent = "GEOS-FP Precipitation & Cloud Telemetry";
@@ -747,7 +747,7 @@
                     colorbarImg.src = "assets/images/geos_precip_colorbar.png";
                     colorbarImg.style.display = "block";
                     if (scaleLabel) scaleLabel.innerHTML = `<span>0.1 mm/hr (Light)</span><span>5 mm/hr (Moderate)</span><span>15 mm/hr (Heavy)</span><span>30+ mm/hr (Flash Flood Core)</span>`;
-                    ctxText.innerHTML = `<strong>GEOS-FP Precipitation and Clouds:</strong> This animation overlays total precipitation, including both rain and snow, atop simulated cloud fields shaded by optical thickness. Warmer temperatures allow the atmosphere to evaporate and store more water vapor, elevating severe storm rain fractions and hazards like flash floods while altering atmospheric rivers and cloud radiative climate forcing.`;
+                    ctxText.innerHTML = `<strong>GEOS-FP Precipitation and Clouds:</strong> This satellite imagery overlays active precipitation rates atop atmospheric cloud optical thickness, measuring rainfall intensity from light drizzle at 0.1 mm/hr to cloudbursts exceeding 30 mm/hr.<br><br><strong>Colorbar Analysis:</strong> Monochrome white and translucent gray show cloud optical depth; cool aqua and soft green show light steady rain (0.1–2.5 mm/hr); bright yellow and orange indicate heavy convective downpours (5–15 mm/hr); while intense crimson and deep violet cores demarcate severe storm cells and tropical deluges exceeding 20–30+ mm/hr capable of flash floods.`;
                 } else if (lower.indexOf("wind") !== -1 || lower.indexOf("5148") !== -1) {
                     ctxCard.style.display = "block";
                     if (heading) heading.textContent = "GEOS-FP Near-Surface Wind Telemetry";
@@ -757,7 +757,7 @@
                     colorbarImg.src = "assets/images/geos_wind_colorbar.png";
                     colorbarImg.style.display = "block";
                     if (scaleLabel) scaleLabel.innerHTML = `<span>0 m/s (Calm)</span><span>10 m/s (Breeze)</span><span>22 m/s (Gale)</span><span>35+ m/s (Storm Force)</span>`;
-                    ctxText.innerHTML = `<strong>GEOS-FP Near-Surface Wind Speed:</strong> Near surface wind speed is calculated by sampling model fields at 10 meters (about 30 feet) above Earth’s surface. Wind speed is typically largest over ocean because surfaces are smooth and result in less friction than over land. Organized patterns reflect weather fronts and storm systems around the world. Near surface winds help scientists track the movement and severity of storms and air pollution episodes. Increasingly, these kinds of products help wind energy managers plan resources to help meet the world’s demand for energy while reducing the greenhouse gas emissions that cause climate change.`;
+                    ctxText.innerHTML = `<strong>GEOS-FP Near-Surface Wind Speed:</strong> This atmospheric visualization maps surface wind velocity sampled at 10 meters above Earth, spanning from 0 m/s (calm) to 35+ m/s (hurricane-force gusts, >70 kts).<br><br><strong>Colorbar Analysis:</strong> Dark indigo and navy represent gentle breezes (0–5 m/s); cyan and emerald green indicate fresh maritime trade winds (6–14 m/s); bright yellow and amber mark strong near-gale corridors (15–24 m/s); and vibrant magenta, violet, and bright white streaks highlight dangerous storm tracks and roaring circumpolar westerly gale belts exceeding 25–35+ m/s.`;
                 } else if (lower.indexOf("temp") !== -1 || lower.indexOf("5147") !== -1 || lower.indexOf("geos") !== -1) {
                     ctxCard.style.display = "block";
                     if (heading) heading.textContent = "GEOS-FP Near-Surface Temperature Telemetry";
@@ -766,8 +766,71 @@
                     srcLink.textContent = "NASA SVS 5147 ↗";
                     colorbarImg.src = "assets/images/geos_temp_colorbar.png";
                     colorbarImg.style.display = "block";
-                    if (scaleLabel) scaleLabel.innerHTML = `<span>-40°C (-40°F) Deep Cold</span><span>0°C Freezing</span><span>+50°C (122°F) Heatwave</span>`;
-                    ctxText.innerHTML = `<strong>GEOS-FP Near-Surface Temperature:</strong> Weather models begin their forecasts by integrating observations from ground stations, aircraft, balloons, and Earth observing satellites. Near surface temperature is calculated by sampling model fields at 2 meters (about 6 feet) above Earth’s surface, helping scientists track changes in heat wave frequency and impacts on human health.`;
+                    if (scaleLabel) scaleLabel.innerHTML = `<span>-40°C (-40°F) Deep Cold</span><span>0°C Freezing</span><span>+25°C Warm</span><span>+50°C (122°F) Heatwave</span>`;
+                    ctxText.innerHTML = `<strong>GEOS-FP Near-Surface Temperature:</strong> This visualization reveals global surface air temperature at 2 meters above Earth, spanning an extreme range from -40°C (-40°F) in polar cold up to +50°C (+122°F) in desert heatwaves.<br><br><strong>Colorbar Analysis:</strong> Deep purple and dark indigo signify freezing polar zones (-40°C to -10°C) over Antarctica, Greenland, and Arctic ice; cyan and soft green mark cool to temperate mid-latitudes (0°C to +15°C); vibrant yellow and warm orange indicate tropical daytime warmth (+20°C to +35°C); while dark crimson, maroon, and white-hot cores highlight dangerous extreme heatwaves exceeding +40°C to +50°C across the Sahara, Persian Gulf, and Australian Outback.`;
+                } else if (lower.indexOf("bio") !== -1) {
+                    ctxCard.style.display = "block";
+                    if (heading) heading.textContent = "Earth's Biosphere Pulse Telemetry";
+                    srcLink.style.display = "inline";
+                    srcLink.href = "https://svs.gsfc.nasa.gov/4950/";
+                    srcLink.textContent = "NASA SVS 4950 ↗";
+                    colorbarImg.style.display = "none";
+                    if (scaleLabel) scaleLabel.innerHTML = `<span>0.0 (Barren Ice/Sand)</span><span>0.3 (Grassland)</span><span>0.7 (Dense Forest)</span><span>1.0 (Rainforest)</span>`;
+                    ctxText.innerHTML = `<strong>Earth's Biosphere Pulse:</strong> This seasonal planetary visualization captures Earth's vegetative biosphere pulse, measuring Normalized Difference Vegetation Index (NDVI) from 0.0 (barren) to 1.0 (dense canopy).<br><br><strong>Colorbar Analysis:</strong> Pale beige and tan indicate barren deserts and dormant winter landscapes (NDVI < 0.15); light olive and yellow-green represent savannas and emerging springtime foliage (NDVI 0.2–0.5); deep emerald and forest green denote dense chlorophyll canopies (NDVI 0.6–0.9) in the Amazon and Congo; while turquoise to neon blue oceanic streaks reveal massive seasonal phytoplankton blooms.`;
+                } else if (lower.indexOf("co2") !== -1) {
+                    ctxCard.style.display = "block";
+                    if (heading) heading.textContent = "DYAMOND Atmospheric Carbon Dioxide";
+                    srcLink.style.display = "inline";
+                    srcLink.href = "https://svs.gsfc.nasa.gov/5196/";
+                    srcLink.textContent = "NASA SVS 5196 ↗";
+                    colorbarImg.style.display = "none";
+                    if (scaleLabel) scaleLabel.innerHTML = `<span>400 ppm (Clean Baseline)</span><span>415 ppm (Ambient)</span><span>430+ ppm (Industrial Plume)</span>`;
+                    ctxText.innerHTML = `<strong>Atmospheric Carbon Dioxide Transport:</strong> This visualization illustrates hemispheric swirling plumes of CO2, spanning from background clean air at 400 ppm to emission-heavy plumes exceeding 435 ppm.<br><br><strong>Colorbar Analysis:</strong> Deep blue and purple denote clean Southern Hemisphere background air (400–408 ppm); cyan and light green represent ambient Northern Hemisphere levels (410–418 ppm); bright yellow and orange plumes track seasonal terrestrial respiration and wildfire smoke; while intense red and dark crimson filaments expose dense, concentrated CO2 plumes (>425–435+ ppm) billowing from industrial corridors.`;
+                } else if (lower.indexOf("ocean") !== -1) {
+                    ctxCard.style.display = "block";
+                    if (heading) heading.textContent = "Perpetual Ocean Current Velocity";
+                    srcLink.style.display = "inline";
+                    srcLink.href = "https://svs.gsfc.nasa.gov/5425/";
+                    srcLink.textContent = "NASA SVS 5425 ↗";
+                    colorbarImg.style.display = "none";
+                    if (scaleLabel) scaleLabel.innerHTML = `<span>0.0 m/s (Calm Gyre)</span><span>1.0 m/s (Current)</span><span>2.5+ m/s (Boundary Jet)</span>`;
+                    ctxText.innerHTML = `<strong>Global Ocean Conveyor & Currents:</strong> This visualization maps kinetic surface current velocities from 0.0 m/s in calm gyres up to rapid boundary jets exceeding 2.5 m/s (nearly 5 knots).<br><br><strong>Colorbar Analysis:</strong> Dark midnight blue represents tranquil, slow-moving deep-sea waters (0.0–0.2 m/s); sky blue and cyan swirls trace meandering intermediate currents and vortex rings (0.3–0.8 m/s); bright yellow indicates accelerating streams (1.0–1.5 m/s); and brilliant electric white streaks illuminate high-velocity ocean superhighways like the Gulf Stream driving heat transfer at over 2.0–2.5+ m/s.`;
+                } else if (lower.indexOf("ice") !== -1 || lower.indexOf("sea_ice") !== -1) {
+                    ctxCard.style.display = "block";
+                    if (heading) heading.textContent = "Arctic Sea Ice Minimum Extent";
+                    srcLink.style.display = "inline";
+                    srcLink.href = "https://svs.gsfc.nasa.gov/";
+                    srcLink.textContent = "NASA Cryosphere ↗";
+                    colorbarImg.style.display = "none";
+                    if (scaleLabel) scaleLabel.innerHTML = `<span>Open Ocean (Dark)</span><span>Marginal Drift Ice (Cyan)</span><span>Multi-Year Pack Ice (Solid White)</span>`;
+                    ctxText.innerHTML = `<strong>Arctic Sea Ice Cryosphere:</strong> This polar dataset chronicles the multi-decadal contraction of Arctic summer sea ice, spanning from 7.8M km² in 1979 down to modern minimums under 3.4M km².<br><br><strong>Visual Palette Analysis:</strong> Bright solid white shields depict thick perennial multi-year pack ice (>3m thick) surviving summer melt cycles; translucent light cyan and pale sky blue fringes mark thin first-year drift ice vulnerable to thaw; while encroaching dark navy ocean highlights ice-free Arctic waters that absorb solar heat and accelerate warming.`;
+                } else if (lower.indexOf("fire") !== -1 || lower.indexOf("wildfire") !== -1) {
+                    ctxCard.style.display = "block";
+                    if (heading) heading.textContent = "FIRMS Wildfires & Smoke Aerosols";
+                    srcLink.style.display = "inline";
+                    srcLink.href = "https://svs.gsfc.nasa.gov/5669/";
+                    srcLink.textContent = "NASA SVS 5669 ↗";
+                    colorbarImg.style.display = "none";
+                    if (scaleLabel) scaleLabel.innerHTML = `<span>Clean Air (Blue)</span><span>Active Fire Hotspot (Red/Orange)</span><span>Dense Smoke Plume (Amber Haze)</span>`;
+                    ctxText.innerHTML = `<strong>Global Wildfires & Aerosol Optical Depth:</strong> This environmental monitoring dataset tracks active biomass burning and airborne aerosol smoke plumes from 0.0 (pristine atmosphere) to 5.0+ (choking smoke).<br><br><strong>Color Palette Analysis:</strong> Bright red and fiery orange hotspots pinpoint satellite infrared thermal detections of active wildfire fronts and crop burning; translucent gray, amber, and golden haze layers trace expansive particulate smoke plumes (PM2.5) drifting thousands of kilometers downwind; while dark background areas indicate clean, unaffected tropospheric air.`;
+                } else if (lower.indexOf("light") !== -1 || lower.indexOf("night") !== -1) {
+                    ctxCard.style.display = "block";
+                    if (heading) heading.textContent = "Evolution of Earth's Night Lights";
+                    srcLink.style.display = "inline";
+                    srcLink.href = "https://svs.gsfc.nasa.gov/5313/";
+                    srcLink.textContent = "NASA SVS 5313 ↗";
+                    colorbarImg.style.display = "none";
+                    if (scaleLabel) scaleLabel.innerHTML = `<span>0 nW (Dark Wilderness)</span><span>25 nW (Suburbs)</span><span>100+ nW (Megacity Core)</span>`;
+                    ctxText.innerHTML = `<strong>Earth Nocturnal Radiance & Electrification:</strong> This visualization captures artificial nighttime light emissions, mapping human electrification and urban settlement from 0 nW/cm²/sr up to over 100 in intense urban centers.<br><br><strong>Colorbar Analysis:</strong> Pitch black represents dark oceans, dense rainforests, and uninhabited polar tundra with zero artificial lighting; warm golden amber and soft yellow mark suburban networks, agricultural communities, and highways; while brilliant white-hot nodes delineate densely populated megacity urban cores and commercial complexes radiating peak nocturnal luminosity.`;
+                } else if (lower.indexOf("bolt") !== -1 || lower.indexOf("lightning") !== -1 || lower.indexOf("iss") !== -1) {
+                    ctxCard.style.display = "block";
+                    if (heading) heading.textContent = "ISS Lightning Optical Transient Events";
+                    srcLink.style.display = "inline";
+                    srcLink.href = "https://svs.gsfc.nasa.gov/5011/";
+                    srcLink.textContent = "NASA SVS 5011 ↗";
+                    colorbarImg.style.display = "none";
+                    if (scaleLabel) scaleLabel.innerHTML = `<span>1 flash/km²/yr (Quiet)</span><span>20 flashes (Active)</span><span>100+ flashes (Super-Hotspot)</span>`;
+                    ctxText.innerHTML = `<strong>Spaceborne Optical Lightning Flashes:</strong> This electrodynamic visualization compiles optical lightning transient events detected by the ISS Lightning Imaging Sensor, spanning from 1 flash/km²/yr up to over 100 flashes in hyperactive lightning chimneys.<br><br><strong>Colorbar Analysis:</strong> Deep blue and purple clouds represent electrically quiet storm formations; vibrant green and cyan sparks mark isolated cloud-to-ground and intra-cloud discharges; while intense electric magenta, brilliant yellow, and blazing white flashes reveal global lightning hotspots like Lake Maracaibo generating violent convective storms with continuous lightning super-bursts.`;
                 } else {
                     ctxCard.style.display = "none";
                 }

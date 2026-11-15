@@ -83,29 +83,29 @@ window.EARTH_DATASETS = {
     }
   ],
   "datasets": [
-        {
+    {
       "id": "global-temperature",
       "title": "GEOS-FP Near-Surface Temperature",
       "subtitle": "NASA SVS 5147: Goddard Earth Observing System 2m Temperature",
       "nasaResourceUrl": "https://svs.gsfc.nasa.gov/5147/",
       "nasaSvsId": "SVS-5147",
       "category": "Atmospheric Temperature & Heat Waves",
-      "description": "Weather models begin their forecasts by integrating observations from ground stations, aircraft, balloons, and a growing constellation of Earth observing satellites to estimate the most realistic atmospheric state. The Goddard Earth Observing System Forward Processing (GEOS-FP) system is a research model maintained by NASA’s Global Modeling and Assimilation Office to demonstrate innovative new ways to use satellite data to improve predictions of weather, air quality, and greenhouse gases and to help NASA collect new observations of our home planet. Near surface temperature is calculated by sampling model fields at 2 meters (about 6 feet) above Earth’s surface, helping scientists communicate to the general public the air temperatures they encounter. Variations reflect differences in daytime and nighttime temperatures and the influence of large scale weather systems. As the planet warms in response to rising greenhouse gas concentrations, scientists are also tracking changes in the frequency of heat waves and their potential impacts on human health.",
+      "description": "This satellite observation visualization reveals the global surface air thermal distribution sampled at 2 meters above Earth. The metric spans an extreme temperature range from -40\u00b0C (-40\u00b0F) in severe polar cold up to +50\u00b0C (+122\u00b0F) in intense desert heatwaves. The colorbar maps this thermal gradient progressively: deep purple and dark indigo signify freezing polar zones (-40\u00b0C to -10\u00b0C) over Antarctica, Greenland, and Arctic ice sheets; cyan and soft green mark cool to temperate mid-latitude zones (0\u00b0C to +15\u00b0C); vibrant yellow and warm orange indicate tropical and sub-tropical daytime warmth (+20\u00b0C to +35\u00b0C); while dark crimson, maroon, and white-hot cores highlight dangerous extreme heatwaves exceeding +40\u00b0C to +50\u00b0C across the Sahara Desert, Persian Gulf, and central Australia.",
       "sonificationProfile": {
         "scale": "Dorian & Microtonal Tension",
         "baseFrequency": "110 Hz (A2)",
         "timbre": "Warm atmospheric synth pad reflecting global 2-meter air temperature gradients",
         "mappingRule": "2m surface air temperature maps directly to audio pitch and acoustic harmonic density.",
-        "spatialMode": "Polar-orbiting scanline sweeps from 90°N to 90°S."
+        "spatialMode": "Polar-orbiting scanline sweeps from 90\u00b0N to 90\u00b0S."
       },
       "frames": [
         {
           "frameIndex": 0,
           "filename": "geos_near_surface_temp_5147.png",
           "label": "GEOS-FP Near-Surface Temperature Field",
-          "value": "+15.2°C (Global Model Average)",
+          "value": "+15.2\u00b0C (Global Model Average)",
           "metricName": "Near-Surface 2m Air Temperature",
-          "audioNarrative": "Weather models begin their forecasts by integrating observations from ground stations, aircraft, balloons, and a growing constellation of Earth observing satellites to estimate the most realistic atmospheric state. The Goddard Earth Observing System Forward Processing (GEOS-FP) system is a research model maintained by NASA’s Global Modeling and Assimilation Office to demonstrate innovative new ways to use satellite data to improve predictions of weather, air quality, and greenhouse gases and to help NASA collect new observations of our home planet. Near surface temperature is calculated by sampling model fields at 2 meters (about 6 feet) above Earth’s surface, helping scientists communicate to the general public the air temperatures they encounter. Variations reflect differences in daytime and nighttime temperatures and the influence of large scale weather systems. As the planet warms in response to rising greenhouse gas concentrations, scientists are also tracking changes in the frequency of heat waves and their potential impacts on human health.",
+          "audioNarrative": "This satellite observation visualization reveals the global surface air thermal distribution sampled at 2 meters above Earth. The metric spans an extreme temperature range from -40\u00b0C (-40\u00b0F) in severe polar cold up to +50\u00b0C (+122\u00b0F) in intense desert heatwaves. The colorbar maps this thermal gradient progressively: deep purple and dark indigo signify freezing polar zones (-40\u00b0C to -10\u00b0C) over Antarctica, Greenland, and Arctic ice sheets; cyan and soft green mark cool to temperate mid-latitude zones (0\u00b0C to +15\u00b0C); vibrant yellow and warm orange indicate tropical and sub-tropical daytime warmth (+20\u00b0C to +35\u00b0C); while dark crimson, maroon, and white-hot cores highlight dangerous extreme heatwaves exceeding +40\u00b0C to +50\u00b0C across the Sahara Desert, Persian Gulf, and central Australia.",
           "dominantFreqRange": "110 Hz - 880 Hz",
           "intensity": 0.85
         }
@@ -118,7 +118,7 @@ window.EARTH_DATASETS = {
       "nasaResourceUrl": "https://svs.gsfc.nasa.gov/4950/",
       "nasaSvsId": "SVS-4950",
       "category": "Biosphere & Ecology",
-      "description": "Visualizes photosynthetically active biomass and canopy height across 12 months. Aligned with NASA GEDI (SVS 4950) mapping canopy elevation into lush organic chords.",
+      "description": "This seasonal planetary visualization captures Earth's vegetative biosphere pulse, tracking photosynthetically active biomass across land and oceans. The metric measures Normalized Difference Vegetation Index (NDVI) and ocean chlorophyll density spanning from 0.0 (Barren) to 1.0 (Dense Climax Canopy). The colorbar explains biological productivity: pale beige and sand tan indicate barren deserts, rocky plateaus, and snow-covered winter landscapes with dormant plant life (NDVI under 0.15); light olive and yellow-green represent savannas, grasslands, and emerging springtime foliage (NDVI 0.2 to 0.5); deep emerald and dark forest green denote dense chlorophyll-rich canopies (NDVI 0.6 to 0.9) in the Amazon, Congo, and boreal taiga; while turquoise to neon blue oceanic ribbons reveal massive seasonal phytoplankton blooms along coastal nutrient upwellings.",
       "sonificationProfile": {
         "scale": "Major Pentatonic & Lydian (C, D, E, G, A)",
         "baseFrequency": "130.81 Hz (C3)",
@@ -160,7 +160,7 @@ window.EARTH_DATASETS = {
           "month": "January",
           "value": "NDVI Peak: 0.42",
           "metricName": "Global Vegetation & Canopy Index",
-          "audioNarrative": "January. The global biosphere breathes. Boreal greening index reaches 0.42.",
+          "audioNarrative": "This seasonal planetary visualization captures Earth's vegetative biosphere pulse, tracking photosynthetically active biomass across land and oceans. The metric measures Normalized Difference Vegetation Index (NDVI) and ocean chlorophyll density spanning from 0.0 (Barren) to 1.0 (Dense Climax Canopy). The colorbar explains biological productivity: pale beige and sand tan indicate barren deserts, rocky plateaus, and snow-covered winter landscapes with dormant plant life (NDVI under 0.15); light olive and yellow-green represent savannas, grasslands, and emerging springtime foliage (NDVI 0.2 to 0.5); deep emerald and dark forest green denote dense chlorophyll-rich canopies (NDVI 0.6 to 0.9) in the Amazon, Congo, and boreal taiga; while turquoise to neon blue oceanic ribbons reveal massive seasonal phytoplankton blooms along coastal nutrient upwellings.",
           "dominantFreqRange": "261 Hz - 1046 Hz (C4 - C6)",
           "intensity": 0.04999999999999999
         },
@@ -171,7 +171,7 @@ window.EARTH_DATASETS = {
           "month": "March",
           "value": "NDVI Peak: 0.48",
           "metricName": "Global Vegetation & Canopy Index",
-          "audioNarrative": "March. The global biosphere breathes. Boreal greening index reaches 0.48.",
+          "audioNarrative": "This seasonal planetary visualization captures Earth's vegetative biosphere pulse, tracking photosynthetically active biomass across land and oceans. The metric measures Normalized Difference Vegetation Index (NDVI) and ocean chlorophyll density spanning from 0.0 (Barren) to 1.0 (Dense Climax Canopy). The colorbar explains biological productivity: pale beige and sand tan indicate barren deserts, rocky plateaus, and snow-covered winter landscapes with dormant plant life (NDVI under 0.15); light olive and yellow-green represent savannas, grasslands, and emerging springtime foliage (NDVI 0.2 to 0.5); deep emerald and dark forest green denote dense chlorophyll-rich canopies (NDVI 0.6 to 0.9) in the Amazon, Congo, and boreal taiga; while turquoise to neon blue oceanic ribbons reveal massive seasonal phytoplankton blooms along coastal nutrient upwellings.",
           "dominantFreqRange": "261 Hz - 1046 Hz (C4 - C6)",
           "intensity": 0.18180194846605358
         },
@@ -182,7 +182,7 @@ window.EARTH_DATASETS = {
           "month": "May",
           "value": "NDVI Peak: 0.62",
           "metricName": "Global Vegetation & Canopy Index",
-          "audioNarrative": "May. The global biosphere breathes. Boreal greening index reaches 0.62.",
+          "audioNarrative": "This seasonal planetary visualization captures Earth's vegetative biosphere pulse, tracking photosynthetically active biomass across land and oceans. The metric measures Normalized Difference Vegetation Index (NDVI) and ocean chlorophyll density spanning from 0.0 (Barren) to 1.0 (Dense Climax Canopy). The colorbar explains biological productivity: pale beige and sand tan indicate barren deserts, rocky plateaus, and snow-covered winter landscapes with dormant plant life (NDVI under 0.15); light olive and yellow-green represent savannas, grasslands, and emerging springtime foliage (NDVI 0.2 to 0.5); deep emerald and dark forest green denote dense chlorophyll-rich canopies (NDVI 0.6 to 0.9) in the Amazon, Congo, and boreal taiga; while turquoise to neon blue oceanic ribbons reveal massive seasonal phytoplankton blooms along coastal nutrient upwellings.",
           "dominantFreqRange": "261 Hz - 1046 Hz (C4 - C6)",
           "intensity": 0.5
         },
@@ -193,7 +193,7 @@ window.EARTH_DATASETS = {
           "month": "June",
           "value": "NDVI Peak: 0.77",
           "metricName": "Global Vegetation & Canopy Index",
-          "audioNarrative": "June. The global biosphere breathes. Boreal greening index reaches 0.77.",
+          "audioNarrative": "This seasonal planetary visualization captures Earth's vegetative biosphere pulse, tracking photosynthetically active biomass across land and oceans. The metric measures Normalized Difference Vegetation Index (NDVI) and ocean chlorophyll density spanning from 0.0 (Barren) to 1.0 (Dense Climax Canopy). The colorbar explains biological productivity: pale beige and sand tan indicate barren deserts, rocky plateaus, and snow-covered winter landscapes with dormant plant life (NDVI under 0.15); light olive and yellow-green represent savannas, grasslands, and emerging springtime foliage (NDVI 0.2 to 0.5); deep emerald and dark forest green denote dense chlorophyll-rich canopies (NDVI 0.6 to 0.9) in the Amazon, Congo, and boreal taiga; while turquoise to neon blue oceanic ribbons reveal massive seasonal phytoplankton blooms along coastal nutrient upwellings.",
           "dominantFreqRange": "261 Hz - 1046 Hz (C4 - C6)",
           "intensity": 0.8181980515339464
         },
@@ -204,7 +204,7 @@ window.EARTH_DATASETS = {
           "month": "July",
           "value": "NDVI Peak: 0.83",
           "metricName": "Global Vegetation & Canopy Index",
-          "audioNarrative": "July. The global biosphere breathes. Boreal greening index reaches 0.83.",
+          "audioNarrative": "This seasonal planetary visualization captures Earth's vegetative biosphere pulse, tracking photosynthetically active biomass across land and oceans. The metric measures Normalized Difference Vegetation Index (NDVI) and ocean chlorophyll density spanning from 0.0 (Barren) to 1.0 (Dense Climax Canopy). The colorbar explains biological productivity: pale beige and sand tan indicate barren deserts, rocky plateaus, and snow-covered winter landscapes with dormant plant life (NDVI under 0.15); light olive and yellow-green represent savannas, grasslands, and emerging springtime foliage (NDVI 0.2 to 0.5); deep emerald and dark forest green denote dense chlorophyll-rich canopies (NDVI 0.6 to 0.9) in the Amazon, Congo, and boreal taiga; while turquoise to neon blue oceanic ribbons reveal massive seasonal phytoplankton blooms along coastal nutrient upwellings.",
           "dominantFreqRange": "261 Hz - 1046 Hz (C4 - C6)",
           "intensity": 0.95
         },
@@ -215,7 +215,7 @@ window.EARTH_DATASETS = {
           "month": "August",
           "value": "NDVI Peak: 0.77",
           "metricName": "Global Vegetation & Canopy Index",
-          "audioNarrative": "August. The global biosphere breathes. Boreal greening index reaches 0.77.",
+          "audioNarrative": "This seasonal planetary visualization captures Earth's vegetative biosphere pulse, tracking photosynthetically active biomass across land and oceans. The metric measures Normalized Difference Vegetation Index (NDVI) and ocean chlorophyll density spanning from 0.0 (Barren) to 1.0 (Dense Climax Canopy). The colorbar explains biological productivity: pale beige and sand tan indicate barren deserts, rocky plateaus, and snow-covered winter landscapes with dormant plant life (NDVI under 0.15); light olive and yellow-green represent savannas, grasslands, and emerging springtime foliage (NDVI 0.2 to 0.5); deep emerald and dark forest green denote dense chlorophyll-rich canopies (NDVI 0.6 to 0.9) in the Amazon, Congo, and boreal taiga; while turquoise to neon blue oceanic ribbons reveal massive seasonal phytoplankton blooms along coastal nutrient upwellings.",
           "dominantFreqRange": "261 Hz - 1046 Hz (C4 - C6)",
           "intensity": 0.8181980515339464
         },
@@ -226,7 +226,7 @@ window.EARTH_DATASETS = {
           "month": "September",
           "value": "NDVI Peak: 0.62",
           "metricName": "Global Vegetation & Canopy Index",
-          "audioNarrative": "September. The global biosphere breathes. Boreal greening index reaches 0.62.",
+          "audioNarrative": "This seasonal planetary visualization captures Earth's vegetative biosphere pulse, tracking photosynthetically active biomass across land and oceans. The metric measures Normalized Difference Vegetation Index (NDVI) and ocean chlorophyll density spanning from 0.0 (Barren) to 1.0 (Dense Climax Canopy). The colorbar explains biological productivity: pale beige and sand tan indicate barren deserts, rocky plateaus, and snow-covered winter landscapes with dormant plant life (NDVI under 0.15); light olive and yellow-green represent savannas, grasslands, and emerging springtime foliage (NDVI 0.2 to 0.5); deep emerald and dark forest green denote dense chlorophyll-rich canopies (NDVI 0.6 to 0.9) in the Amazon, Congo, and boreal taiga; while turquoise to neon blue oceanic ribbons reveal massive seasonal phytoplankton blooms along coastal nutrient upwellings.",
           "dominantFreqRange": "261 Hz - 1046 Hz (C4 - C6)",
           "intensity": 0.5
         },
@@ -237,7 +237,7 @@ window.EARTH_DATASETS = {
           "month": "November",
           "value": "NDVI Peak: 0.48",
           "metricName": "Global Vegetation & Canopy Index",
-          "audioNarrative": "November. The global biosphere breathes. Boreal greening index reaches 0.48.",
+          "audioNarrative": "This seasonal planetary visualization captures Earth's vegetative biosphere pulse, tracking photosynthetically active biomass across land and oceans. The metric measures Normalized Difference Vegetation Index (NDVI) and ocean chlorophyll density spanning from 0.0 (Barren) to 1.0 (Dense Climax Canopy). The colorbar explains biological productivity: pale beige and sand tan indicate barren deserts, rocky plateaus, and snow-covered winter landscapes with dormant plant life (NDVI under 0.15); light olive and yellow-green represent savannas, grasslands, and emerging springtime foliage (NDVI 0.2 to 0.5); deep emerald and dark forest green denote dense chlorophyll-rich canopies (NDVI 0.6 to 0.9) in the Amazon, Congo, and boreal taiga; while turquoise to neon blue oceanic ribbons reveal massive seasonal phytoplankton blooms along coastal nutrient upwellings.",
           "dominantFreqRange": "261 Hz - 1046 Hz (C4 - C6)",
           "intensity": 0.18180194846605363
         }
@@ -250,7 +250,7 @@ window.EARTH_DATASETS = {
       "nasaResourceUrl": "https://svs.gsfc.nasa.gov/5196/",
       "nasaSvsId": "SVS-5196",
       "category": "Atmospheric Chemistry",
-      "description": "Visualizes atmospheric CO2 column density as transported by planetary winds and jet streams, matching NASA SVS 5196 (DYAMOND CO2). Dense plumes open twin resonant bandpass filters.",
+      "description": "This high-resolution atmospheric model visualization illustrates the hemispheric transport and swirling plumes of atmospheric carbon dioxide. The metric measures column CO2 concentration spanning from baseline oceanic air at 400 parts per million up to emission-heavy plumes exceeding 435 parts per million. The colorbar maps carbon concentration: deep blue and purple hues denote clean Southern Hemisphere background air (400 to 408 ppm); cyan and light green represent ambient Northern Hemisphere levels (410 to 418 ppm); bright yellow and orange plumes track seasonal terrestrial respiration and wildfire smoke; while intense red and dark crimson filaments expose dense, concentrated CO2 plumes (exceeding 425 to 435+ ppm) billowing from heavily industrialized manufacturing hubs, thermal power corridors, and intense biomass burns.",
       "sonificationProfile": {
         "scale": "Aeolian & Ambient Minor (F, G, Ab, Bb, C, Db, Eb)",
         "baseFrequency": "87.31 Hz (F2)",
@@ -291,7 +291,7 @@ window.EARTH_DATASETS = {
           "label": "Winter Emission Peak",
           "value": "412.0 ppm",
           "metricName": "Atmospheric CO2 Concentration",
-          "audioNarrative": "Winter Emission Peak. Column CO2 concentration averages 412.0 parts per million, with pronounced atmospheric jet-stream plumes.",
+          "audioNarrative": "This high-resolution atmospheric model visualization illustrates the hemispheric transport and swirling plumes of atmospheric carbon dioxide. The metric measures column CO2 concentration spanning from baseline oceanic air at 400 parts per million up to emission-heavy plumes exceeding 435 parts per million. The colorbar maps carbon concentration: deep blue and purple hues denote clean Southern Hemisphere background air (400 to 408 ppm); cyan and light green represent ambient Northern Hemisphere levels (410 to 418 ppm); bright yellow and orange plumes track seasonal terrestrial respiration and wildfire smoke; while intense red and dark crimson filaments expose dense, concentrated CO2 plumes (exceeding 425 to 435+ ppm) billowing from heavily industrialized manufacturing hubs, thermal power corridors, and intense biomass burns.",
           "dominantFreqRange": "65 Hz - 350 Hz",
           "intensity": 0.4
         },
@@ -301,7 +301,7 @@ window.EARTH_DATASETS = {
           "label": "Spring Drawdown",
           "value": "415.9 ppm",
           "metricName": "Atmospheric CO2 Concentration",
-          "audioNarrative": "Spring Drawdown. Column CO2 concentration averages 415.9 parts per million, with pronounced atmospheric jet-stream plumes.",
+          "audioNarrative": "This high-resolution atmospheric model visualization illustrates the hemispheric transport and swirling plumes of atmospheric carbon dioxide. The metric measures column CO2 concentration spanning from baseline oceanic air at 400 parts per million up to emission-heavy plumes exceeding 435 parts per million. The colorbar maps carbon concentration: deep blue and purple hues denote clean Southern Hemisphere background air (400 to 408 ppm); cyan and light green represent ambient Northern Hemisphere levels (410 to 418 ppm); bright yellow and orange plumes track seasonal terrestrial respiration and wildfire smoke; while intense red and dark crimson filaments expose dense, concentrated CO2 plumes (exceeding 425 to 435+ ppm) billowing from heavily industrialized manufacturing hubs, thermal power corridors, and intense biomass burns.",
           "dominantFreqRange": "65 Hz - 350 Hz",
           "intensity": 0.5301225820673248
         },
@@ -311,7 +311,7 @@ window.EARTH_DATASETS = {
           "label": "Summer Photosynthesis Sink",
           "value": "417.9 ppm",
           "metricName": "Atmospheric CO2 Concentration",
-          "audioNarrative": "Summer Photosynthesis Sink. Column CO2 concentration averages 417.9 parts per million, with pronounced atmospheric jet-stream plumes.",
+          "audioNarrative": "This high-resolution atmospheric model visualization illustrates the hemispheric transport and swirling plumes of atmospheric carbon dioxide. The metric measures column CO2 concentration spanning from baseline oceanic air at 400 parts per million up to emission-heavy plumes exceeding 435 parts per million. The colorbar maps carbon concentration: deep blue and purple hues denote clean Southern Hemisphere background air (400 to 408 ppm); cyan and light green represent ambient Northern Hemisphere levels (410 to 418 ppm); bright yellow and orange plumes track seasonal terrestrial respiration and wildfire smoke; while intense red and dark crimson filaments expose dense, concentrated CO2 plumes (exceeding 425 to 435+ ppm) billowing from heavily industrialized manufacturing hubs, thermal power corridors, and intense biomass burns.",
           "dominantFreqRange": "65 Hz - 350 Hz",
           "intensity": 0.5957747855688069
         },
@@ -321,7 +321,7 @@ window.EARTH_DATASETS = {
           "label": "Autumn Respiration",
           "value": "417.8 ppm",
           "metricName": "Atmospheric CO2 Concentration",
-          "audioNarrative": "Autumn Respiration. Column CO2 concentration averages 417.8 parts per million, with pronounced atmospheric jet-stream plumes.",
+          "audioNarrative": "This high-resolution atmospheric model visualization illustrates the hemispheric transport and swirling plumes of atmospheric carbon dioxide. The metric measures column CO2 concentration spanning from baseline oceanic air at 400 parts per million up to emission-heavy plumes exceeding 435 parts per million. The colorbar maps carbon concentration: deep blue and purple hues denote clean Southern Hemisphere background air (400 to 408 ppm); cyan and light green represent ambient Northern Hemisphere levels (410 to 418 ppm); bright yellow and orange plumes track seasonal terrestrial respiration and wildfire smoke; while intense red and dark crimson filaments expose dense, concentrated CO2 plumes (exceeding 425 to 435+ ppm) billowing from heavily industrialized manufacturing hubs, thermal power corridors, and intense biomass burns.",
           "dominantFreqRange": "65 Hz - 350 Hz",
           "intensity": 0.5917600006716555
         },
@@ -331,7 +331,7 @@ window.EARTH_DATASETS = {
           "label": "Global Plume Dispersion",
           "value": "417.3 ppm",
           "metricName": "Atmospheric CO2 Concentration",
-          "audioNarrative": "Global Plume Dispersion. Column CO2 concentration averages 417.3 parts per million, with pronounced atmospheric jet-stream plumes.",
+          "audioNarrative": "This high-resolution atmospheric model visualization illustrates the hemispheric transport and swirling plumes of atmospheric carbon dioxide. The metric measures column CO2 concentration spanning from baseline oceanic air at 400 parts per million up to emission-heavy plumes exceeding 435 parts per million. The colorbar maps carbon concentration: deep blue and purple hues denote clean Southern Hemisphere background air (400 to 408 ppm); cyan and light green represent ambient Northern Hemisphere levels (410 to 418 ppm); bright yellow and orange plumes track seasonal terrestrial respiration and wildfire smoke; while intense red and dark crimson filaments expose dense, concentrated CO2 plumes (exceeding 425 to 435+ ppm) billowing from heavily industrialized manufacturing hubs, thermal power corridors, and intense biomass burns.",
           "dominantFreqRange": "65 Hz - 350 Hz",
           "intensity": 0.5769331253910063
         },
@@ -341,7 +341,7 @@ window.EARTH_DATASETS = {
           "label": "Megacity Corridors",
           "value": "418.6 ppm",
           "metricName": "Atmospheric CO2 Concentration",
-          "audioNarrative": "Megacity Corridors. Column CO2 concentration averages 418.6 parts per million, with pronounced atmospheric jet-stream plumes.",
+          "audioNarrative": "This high-resolution atmospheric model visualization illustrates the hemispheric transport and swirling plumes of atmospheric carbon dioxide. The metric measures column CO2 concentration spanning from baseline oceanic air at 400 parts per million up to emission-heavy plumes exceeding 435 parts per million. The colorbar maps carbon concentration: deep blue and purple hues denote clean Southern Hemisphere background air (400 to 408 ppm); cyan and light green represent ambient Northern Hemisphere levels (410 to 418 ppm); bright yellow and orange plumes track seasonal terrestrial respiration and wildfire smoke; while intense red and dark crimson filaments expose dense, concentrated CO2 plumes (exceeding 425 to 435+ ppm) billowing from heavily industrialized manufacturing hubs, thermal power corridors, and intense biomass burns.",
           "dominantFreqRange": "65 Hz - 350 Hz",
           "intensity": 0.6200896437780709
         },
@@ -351,7 +351,7 @@ window.EARTH_DATASETS = {
           "label": "Tropical Biomass Flux",
           "value": "422.1 ppm",
           "metricName": "Atmospheric CO2 Concentration",
-          "audioNarrative": "Tropical Biomass Flux. Column CO2 concentration averages 422.1 parts per million, with pronounced atmospheric jet-stream plumes.",
+          "audioNarrative": "This high-resolution atmospheric model visualization illustrates the hemispheric transport and swirling plumes of atmospheric carbon dioxide. The metric measures column CO2 concentration spanning from baseline oceanic air at 400 parts per million up to emission-heavy plumes exceeding 435 parts per million. The colorbar maps carbon concentration: deep blue and purple hues denote clean Southern Hemisphere background air (400 to 408 ppm); cyan and light green represent ambient Northern Hemisphere levels (410 to 418 ppm); bright yellow and orange plumes track seasonal terrestrial respiration and wildfire smoke; while intense red and dark crimson filaments expose dense, concentrated CO2 plumes (exceeding 425 to 435+ ppm) billowing from heavily industrialized manufacturing hubs, thermal power corridors, and intense biomass burns.",
           "dominantFreqRange": "65 Hz - 350 Hz",
           "intensity": 0.7367153751500893
         },
@@ -361,7 +361,7 @@ window.EARTH_DATASETS = {
           "label": "Annual Accumulation Peak",
           "value": "426.2 ppm",
           "metricName": "Atmospheric CO2 Concentration",
-          "audioNarrative": "Annual Accumulation Peak. Column CO2 concentration averages 426.2 parts per million, with pronounced atmospheric jet-stream plumes.",
+          "audioNarrative": "This high-resolution atmospheric model visualization illustrates the hemispheric transport and swirling plumes of atmospheric carbon dioxide. The metric measures column CO2 concentration spanning from baseline oceanic air at 400 parts per million up to emission-heavy plumes exceeding 435 parts per million. The colorbar maps carbon concentration: deep blue and purple hues denote clean Southern Hemisphere background air (400 to 408 ppm); cyan and light green represent ambient Northern Hemisphere levels (410 to 418 ppm); bright yellow and orange plumes track seasonal terrestrial respiration and wildfire smoke; while intense red and dark crimson filaments expose dense, concentrated CO2 plumes (exceeding 425 to 435+ ppm) billowing from heavily industrialized manufacturing hubs, thermal power corridors, and intense biomass burns.",
           "dominantFreqRange": "65 Hz - 350 Hz",
           "intensity": 0.8747488832265674
         }
@@ -374,7 +374,7 @@ window.EARTH_DATASETS = {
       "nasaResourceUrl": "https://svs.gsfc.nasa.gov/5425/",
       "nasaSvsId": "SVS-5425",
       "category": "Oceanography & Fluid Dynamics",
-      "description": "Visualizes oceanic gyres, western boundary currents, and thermal circulation based directly on NASA Perpetual Ocean 2 (SVS 5425) and SVS 3912. Fluid delay lines mirror current velocities.",
+      "description": "This physical oceanography visualization maps kinetic surface current velocities across the global ocean conveyor system. The metric measures current velocity ranging from 0.0 m/s in calm oceanic gyres up to rapid boundary jets exceeding 2.5 m/s (nearly 5 knots). The colorbar visualizes fluid speed: dark midnight blue and black represent tranquil, slow-moving deep-sea waters (0.0 to 0.2 m/s); sky blue and cyan swirls trace meandering intermediate ocean currents and mesoscale vortex rings (0.3 to 0.8 m/s); bright yellow indicates accelerating boundary streams (1.0 to 1.5 m/s); and brilliant electric white streaks illuminate high-velocity ocean superhighways\u2014including the Gulf Stream, Kuroshio Current, and Agulhas Retroflection\u2014driving intense thermohaline heat transfer at velocities exceeding 2.0 to 2.5+ m/s.",
       "sonificationProfile": {
         "scale": "Ocean Hexatonic (D, E, F#, A, B, C#)",
         "baseFrequency": "73.42 Hz (D2)",
@@ -415,7 +415,7 @@ window.EARTH_DATASETS = {
           "label": "Gulf Stream Eddy Pulse",
           "value": "1.20 m/s",
           "metricName": "Mean Current Velocity",
-          "audioNarrative": "Gulf Stream Eddy Pulse. Thermohaline circulation speed peaks at 1.20 meters per second.",
+          "audioNarrative": "This physical oceanography visualization maps kinetic surface current velocities across the global ocean conveyor system. The metric measures current velocity ranging from 0.0 m/s in calm oceanic gyres up to rapid boundary jets exceeding 2.5 m/s (nearly 5 knots). The colorbar visualizes fluid speed: dark midnight blue and black represent tranquil, slow-moving deep-sea waters (0.0 to 0.2 m/s); sky blue and cyan swirls trace meandering intermediate ocean currents and mesoscale vortex rings (0.3 to 0.8 m/s); bright yellow indicates accelerating boundary streams (1.0 to 1.5 m/s); and brilliant electric white streaks illuminate high-velocity ocean superhighways\u2014including the Gulf Stream, Kuroshio Current, and Agulhas Retroflection\u2014driving intense thermohaline heat transfer at velocities exceeding 2.0 to 2.5+ m/s.",
           "dominantFreqRange": "73 Hz - 587 Hz (D2 - D5)",
           "intensity": 0.6
         },
@@ -425,7 +425,7 @@ window.EARTH_DATASETS = {
           "label": "North Atlantic Deep Water",
           "value": "1.46 m/s",
           "metricName": "Mean Current Velocity",
-          "audioNarrative": "North Atlantic Deep Water. Thermohaline circulation speed peaks at 1.46 meters per second.",
+          "audioNarrative": "This physical oceanography visualization maps kinetic surface current velocities across the global ocean conveyor system. The metric measures current velocity ranging from 0.0 m/s in calm oceanic gyres up to rapid boundary jets exceeding 2.5 m/s (nearly 5 knots). The colorbar visualizes fluid speed: dark midnight blue and black represent tranquil, slow-moving deep-sea waters (0.0 to 0.2 m/s); sky blue and cyan swirls trace meandering intermediate ocean currents and mesoscale vortex rings (0.3 to 0.8 m/s); bright yellow indicates accelerating boundary streams (1.0 to 1.5 m/s); and brilliant electric white streaks illuminate high-velocity ocean superhighways\u2014including the Gulf Stream, Kuroshio Current, and Agulhas Retroflection\u2014driving intense thermohaline heat transfer at velocities exceeding 2.0 to 2.5+ m/s.",
           "dominantFreqRange": "73 Hz - 587 Hz (D2 - D5)",
           "intensity": 0.7288435374475382
         },
@@ -435,7 +435,7 @@ window.EARTH_DATASETS = {
           "label": "Kuroshio Current Surge",
           "value": "1.59 m/s",
           "metricName": "Mean Current Velocity",
-          "audioNarrative": "Kuroshio Current Surge. Thermohaline circulation speed peaks at 1.59 meters per second.",
+          "audioNarrative": "This physical oceanography visualization maps kinetic surface current velocities across the global ocean conveyor system. The metric measures current velocity ranging from 0.0 m/s in calm oceanic gyres up to rapid boundary jets exceeding 2.5 m/s (nearly 5 knots). The colorbar visualizes fluid speed: dark midnight blue and black represent tranquil, slow-moving deep-sea waters (0.0 to 0.2 m/s); sky blue and cyan swirls trace meandering intermediate ocean currents and mesoscale vortex rings (0.3 to 0.8 m/s); bright yellow indicates accelerating boundary streams (1.0 to 1.5 m/s); and brilliant electric white streaks illuminate high-velocity ocean superhighways\u2014including the Gulf Stream, Kuroshio Current, and Agulhas Retroflection\u2014driving intense thermohaline heat transfer at velocities exceeding 2.0 to 2.5+ m/s.",
           "dominantFreqRange": "73 Hz - 587 Hz (D2 - D5)",
           "intensity": 0.797089945997692
         },
@@ -445,7 +445,7 @@ window.EARTH_DATASETS = {
           "label": "Antarctic Circumpolar Drift",
           "value": "1.55 m/s",
           "metricName": "Mean Current Velocity",
-          "audioNarrative": "Antarctic Circumpolar Drift. Thermohaline circulation speed peaks at 1.55 meters per second.",
+          "audioNarrative": "This physical oceanography visualization maps kinetic surface current velocities across the global ocean conveyor system. The metric measures current velocity ranging from 0.0 m/s in calm oceanic gyres up to rapid boundary jets exceeding 2.5 m/s (nearly 5 knots). The colorbar visualizes fluid speed: dark midnight blue and black represent tranquil, slow-moving deep-sea waters (0.0 to 0.2 m/s); sky blue and cyan swirls trace meandering intermediate ocean currents and mesoscale vortex rings (0.3 to 0.8 m/s); bright yellow indicates accelerating boundary streams (1.0 to 1.5 m/s); and brilliant electric white streaks illuminate high-velocity ocean superhighways\u2014including the Gulf Stream, Kuroshio Current, and Agulhas Retroflection\u2014driving intense thermohaline heat transfer at velocities exceeding 2.0 to 2.5+ m/s.",
           "dominantFreqRange": "73 Hz - 587 Hz (D2 - D5)",
           "intensity": 0.7726418733297747
         },
@@ -455,7 +455,7 @@ window.EARTH_DATASETS = {
           "label": "Agulhas Retroflection",
           "value": "1.33 m/s",
           "metricName": "Mean Current Velocity",
-          "audioNarrative": "Agulhas Retroflection. Thermohaline circulation speed peaks at 1.33 meters per second.",
+          "audioNarrative": "This physical oceanography visualization maps kinetic surface current velocities across the global ocean conveyor system. The metric measures current velocity ranging from 0.0 m/s in calm oceanic gyres up to rapid boundary jets exceeding 2.5 m/s (nearly 5 knots). The colorbar visualizes fluid speed: dark midnight blue and black represent tranquil, slow-moving deep-sea waters (0.0 to 0.2 m/s); sky blue and cyan swirls trace meandering intermediate ocean currents and mesoscale vortex rings (0.3 to 0.8 m/s); bright yellow indicates accelerating boundary streams (1.0 to 1.5 m/s); and brilliant electric white streaks illuminate high-velocity ocean superhighways\u2014including the Gulf Stream, Kuroshio Current, and Agulhas Retroflection\u2014driving intense thermohaline heat transfer at velocities exceeding 2.0 to 2.5+ m/s.",
           "dominantFreqRange": "73 Hz - 587 Hz (D2 - D5)",
           "intensity": 0.666997630031181
         },
@@ -465,7 +465,7 @@ window.EARTH_DATASETS = {
           "label": "Equatorial Upwelling",
           "value": "1.06 m/s",
           "metricName": "Mean Current Velocity",
-          "audioNarrative": "Equatorial Upwelling. Thermohaline circulation speed peaks at 1.06 meters per second.",
+          "audioNarrative": "This physical oceanography visualization maps kinetic surface current velocities across the global ocean conveyor system. The metric measures current velocity ranging from 0.0 m/s in calm oceanic gyres up to rapid boundary jets exceeding 2.5 m/s (nearly 5 knots). The colorbar visualizes fluid speed: dark midnight blue and black represent tranquil, slow-moving deep-sea waters (0.0 to 0.2 m/s); sky blue and cyan swirls trace meandering intermediate ocean currents and mesoscale vortex rings (0.3 to 0.8 m/s); bright yellow indicates accelerating boundary streams (1.0 to 1.5 m/s); and brilliant electric white streaks illuminate high-velocity ocean superhighways\u2014including the Gulf Stream, Kuroshio Current, and Agulhas Retroflection\u2014driving intense thermohaline heat transfer at velocities exceeding 2.0 to 2.5+ m/s.",
           "dominantFreqRange": "73 Hz - 587 Hz (D2 - D5)",
           "intensity": 0.529843354462076
         },
@@ -475,7 +475,7 @@ window.EARTH_DATASETS = {
           "label": "Pacific Gyre Circulation",
           "value": "0.85 m/s",
           "metricName": "Mean Current Velocity",
-          "audioNarrative": "Pacific Gyre Circulation. Thermohaline circulation speed peaks at 0.85 meters per second.",
+          "audioNarrative": "This physical oceanography visualization maps kinetic surface current velocities across the global ocean conveyor system. The metric measures current velocity ranging from 0.0 m/s in calm oceanic gyres up to rapid boundary jets exceeding 2.5 m/s (nearly 5 knots). The colorbar visualizes fluid speed: dark midnight blue and black represent tranquil, slow-moving deep-sea waters (0.0 to 0.2 m/s); sky blue and cyan swirls trace meandering intermediate ocean currents and mesoscale vortex rings (0.3 to 0.8 m/s); bright yellow indicates accelerating boundary streams (1.0 to 1.5 m/s); and brilliant electric white streaks illuminate high-velocity ocean superhighways\u2014including the Gulf Stream, Kuroshio Current, and Agulhas Retroflection\u2014driving intense thermohaline heat transfer at velocities exceeding 2.0 to 2.5+ m/s.",
           "dominantFreqRange": "73 Hz - 587 Hz (D2 - D5)",
           "intensity": 0.4256848455172824
         },
@@ -485,7 +485,7 @@ window.EARTH_DATASETS = {
           "label": "Thermohaline Conveyor Cycle",
           "value": "0.81 m/s",
           "metricName": "Mean Current Velocity",
-          "audioNarrative": "Thermohaline Conveyor Cycle. Thermohaline circulation speed peaks at 0.81 meters per second.",
+          "audioNarrative": "This physical oceanography visualization maps kinetic surface current velocities across the global ocean conveyor system. The metric measures current velocity ranging from 0.0 m/s in calm oceanic gyres up to rapid boundary jets exceeding 2.5 m/s (nearly 5 knots). The colorbar visualizes fluid speed: dark midnight blue and black represent tranquil, slow-moving deep-sea waters (0.0 to 0.2 m/s); sky blue and cyan swirls trace meandering intermediate ocean currents and mesoscale vortex rings (0.3 to 0.8 m/s); bright yellow indicates accelerating boundary streams (1.0 to 1.5 m/s); and brilliant electric white streaks illuminate high-velocity ocean superhighways\u2014including the Gulf Stream, Kuroshio Current, and Agulhas Retroflection\u2014driving intense thermohaline heat transfer at velocities exceeding 2.0 to 2.5+ m/s.",
           "dominantFreqRange": "73 Hz - 587 Hz (D2 - D5)",
           "intensity": 0.40350947747513344
         }
@@ -498,7 +498,7 @@ window.EARTH_DATASETS = {
       "nasaResourceUrl": "https://svs.gsfc.nasa.gov/gallery/earth-information-center/",
       "nasaSvsId": "EIC-CRYOSPHERE",
       "category": "Cryosphere & Polar Science",
-      "description": "Visualizes the dramatic reduction of Arctic summer sea ice pack from 1979 to 2024. Multi-year thick ice triggers FM crystalline bells that thin out over time.",
+      "description": "This polar observation dataset chronicles the multi-decadal contraction of the Arctic summer sea ice minimum extent. The metric spans from the historic 1979 baseline of 7.8 million square kilometers down to modern record minimums under 3.4 million square kilometers. The visual palette explains ice age, thickness, and ocean exposure: bright solid white shields depict thick, multi-year perennial pack ice exceeding 3 meters in thickness that survives summer melt cycles; translucent light cyan and pale sky blue fringes mark thin, first-year marginal drift ice vulnerable to rapid thaw; while the encroaching dark navy ocean highlights ice-free Arctic waters that absorb solar heat and accelerate polar amplification.",
       "sonificationProfile": {
         "scale": "Insen & Winter Pentatonic (E, F, A, B, D)",
         "baseFrequency": "164.81 Hz (E3)",
@@ -540,7 +540,7 @@ window.EARTH_DATASETS = {
           "year": 1979,
           "value": "7.8 M km\u00b2",
           "metricName": "September Minimum Sea Ice Extent",
-          "audioNarrative": "September 1979. Arctic minimum sea ice extent is 7.8 million square kilometers. Crystalline harmonic bells recede as coverage declines.",
+          "audioNarrative": "This polar observation dataset chronicles the multi-decadal contraction of the Arctic summer sea ice minimum extent. The metric spans from the historic 1979 baseline of 7.8 million square kilometers down to modern record minimums under 3.4 million square kilometers. The visual palette explains ice age, thickness, and ocean exposure: bright solid white shields depict thick, multi-year perennial pack ice exceeding 3 meters in thickness that survives summer melt cycles; translucent light cyan and pale sky blue fringes mark thin, first-year marginal drift ice vulnerable to rapid thaw; while the encroaching dark navy ocean highlights ice-free Arctic waters that absorb solar heat and accelerate polar amplification.",
           "dominantFreqRange": "330 Hz - 2637 Hz (E4 - E7)",
           "intensity": 0.040000000000000036
         },
@@ -551,7 +551,7 @@ window.EARTH_DATASETS = {
           "year": 1985,
           "value": "6.9 M km\u00b2",
           "metricName": "September Minimum Sea Ice Extent",
-          "audioNarrative": "September 1985. Arctic minimum sea ice extent is 6.9 million square kilometers. Crystalline harmonic bells recede as coverage declines.",
+          "audioNarrative": "This polar observation dataset chronicles the multi-decadal contraction of the Arctic summer sea ice minimum extent. The metric spans from the historic 1979 baseline of 7.8 million square kilometers down to modern record minimums under 3.4 million square kilometers. The visual palette explains ice age, thickness, and ocean exposure: bright solid white shields depict thick, multi-year perennial pack ice exceeding 3 meters in thickness that survives summer melt cycles; translucent light cyan and pale sky blue fringes mark thin, first-year marginal drift ice vulnerable to rapid thaw; while the encroaching dark navy ocean highlights ice-free Arctic waters that absorb solar heat and accelerate polar amplification.",
           "dominantFreqRange": "330 Hz - 2637 Hz (E4 - E7)",
           "intensity": 0.21999999999999992
         },
@@ -562,7 +562,7 @@ window.EARTH_DATASETS = {
           "year": 1996,
           "value": "7.2 M km\u00b2",
           "metricName": "September Minimum Sea Ice Extent",
-          "audioNarrative": "September 1996. Arctic minimum sea ice extent is 7.2 million square kilometers. Crystalline harmonic bells recede as coverage declines.",
+          "audioNarrative": "This polar observation dataset chronicles the multi-decadal contraction of the Arctic summer sea ice minimum extent. The metric spans from the historic 1979 baseline of 7.8 million square kilometers down to modern record minimums under 3.4 million square kilometers. The visual palette explains ice age, thickness, and ocean exposure: bright solid white shields depict thick, multi-year perennial pack ice exceeding 3 meters in thickness that survives summer melt cycles; translucent light cyan and pale sky blue fringes mark thin, first-year marginal drift ice vulnerable to rapid thaw; while the encroaching dark navy ocean highlights ice-free Arctic waters that absorb solar heat and accelerate polar amplification.",
           "dominantFreqRange": "330 Hz - 2637 Hz (E4 - E7)",
           "intensity": 0.15999999999999998
         },
@@ -573,7 +573,7 @@ window.EARTH_DATASETS = {
           "year": 2005,
           "value": "5.3 M km\u00b2",
           "metricName": "September Minimum Sea Ice Extent",
-          "audioNarrative": "September 2005. Arctic minimum sea ice extent is 5.3 million square kilometers. Crystalline harmonic bells recede as coverage declines.",
+          "audioNarrative": "This polar observation dataset chronicles the multi-decadal contraction of the Arctic summer sea ice minimum extent. The metric spans from the historic 1979 baseline of 7.8 million square kilometers down to modern record minimums under 3.4 million square kilometers. The visual palette explains ice age, thickness, and ocean exposure: bright solid white shields depict thick, multi-year perennial pack ice exceeding 3 meters in thickness that survives summer melt cycles; translucent light cyan and pale sky blue fringes mark thin, first-year marginal drift ice vulnerable to rapid thaw; while the encroaching dark navy ocean highlights ice-free Arctic waters that absorb solar heat and accelerate polar amplification.",
           "dominantFreqRange": "330 Hz - 2637 Hz (E4 - E7)",
           "intensity": 0.54
         },
@@ -584,7 +584,7 @@ window.EARTH_DATASETS = {
           "year": 2012,
           "value": "3.4 M km\u00b2",
           "metricName": "September Minimum Sea Ice Extent",
-          "audioNarrative": "September 2012. Arctic minimum sea ice extent is 3.4 million square kilometers. Crystalline harmonic bells recede as coverage declines.",
+          "audioNarrative": "This polar observation dataset chronicles the multi-decadal contraction of the Arctic summer sea ice minimum extent. The metric spans from the historic 1979 baseline of 7.8 million square kilometers down to modern record minimums under 3.4 million square kilometers. The visual palette explains ice age, thickness, and ocean exposure: bright solid white shields depict thick, multi-year perennial pack ice exceeding 3 meters in thickness that survives summer melt cycles; translucent light cyan and pale sky blue fringes mark thin, first-year marginal drift ice vulnerable to rapid thaw; while the encroaching dark navy ocean highlights ice-free Arctic waters that absorb solar heat and accelerate polar amplification.",
           "dominantFreqRange": "330 Hz - 2637 Hz (E4 - E7)",
           "intensity": 0.9199999999999999
         },
@@ -595,7 +595,7 @@ window.EARTH_DATASETS = {
           "year": 2016,
           "value": "4.1 M km\u00b2",
           "metricName": "September Minimum Sea Ice Extent",
-          "audioNarrative": "September 2016. Arctic minimum sea ice extent is 4.1 million square kilometers. Crystalline harmonic bells recede as coverage declines.",
+          "audioNarrative": "This polar observation dataset chronicles the multi-decadal contraction of the Arctic summer sea ice minimum extent. The metric spans from the historic 1979 baseline of 7.8 million square kilometers down to modern record minimums under 3.4 million square kilometers. The visual palette explains ice age, thickness, and ocean exposure: bright solid white shields depict thick, multi-year perennial pack ice exceeding 3 meters in thickness that survives summer melt cycles; translucent light cyan and pale sky blue fringes mark thin, first-year marginal drift ice vulnerable to rapid thaw; while the encroaching dark navy ocean highlights ice-free Arctic waters that absorb solar heat and accelerate polar amplification.",
           "dominantFreqRange": "330 Hz - 2637 Hz (E4 - E7)",
           "intensity": 0.78
         },
@@ -606,7 +606,7 @@ window.EARTH_DATASETS = {
           "year": 2020,
           "value": "3.7 M km\u00b2",
           "metricName": "September Minimum Sea Ice Extent",
-          "audioNarrative": "September 2020. Arctic minimum sea ice extent is 3.7 million square kilometers. Crystalline harmonic bells recede as coverage declines.",
+          "audioNarrative": "This polar observation dataset chronicles the multi-decadal contraction of the Arctic summer sea ice minimum extent. The metric spans from the historic 1979 baseline of 7.8 million square kilometers down to modern record minimums under 3.4 million square kilometers. The visual palette explains ice age, thickness, and ocean exposure: bright solid white shields depict thick, multi-year perennial pack ice exceeding 3 meters in thickness that survives summer melt cycles; translucent light cyan and pale sky blue fringes mark thin, first-year marginal drift ice vulnerable to rapid thaw; while the encroaching dark navy ocean highlights ice-free Arctic waters that absorb solar heat and accelerate polar amplification.",
           "dominantFreqRange": "330 Hz - 2637 Hz (E4 - E7)",
           "intensity": 0.86
         },
@@ -617,7 +617,7 @@ window.EARTH_DATASETS = {
           "year": 2024,
           "value": "4.2 M km\u00b2",
           "metricName": "September Minimum Sea Ice Extent",
-          "audioNarrative": "September 2024. Arctic minimum sea ice extent is 4.2 million square kilometers. Crystalline harmonic bells recede as coverage declines.",
+          "audioNarrative": "This polar observation dataset chronicles the multi-decadal contraction of the Arctic summer sea ice minimum extent. The metric spans from the historic 1979 baseline of 7.8 million square kilometers down to modern record minimums under 3.4 million square kilometers. The visual palette explains ice age, thickness, and ocean exposure: bright solid white shields depict thick, multi-year perennial pack ice exceeding 3 meters in thickness that survives summer melt cycles; translucent light cyan and pale sky blue fringes mark thin, first-year marginal drift ice vulnerable to rapid thaw; while the encroaching dark navy ocean highlights ice-free Arctic waters that absorb solar heat and accelerate polar amplification.",
           "dominantFreqRange": "330 Hz - 2637 Hz (E4 - E7)",
           "intensity": 0.76
         }
@@ -630,7 +630,7 @@ window.EARTH_DATASETS = {
       "nasaResourceUrl": "https://svs.gsfc.nasa.gov/5669/",
       "nasaSvsId": "SVS-5669",
       "category": "Atmosphere & Hazards",
-      "description": "Visualizes smoke, dust, and aerosol particles based on NASA GEOS Aerosols (SVS 5669) and FIRMS. Active thermal hotspots trigger crisp granular percussive sparks.",
+      "description": "This global environmental monitoring visualization tracks active biomass fires and airborne aerosol smoke plumes. The metric captures thermal anomaly radiant fire detections alongside Aerosol Optical Depth (AOD) ranging from 0.0 (Pristine Atmosphere) to 5.0+ (Hazardous Choking Wildfire Smoke). The color palette highlights fire dynamics: bright red and fiery orange hotspots pinpoint satellite infrared thermal detections of active wildfire fronts and crop burning; translucent gray, amber, and golden haze layers trace expansive smoke plumes laden with carbon monoxide and fine particulate matter (PM2.5) drifting thousands of kilometers downwind; while dark blue and clear background areas indicate clean, unaffected tropospheric air.",
       "sonificationProfile": {
         "scale": "Phrygian Dominant (E, F, G#, A, B, C, D)",
         "baseFrequency": "82.41 Hz (E2)",
@@ -671,7 +671,7 @@ window.EARTH_DATASETS = {
           "label": "Boreal Fire Season Peak",
           "value": "14,256 Active Thermal Detections",
           "metricName": "Global Thermal Hotspots",
-          "audioNarrative": "Boreal Fire Season Peak. Satellite sensors detect 14,256 thermal fire hotspots with widespread particulate aerosol plumes.",
+          "audioNarrative": "This global environmental monitoring visualization tracks active biomass fires and airborne aerosol smoke plumes. The metric captures thermal anomaly radiant fire detections alongside Aerosol Optical Depth (AOD) ranging from 0.0 (Pristine Atmosphere) to 5.0+ (Hazardous Choking Wildfire Smoke). The color palette highlights fire dynamics: bright red and fiery orange hotspots pinpoint satellite infrared thermal detections of active wildfire fronts and crop burning; translucent gray, amber, and golden haze layers trace expansive smoke plumes laden with carbon monoxide and fine particulate matter (PM2.5) drifting thousands of kilometers downwind; while dark blue and clear background areas indicate clean, unaffected tropospheric air.",
           "dominantFreqRange": "82 Hz - 1800 Hz",
           "intensity": 0.3564
         },
@@ -681,7 +681,7 @@ window.EARTH_DATASETS = {
           "label": "Amazon Biomass Burning",
           "value": "17,433 Active Thermal Detections",
           "metricName": "Global Thermal Hotspots",
-          "audioNarrative": "Amazon Biomass Burning. Satellite sensors detect 17,433 thermal fire hotspots with widespread particulate aerosol plumes.",
+          "audioNarrative": "This global environmental monitoring visualization tracks active biomass fires and airborne aerosol smoke plumes. The metric captures thermal anomaly radiant fire detections alongside Aerosol Optical Depth (AOD) ranging from 0.0 (Pristine Atmosphere) to 5.0+ (Hazardous Choking Wildfire Smoke). The color palette highlights fire dynamics: bright red and fiery orange hotspots pinpoint satellite infrared thermal detections of active wildfire fronts and crop burning; translucent gray, amber, and golden haze layers trace expansive smoke plumes laden with carbon monoxide and fine particulate matter (PM2.5) drifting thousands of kilometers downwind; while dark blue and clear background areas indicate clean, unaffected tropospheric air.",
           "dominantFreqRange": "82 Hz - 1800 Hz",
           "intensity": 0.435825
         },
@@ -691,7 +691,7 @@ window.EARTH_DATASETS = {
           "label": "Australian Black Summer Pulse",
           "value": "20,737 Active Thermal Detections",
           "metricName": "Global Thermal Hotspots",
-          "audioNarrative": "Australian Black Summer Pulse. Satellite sensors detect 20,737 thermal fire hotspots with widespread particulate aerosol plumes.",
+          "audioNarrative": "This global environmental monitoring visualization tracks active biomass fires and airborne aerosol smoke plumes. The metric captures thermal anomaly radiant fire detections alongside Aerosol Optical Depth (AOD) ranging from 0.0 (Pristine Atmosphere) to 5.0+ (Hazardous Choking Wildfire Smoke). The color palette highlights fire dynamics: bright red and fiery orange hotspots pinpoint satellite infrared thermal detections of active wildfire fronts and crop burning; translucent gray, amber, and golden haze layers trace expansive smoke plumes laden with carbon monoxide and fine particulate matter (PM2.5) drifting thousands of kilometers downwind; while dark blue and clear background areas indicate clean, unaffected tropospheric air.",
           "dominantFreqRange": "82 Hz - 1800 Hz",
           "intensity": 0.518425
         },
@@ -701,7 +701,7 @@ window.EARTH_DATASETS = {
           "label": "Sub-Saharan Savanna Burns",
           "value": "24,355 Active Thermal Detections",
           "metricName": "Global Thermal Hotspots",
-          "audioNarrative": "Sub-Saharan Savanna Burns. Satellite sensors detect 24,355 thermal fire hotspots with widespread particulate aerosol plumes.",
+          "audioNarrative": "This global environmental monitoring visualization tracks active biomass fires and airborne aerosol smoke plumes. The metric captures thermal anomaly radiant fire detections alongside Aerosol Optical Depth (AOD) ranging from 0.0 (Pristine Atmosphere) to 5.0+ (Hazardous Choking Wildfire Smoke). The color palette highlights fire dynamics: bright red and fiery orange hotspots pinpoint satellite infrared thermal detections of active wildfire fronts and crop burning; translucent gray, amber, and golden haze layers trace expansive smoke plumes laden with carbon monoxide and fine particulate matter (PM2.5) drifting thousands of kilometers downwind; while dark blue and clear background areas indicate clean, unaffected tropospheric air.",
           "dominantFreqRange": "82 Hz - 1800 Hz",
           "intensity": 0.608875
         },
@@ -711,7 +711,7 @@ window.EARTH_DATASETS = {
           "label": "Western US Wildfire Surge",
           "value": "27,111 Active Thermal Detections",
           "metricName": "Global Thermal Hotspots",
-          "audioNarrative": "Western US Wildfire Surge. Satellite sensors detect 27,111 thermal fire hotspots with widespread particulate aerosol plumes.",
+          "audioNarrative": "This global environmental monitoring visualization tracks active biomass fires and airborne aerosol smoke plumes. The metric captures thermal anomaly radiant fire detections alongside Aerosol Optical Depth (AOD) ranging from 0.0 (Pristine Atmosphere) to 5.0+ (Hazardous Choking Wildfire Smoke). The color palette highlights fire dynamics: bright red and fiery orange hotspots pinpoint satellite infrared thermal detections of active wildfire fronts and crop burning; translucent gray, amber, and golden haze layers trace expansive smoke plumes laden with carbon monoxide and fine particulate matter (PM2.5) drifting thousands of kilometers downwind; while dark blue and clear background areas indicate clean, unaffected tropospheric air.",
           "dominantFreqRange": "82 Hz - 1800 Hz",
           "intensity": 0.677775
         },
@@ -721,7 +721,7 @@ window.EARTH_DATASETS = {
           "label": "Mediterranean Heat Dome Fires",
           "value": "30,155 Active Thermal Detections",
           "metricName": "Global Thermal Hotspots",
-          "audioNarrative": "Mediterranean Heat Dome Fires. Satellite sensors detect 30,155 thermal fire hotspots with widespread particulate aerosol plumes.",
+          "audioNarrative": "This global environmental monitoring visualization tracks active biomass fires and airborne aerosol smoke plumes. The metric captures thermal anomaly radiant fire detections alongside Aerosol Optical Depth (AOD) ranging from 0.0 (Pristine Atmosphere) to 5.0+ (Hazardous Choking Wildfire Smoke). The color palette highlights fire dynamics: bright red and fiery orange hotspots pinpoint satellite infrared thermal detections of active wildfire fronts and crop burning; translucent gray, amber, and golden haze layers trace expansive smoke plumes laden with carbon monoxide and fine particulate matter (PM2.5) drifting thousands of kilometers downwind; while dark blue and clear background areas indicate clean, unaffected tropospheric air.",
           "dominantFreqRange": "82 Hz - 1800 Hz",
           "intensity": 0.753875
         },
@@ -731,7 +731,7 @@ window.EARTH_DATASETS = {
           "label": "Siberian Megafires",
           "value": "33,408 Active Thermal Detections",
           "metricName": "Global Thermal Hotspots",
-          "audioNarrative": "Siberian Megafires. Satellite sensors detect 33,408 thermal fire hotspots with widespread particulate aerosol plumes.",
+          "audioNarrative": "This global environmental monitoring visualization tracks active biomass fires and airborne aerosol smoke plumes. The metric captures thermal anomaly radiant fire detections alongside Aerosol Optical Depth (AOD) ranging from 0.0 (Pristine Atmosphere) to 5.0+ (Hazardous Choking Wildfire Smoke). The color palette highlights fire dynamics: bright red and fiery orange hotspots pinpoint satellite infrared thermal detections of active wildfire fronts and crop burning; translucent gray, amber, and golden haze layers trace expansive smoke plumes laden with carbon monoxide and fine particulate matter (PM2.5) drifting thousands of kilometers downwind; while dark blue and clear background areas indicate clean, unaffected tropospheric air.",
           "dominantFreqRange": "82 Hz - 1800 Hz",
           "intensity": 0.8352
         },
@@ -741,7 +741,7 @@ window.EARTH_DATASETS = {
           "label": "Global Aerosol Smoke Transport",
           "value": "36,619 Active Thermal Detections",
           "metricName": "Global Thermal Hotspots",
-          "audioNarrative": "Global Aerosol Smoke Transport. Satellite sensors detect 36,619 thermal fire hotspots with widespread particulate aerosol plumes.",
+          "audioNarrative": "This global environmental monitoring visualization tracks active biomass fires and airborne aerosol smoke plumes. The metric captures thermal anomaly radiant fire detections alongside Aerosol Optical Depth (AOD) ranging from 0.0 (Pristine Atmosphere) to 5.0+ (Hazardous Choking Wildfire Smoke). The color palette highlights fire dynamics: bright red and fiery orange hotspots pinpoint satellite infrared thermal detections of active wildfire fronts and crop burning; translucent gray, amber, and golden haze layers trace expansive smoke plumes laden with carbon monoxide and fine particulate matter (PM2.5) drifting thousands of kilometers downwind; while dark blue and clear background areas indicate clean, unaffected tropospheric air.",
           "dominantFreqRange": "82 Hz - 1800 Hz",
           "intensity": 0.915475
         }
@@ -754,7 +754,7 @@ window.EARTH_DATASETS = {
       "nasaResourceUrl": "https://svs.gsfc.nasa.gov/5313/",
       "nasaSvsId": "SVS-5313",
       "category": "Human Dimension & Energy",
-      "description": "Directly recommended in NASA's official resources (SVS 5313). Tracks the evolution of urban illumination from 2012 to 2023. The high contrast between pitch-black terrain and brilliant city lights tests intensity-to-audio mappings.",
+      "description": "This nocturnal remote sensing visualization captures artificial nighttime light emissions, mapping human electrification, infrastructure expansion, and urban settlement. The metric measures radiance ranging from 0 nanowatts per square centimeter per steradian in wild uninhabited areas up to over 100 in intense urban metropolitan centers. The colorbar maps luminosity: total pitch black represents dark oceans, dense rainforests, and uninhabited polar tundra with zero artificial lighting; warm golden amber and soft yellow clusters mark suburban networks, agricultural communities, and illuminated transport highways; while brilliant white-hot nodes delineate densely populated megacity urban cores, commercial skylines, and industrial complexes radiating peak nocturnal light intensity.",
       "sonificationProfile": {
         "scale": "Lydian Celestial Scale (F, G, A, B, C, D, E)",
         "baseFrequency": "174.61 Hz (F3)",
@@ -796,7 +796,7 @@ window.EARTH_DATASETS = {
           "year": 2012,
           "value": "62.4 Radiance Index",
           "metricName": "Global Urban Radiance",
-          "audioNarrative": "Year 2012. Earth night lights track urban electrification and infrastructure expansion, radiating at index 62.4.",
+          "audioNarrative": "This nocturnal remote sensing visualization captures artificial nighttime light emissions, mapping human electrification, infrastructure expansion, and urban settlement. The metric measures radiance ranging from 0 nanowatts per square centimeter per steradian in wild uninhabited areas up to over 100 in intense urban metropolitan centers. The colorbar maps luminosity: total pitch black represents dark oceans, dense rainforests, and uninhabited polar tundra with zero artificial lighting; warm golden amber and soft yellow clusters mark suburban networks, agricultural communities, and illuminated transport highways; while brilliant white-hot nodes delineate densely populated megacity urban cores, commercial skylines, and industrial complexes radiating peak nocturnal light intensity.",
           "dominantFreqRange": "440 Hz - 3500 Hz (A4 - A7)",
           "intensity": 0.07999999999999995
         },
@@ -807,7 +807,7 @@ window.EARTH_DATASETS = {
           "year": 2014,
           "value": "65.1 Radiance Index",
           "metricName": "Global Urban Radiance",
-          "audioNarrative": "Year 2014. Earth night lights track urban electrification and infrastructure expansion, radiating at index 65.1.",
+          "audioNarrative": "This nocturnal remote sensing visualization captures artificial nighttime light emissions, mapping human electrification, infrastructure expansion, and urban settlement. The metric measures radiance ranging from 0 nanowatts per square centimeter per steradian in wild uninhabited areas up to over 100 in intense urban metropolitan centers. The colorbar maps luminosity: total pitch black represents dark oceans, dense rainforests, and uninhabited polar tundra with zero artificial lighting; warm golden amber and soft yellow clusters mark suburban networks, agricultural communities, and illuminated transport highways; while brilliant white-hot nodes delineate densely populated megacity urban cores, commercial skylines, and industrial complexes radiating peak nocturnal light intensity.",
           "dominantFreqRange": "440 Hz - 3500 Hz (A4 - A7)",
           "intensity": 0.16999999999999982
         },
@@ -818,7 +818,7 @@ window.EARTH_DATASETS = {
           "year": 2016,
           "value": "68.9 Radiance Index",
           "metricName": "Global Urban Radiance",
-          "audioNarrative": "Year 2016. Earth night lights track urban electrification and infrastructure expansion, radiating at index 68.9.",
+          "audioNarrative": "This nocturnal remote sensing visualization captures artificial nighttime light emissions, mapping human electrification, infrastructure expansion, and urban settlement. The metric measures radiance ranging from 0 nanowatts per square centimeter per steradian in wild uninhabited areas up to over 100 in intense urban metropolitan centers. The colorbar maps luminosity: total pitch black represents dark oceans, dense rainforests, and uninhabited polar tundra with zero artificial lighting; warm golden amber and soft yellow clusters mark suburban networks, agricultural communities, and illuminated transport highways; while brilliant white-hot nodes delineate densely populated megacity urban cores, commercial skylines, and industrial complexes radiating peak nocturnal light intensity.",
           "dominantFreqRange": "440 Hz - 3500 Hz (A4 - A7)",
           "intensity": 0.29666666666666686
         },
@@ -829,7 +829,7 @@ window.EARTH_DATASETS = {
           "year": 2018,
           "value": "73.2 Radiance Index",
           "metricName": "Global Urban Radiance",
-          "audioNarrative": "Year 2018. Earth night lights track urban electrification and infrastructure expansion, radiating at index 73.2.",
+          "audioNarrative": "This nocturnal remote sensing visualization captures artificial nighttime light emissions, mapping human electrification, infrastructure expansion, and urban settlement. The metric measures radiance ranging from 0 nanowatts per square centimeter per steradian in wild uninhabited areas up to over 100 in intense urban metropolitan centers. The colorbar maps luminosity: total pitch black represents dark oceans, dense rainforests, and uninhabited polar tundra with zero artificial lighting; warm golden amber and soft yellow clusters mark suburban networks, agricultural communities, and illuminated transport highways; while brilliant white-hot nodes delineate densely populated megacity urban cores, commercial skylines, and industrial complexes radiating peak nocturnal light intensity.",
           "dominantFreqRange": "440 Hz - 3500 Hz (A4 - A7)",
           "intensity": 0.4400000000000001
         },
@@ -840,7 +840,7 @@ window.EARTH_DATASETS = {
           "year": 2020,
           "value": "76.8 Radiance Index",
           "metricName": "Global Urban Radiance",
-          "audioNarrative": "Year 2020. Earth night lights track urban electrification and infrastructure expansion, radiating at index 76.8.",
+          "audioNarrative": "This nocturnal remote sensing visualization captures artificial nighttime light emissions, mapping human electrification, infrastructure expansion, and urban settlement. The metric measures radiance ranging from 0 nanowatts per square centimeter per steradian in wild uninhabited areas up to over 100 in intense urban metropolitan centers. The colorbar maps luminosity: total pitch black represents dark oceans, dense rainforests, and uninhabited polar tundra with zero artificial lighting; warm golden amber and soft yellow clusters mark suburban networks, agricultural communities, and illuminated transport highways; while brilliant white-hot nodes delineate densely populated megacity urban cores, commercial skylines, and industrial complexes radiating peak nocturnal light intensity.",
           "dominantFreqRange": "440 Hz - 3500 Hz (A4 - A7)",
           "intensity": 0.5599999999999999
         },
@@ -851,7 +851,7 @@ window.EARTH_DATASETS = {
           "year": 2021,
           "value": "80.4 Radiance Index",
           "metricName": "Global Urban Radiance",
-          "audioNarrative": "Year 2021. Earth night lights track urban electrification and infrastructure expansion, radiating at index 80.4.",
+          "audioNarrative": "This nocturnal remote sensing visualization captures artificial nighttime light emissions, mapping human electrification, infrastructure expansion, and urban settlement. The metric measures radiance ranging from 0 nanowatts per square centimeter per steradian in wild uninhabited areas up to over 100 in intense urban metropolitan centers. The colorbar maps luminosity: total pitch black represents dark oceans, dense rainforests, and uninhabited polar tundra with zero artificial lighting; warm golden amber and soft yellow clusters mark suburban networks, agricultural communities, and illuminated transport highways; while brilliant white-hot nodes delineate densely populated megacity urban cores, commercial skylines, and industrial complexes radiating peak nocturnal light intensity.",
           "dominantFreqRange": "440 Hz - 3500 Hz (A4 - A7)",
           "intensity": 0.6800000000000002
         },
@@ -862,7 +862,7 @@ window.EARTH_DATASETS = {
           "year": 2022,
           "value": "84.7 Radiance Index",
           "metricName": "Global Urban Radiance",
-          "audioNarrative": "Year 2022. Earth night lights track urban electrification and infrastructure expansion, radiating at index 84.7.",
+          "audioNarrative": "This nocturnal remote sensing visualization captures artificial nighttime light emissions, mapping human electrification, infrastructure expansion, and urban settlement. The metric measures radiance ranging from 0 nanowatts per square centimeter per steradian in wild uninhabited areas up to over 100 in intense urban metropolitan centers. The colorbar maps luminosity: total pitch black represents dark oceans, dense rainforests, and uninhabited polar tundra with zero artificial lighting; warm golden amber and soft yellow clusters mark suburban networks, agricultural communities, and illuminated transport highways; while brilliant white-hot nodes delineate densely populated megacity urban cores, commercial skylines, and industrial complexes radiating peak nocturnal light intensity.",
           "dominantFreqRange": "440 Hz - 3500 Hz (A4 - A7)",
           "intensity": 0.8233333333333335
         },
@@ -873,7 +873,7 @@ window.EARTH_DATASETS = {
           "year": 2023,
           "value": "88.3 Radiance Index",
           "metricName": "Global Urban Radiance",
-          "audioNarrative": "Year 2023. Earth night lights track urban electrification and infrastructure expansion, radiating at index 88.3.",
+          "audioNarrative": "This nocturnal remote sensing visualization captures artificial nighttime light emissions, mapping human electrification, infrastructure expansion, and urban settlement. The metric measures radiance ranging from 0 nanowatts per square centimeter per steradian in wild uninhabited areas up to over 100 in intense urban metropolitan centers. The colorbar maps luminosity: total pitch black represents dark oceans, dense rainforests, and uninhabited polar tundra with zero artificial lighting; warm golden amber and soft yellow clusters mark suburban networks, agricultural communities, and illuminated transport highways; while brilliant white-hot nodes delineate densely populated megacity urban cores, commercial skylines, and industrial complexes radiating peak nocturnal light intensity.",
           "dominantFreqRange": "440 Hz - 3500 Hz (A4 - A7)",
           "intensity": 0.9433333333333332
         }
@@ -886,7 +886,7 @@ window.EARTH_DATASETS = {
       "nasaResourceUrl": "https://svs.gsfc.nasa.gov/5011/",
       "nasaSvsId": "SVS-5011",
       "category": "Extreme Weather & Electrodynamics",
-      "description": "Recommended in NASA's official challenge resources (SVS 5011). Uniquely suited for punctuated sonification, where percussive elements and sharp audio triggers correspond to spaceborne flashes.",
+      "description": "This spaceborne electrodynamic visualization compiles optical lightning transient events detected by the Lightning Imaging Sensor aboard the International Space Station. The metric measures lightning flash density spanning from 1 flash per square kilometer per year in quiet regions up to over 100 flashes in hyperactive lightning chimneys. The colorbar explains electrical storm intensity: deep blue and dark purple clouds represent electrically quiet storm formations; vibrant green and cyan sparks mark isolated cloud-to-ground and intra-cloud lightning discharges; while intense electric magenta, brilliant yellow, and blazing white flashes reveal global lightning hotspots\u2014such as Lake Maracaibo and the Congo Basin\u2014generating violent convective storms with continuous lightning super-bursts.",
       "sonificationProfile": {
         "scale": "Acoustic / Harmonic Minor (A, B, C, D, E, F, G#)",
         "baseFrequency": "110 Hz (A2)",
@@ -927,7 +927,7 @@ window.EARTH_DATASETS = {
           "label": "Equatorial Convective Surge",
           "value": "2,412 Spaceborne Detections",
           "metricName": "ISS Optical Transient Flashes",
-          "audioNarrative": "Equatorial Convective Surge. International Space Station sensors detect 2,412 optical lightning transients.",
+          "audioNarrative": "This spaceborne electrodynamic visualization compiles optical lightning transient events detected by the Lightning Imaging Sensor aboard the International Space Station. The metric measures lightning flash density spanning from 1 flash per square kilometer per year in quiet regions up to over 100 flashes in hyperactive lightning chimneys. The colorbar explains electrical storm intensity: deep blue and dark purple clouds represent electrically quiet storm formations; vibrant green and cyan sparks mark isolated cloud-to-ground and intra-cloud lightning discharges; while intense electric magenta, brilliant yellow, and blazing white flashes reveal global lightning hotspots\u2014such as Lake Maracaibo and the Congo Basin\u2014generating violent convective storms with continuous lightning super-bursts.",
           "dominantFreqRange": "120 Hz - 4000 Hz",
           "intensity": 0.335
         },
@@ -937,7 +937,7 @@ window.EARTH_DATASETS = {
           "label": "Congo Basin Midnight Peak",
           "value": "3,294 Spaceborne Detections",
           "metricName": "ISS Optical Transient Flashes",
-          "audioNarrative": "Congo Basin Midnight Peak. International Space Station sensors detect 3,294 optical lightning transients.",
+          "audioNarrative": "This spaceborne electrodynamic visualization compiles optical lightning transient events detected by the Lightning Imaging Sensor aboard the International Space Station. The metric measures lightning flash density spanning from 1 flash per square kilometer per year in quiet regions up to over 100 flashes in hyperactive lightning chimneys. The colorbar explains electrical storm intensity: deep blue and dark purple clouds represent electrically quiet storm formations; vibrant green and cyan sparks mark isolated cloud-to-ground and intra-cloud lightning discharges; while intense electric magenta, brilliant yellow, and blazing white flashes reveal global lightning hotspots\u2014such as Lake Maracaibo and the Congo Basin\u2014generating violent convective storms with continuous lightning super-bursts.",
           "dominantFreqRange": "120 Hz - 4000 Hz",
           "intensity": 0.4575
         },
@@ -947,7 +947,7 @@ window.EARTH_DATASETS = {
           "label": "Amazon Flash Complex",
           "value": "3,672 Spaceborne Detections",
           "metricName": "ISS Optical Transient Flashes",
-          "audioNarrative": "Amazon Flash Complex. International Space Station sensors detect 3,672 optical lightning transients.",
+          "audioNarrative": "This spaceborne electrodynamic visualization compiles optical lightning transient events detected by the Lightning Imaging Sensor aboard the International Space Station. The metric measures lightning flash density spanning from 1 flash per square kilometer per year in quiet regions up to over 100 flashes in hyperactive lightning chimneys. The colorbar explains electrical storm intensity: deep blue and dark purple clouds represent electrically quiet storm formations; vibrant green and cyan sparks mark isolated cloud-to-ground and intra-cloud lightning discharges; while intense electric magenta, brilliant yellow, and blazing white flashes reveal global lightning hotspots\u2014such as Lake Maracaibo and the Congo Basin\u2014generating violent convective storms with continuous lightning super-bursts.",
           "dominantFreqRange": "120 Hz - 4000 Hz",
           "intensity": 0.51
         },
@@ -957,7 +957,7 @@ window.EARTH_DATASETS = {
           "label": "Florida Storm Corridor",
           "value": "4,626 Spaceborne Detections",
           "metricName": "ISS Optical Transient Flashes",
-          "audioNarrative": "Florida Storm Corridor. International Space Station sensors detect 4,626 optical lightning transients.",
+          "audioNarrative": "This spaceborne electrodynamic visualization compiles optical lightning transient events detected by the Lightning Imaging Sensor aboard the International Space Station. The metric measures lightning flash density spanning from 1 flash per square kilometer per year in quiet regions up to over 100 flashes in hyperactive lightning chimneys. The colorbar explains electrical storm intensity: deep blue and dark purple clouds represent electrically quiet storm formations; vibrant green and cyan sparks mark isolated cloud-to-ground and intra-cloud lightning discharges; while intense electric magenta, brilliant yellow, and blazing white flashes reveal global lightning hotspots\u2014such as Lake Maracaibo and the Congo Basin\u2014generating violent convective storms with continuous lightning super-bursts.",
           "dominantFreqRange": "120 Hz - 4000 Hz",
           "intensity": 0.6425
         },
@@ -967,7 +967,7 @@ window.EARTH_DATASETS = {
           "label": "Indonesian Archipelago Cluster",
           "value": "5,400 Spaceborne Detections",
           "metricName": "ISS Optical Transient Flashes",
-          "audioNarrative": "Indonesian Archipelago Cluster. International Space Station sensors detect 5,400 optical lightning transients.",
+          "audioNarrative": "This spaceborne electrodynamic visualization compiles optical lightning transient events detected by the Lightning Imaging Sensor aboard the International Space Station. The metric measures lightning flash density spanning from 1 flash per square kilometer per year in quiet regions up to over 100 flashes in hyperactive lightning chimneys. The colorbar explains electrical storm intensity: deep blue and dark purple clouds represent electrically quiet storm formations; vibrant green and cyan sparks mark isolated cloud-to-ground and intra-cloud lightning discharges; while intense electric magenta, brilliant yellow, and blazing white flashes reveal global lightning hotspots\u2014such as Lake Maracaibo and the Congo Basin\u2014generating violent convective storms with continuous lightning super-bursts.",
           "dominantFreqRange": "120 Hz - 4000 Hz",
           "intensity": 0.75
         },
@@ -977,7 +977,7 @@ window.EARTH_DATASETS = {
           "label": "Midlatitude Squall Line",
           "value": "5,994 Spaceborne Detections",
           "metricName": "ISS Optical Transient Flashes",
-          "audioNarrative": "Midlatitude Squall Line. International Space Station sensors detect 5,994 optical lightning transients.",
+          "audioNarrative": "This spaceborne electrodynamic visualization compiles optical lightning transient events detected by the Lightning Imaging Sensor aboard the International Space Station. The metric measures lightning flash density spanning from 1 flash per square kilometer per year in quiet regions up to over 100 flashes in hyperactive lightning chimneys. The colorbar explains electrical storm intensity: deep blue and dark purple clouds represent electrically quiet storm formations; vibrant green and cyan sparks mark isolated cloud-to-ground and intra-cloud lightning discharges; while intense electric magenta, brilliant yellow, and blazing white flashes reveal global lightning hotspots\u2014such as Lake Maracaibo and the Congo Basin\u2014generating violent convective storms with continuous lightning super-bursts.",
           "dominantFreqRange": "120 Hz - 4000 Hz",
           "intensity": 0.8325
         },
@@ -987,7 +987,7 @@ window.EARTH_DATASETS = {
           "label": "Tropical Convergence Burst",
           "value": "6,516 Spaceborne Detections",
           "metricName": "ISS Optical Transient Flashes",
-          "audioNarrative": "Tropical Convergence Burst. International Space Station sensors detect 6,516 optical lightning transients.",
+          "audioNarrative": "This spaceborne electrodynamic visualization compiles optical lightning transient events detected by the Lightning Imaging Sensor aboard the International Space Station. The metric measures lightning flash density spanning from 1 flash per square kilometer per year in quiet regions up to over 100 flashes in hyperactive lightning chimneys. The colorbar explains electrical storm intensity: deep blue and dark purple clouds represent electrically quiet storm formations; vibrant green and cyan sparks mark isolated cloud-to-ground and intra-cloud lightning discharges; while intense electric magenta, brilliant yellow, and blazing white flashes reveal global lightning hotspots\u2014such as Lake Maracaibo and the Congo Basin\u2014generating violent convective storms with continuous lightning super-bursts.",
           "dominantFreqRange": "120 Hz - 4000 Hz",
           "intensity": 0.905
         },
@@ -997,95 +997,95 @@ window.EARTH_DATASETS = {
           "label": "Global Flash Superposition",
           "value": "6,876 Spaceborne Detections",
           "metricName": "ISS Optical Transient Flashes",
-          "audioNarrative": "Global Flash Superposition. International Space Station sensors detect 6,876 optical lightning transients.",
+          "audioNarrative": "This spaceborne electrodynamic visualization compiles optical lightning transient events detected by the Lightning Imaging Sensor aboard the International Space Station. The metric measures lightning flash density spanning from 1 flash per square kilometer per year in quiet regions up to over 100 flashes in hyperactive lightning chimneys. The colorbar explains electrical storm intensity: deep blue and dark purple clouds represent electrically quiet storm formations; vibrant green and cyan sparks mark isolated cloud-to-ground and intra-cloud lightning discharges; while intense electric magenta, brilliant yellow, and blazing white flashes reveal global lightning hotspots\u2014such as Lake Maracaibo and the Congo Basin\u2014generating violent convective storms with continuous lightning super-bursts.",
           "dominantFreqRange": "120 Hz - 4000 Hz",
           "intensity": 0.955
         }
       ]
     },
-{
-    "id": "near-surface-wind",
-    "title": "GEOS-FP Near-Surface Wind Speed",
-    "subtitle": "NASA SVS 5148: Global 10-Meter Wind & Storm Systems",
-    "nasaResourceUrl": "https://svs.gsfc.nasa.gov/5148/",
-    "nasaSvsId": "SVS-5148",
-    "category": "Atmospheric Dynamics & Wind Energy",
-    "description": "Near surface wind speed is calculated by sampling model fields at 10 meters (about 30 feet) above Earth\u2019s surface. Wind speed is typically largest over ocean because surfaces are smooth and result in less friction than over land. Organized patterns reflect weather fronts and storm systems around the world. Near surface winds help scientists track the movement and severity of storms and air pollution episodes. Increasingly, these kinds of products help wind energy managers plan resources to help meet the world\u2019s demand for energy while reducing the greenhouse gas emissions that cause climate change.",
-    "sonificationProfile": {
+    {
+      "id": "near-surface-wind",
+      "title": "GEOS-FP Near-Surface Wind Speed",
+      "subtitle": "NASA SVS 5148: Global 10-Meter Wind & Storm Systems",
+      "nasaResourceUrl": "https://svs.gsfc.nasa.gov/5148/",
+      "nasaSvsId": "SVS-5148",
+      "category": "Atmospheric Dynamics & Wind Energy",
+      "description": "This atmospheric visualization maps surface wind velocity sampled at 10 meters above Earth, illustrating planetary wind streams, cyclonic storms, and frontal boundaries. The metric measures wind speed spanning from 0 m/s (Calm) up to 35+ m/s (Severe Gale and Hurricane-force gusts, exceeding 70 knots). The colorbar interprets aerodynamic intensity: dark indigo and navy blue represent calm to light air (0 to 5 m/s) typically sheltered over landmasses; cyan and emerald green indicate moderate to fresh breezes (6 to 14 m/s) driving oceanic trade winds; bright yellow and amber orange mark strong, near-gale wind corridors (15 to 24 m/s); and vibrant magenta, violet, and bright white streaks highlight dangerous storm tracks, oceanic jet streams, and roaring circumpolar westerly gale belts surpassing 25 to 35+ m/s.",
+      "sonificationProfile": {
         "scale": "Dorian Mode / Aerodynamic Resonances (D, E, F, G, A, B, C)",
         "baseFrequency": "146.83 Hz (D3)",
         "timbre": "Atmospheric vortex wind rumbles, gale-force noise sweeps, and fluctuating aerodynamic turbulence filters",
         "mappingRule": "10-meter wind velocity (m/s) controls white noise filter cutoff and low-frequency turbulence modulations; oceanic high-wind belts generate resonant wind whistle harmonics.",
         "spatialMode": "Global storm tracks sweep longitudinally from West to East."
-    },
-    "frames": [
+      },
+      "frames": [
         {
-            "frameIndex": 0,
-            "filename": "geos_near_surface_wind_5148.png",
-            "label": "Global 10m Wind Speed Field",
-            "value": "18.4 m/s (35.8 kts)",
-            "metricName": "10-Meter Wind Velocity",
-            "audioNarrative": "Near surface wind speed calculated at 10 meters above Earth's surface. Smooth ocean surfaces exhibit gale-force wind bands, while continental landmasses produce high frictional drag.",
-            "dominantFreqRange": "60 Hz - 2800 Hz",
-            "intensity": 0.72
+          "frameIndex": 0,
+          "filename": "geos_near_surface_wind_5148.png",
+          "label": "Global 10m Wind Speed Field",
+          "value": "18.4 m/s (35.8 kts)",
+          "metricName": "10-Meter Wind Velocity",
+          "audioNarrative": "This atmospheric visualization maps surface wind velocity sampled at 10 meters above Earth, illustrating planetary wind streams, cyclonic storms, and frontal boundaries. The metric measures wind speed spanning from 0 m/s (Calm) up to 35+ m/s (Severe Gale and Hurricane-force gusts, exceeding 70 knots). The colorbar interprets aerodynamic intensity: dark indigo and navy blue represent calm to light air (0 to 5 m/s) typically sheltered over landmasses; cyan and emerald green indicate moderate to fresh breezes (6 to 14 m/s) driving oceanic trade winds; bright yellow and amber orange mark strong, near-gale wind corridors (15 to 24 m/s); and vibrant magenta, violet, and bright white streaks highlight dangerous storm tracks, oceanic jet streams, and roaring circumpolar westerly gale belts surpassing 25 to 35+ m/s.",
+          "dominantFreqRange": "60 Hz - 2800 Hz",
+          "intensity": 0.72
         }
-    ]
-},
-{
-    "id": "geos-precipitation-clouds",
-    "title": "GEOS-FP Precipitation and Clouds",
-    "subtitle": "NASA SVS 5149: Rain, Snow & Cloud Optical Thickness",
-    "nasaResourceUrl": "https://svs.gsfc.nasa.gov/5149/",
-    "nasaSvsId": "SVS-5149",
-    "category": "Hydrological Cycle & Storm Hazards",
-    "description": "Weather models begin their forecasts by integrating observations from ground stations, aircraft, balloons, and a growing constellation of Earth observing satellites to estimate the most realistic atmospheric state. The Goddard Earth Observing System Forward Processing (GEOS-FP) system is a research model maintained by NASA\u2019s Global Modeling and Assimilation Office to demonstrate innovative new ways to use satellite data to improve predictions of weather, air quality, and greenhouse gases and to help NASA collect new observations of our home planet. These models use complex equations to track the formation of clouds and estimate the amount of rainfall they will produce.\n\nThis animation overlays total precipitation, including both rain and snow, atop simulated cloud fields shaded by their optical thickness. Precipitation patterns are shifting as a result of climate change because warmer temperatures allow the atmosphere to evaporate and store more water vapor. In the northeastern U.S., communities have experienced a higher percentage of total rain falling during severe storms, which is concerning because it can raise the risk of hazards like flash floods and result in a smaller percentage of rain replenishing ground water supplies. Scientists are also tracking changes in the frequency and impact of atmospheric rivers in the western U.S. In addition to producing precipitation, clouds play a critical role in climate. Depending on their elevation, thickness, and the presence of aerosol particles, clouds can either reflect sunlight (cooling the planet) or trap heat emitted from Earth\u2019s surface (heating the planet). The degree to which cloud properties may change in coming decades is one of the largest sources of uncertainty in climate projections. NASA is working to find new ways to measure the properties of clouds and precipitation to help improve the ability to predict both short term changes in weather and long term changes in climate.",
-    "sonificationProfile": {
+      ]
+    },
+    {
+      "id": "geos-precipitation-clouds",
+      "title": "GEOS-FP Precipitation and Clouds",
+      "subtitle": "NASA SVS 5149: Rain, Snow & Cloud Optical Thickness",
+      "nasaResourceUrl": "https://svs.gsfc.nasa.gov/5149/",
+      "nasaSvsId": "SVS-5149",
+      "category": "Hydrological Cycle & Storm Hazards",
+      "description": "This satellite imagery overlays active precipitation rates atop atmospheric cloud optical thickness, pinpointing severe convective storm systems and monsoon troughs. The metric measures precipitation intensity spanning from light drizzle at 0.1 mm/hr up to flash flood cloudbursts exceeding 30 mm/hr. The colorbar maps rainfall severity against cloud cover: the monochrome white and translucent gray background shows cloud optical depth, where brighter white indicates denser cloud cover; cool aqua and soft green show light, steady rainfall (0.1 to 2.5 mm/hr); bright yellow and orange indicate moderate to heavy convective downpours (5 to 15 mm/hr); while intense red, crimson, and deep violet cores demarcate severe storm cells, tropical cyclones, and deluge rain bands exceeding 20 to 30+ mm/hr capable of triggering catastrophic flash flooding.",
+      "sonificationProfile": {
         "scale": "Aeolian Mode / Hydro-Acoustic Resonance (C, D, Eb, F, G, Ab, Bb)",
         "baseFrequency": "130.81 Hz (C3)",
         "timbre": "Granular rain trickle textures, low-frequency atmospheric thunder rumbles, and resonant cloud filter sweeps",
         "mappingRule": "Precipitation rate (mm/hr) drives droplet density and granular raindrop strikes; cloud optical thickness modulates high-cut atmospheric absorption filters.",
         "spatialMode": "Atmospheric rivers flow eastwards across the Pacific into continental coastal zones."
-    },
-    "frames": [
+      },
+      "frames": [
         {
-            "frameIndex": 0,
-            "filename": "geos_precipitation_clouds_5149.png",
-            "label": "Total Precipitation & Cloud Optical Depth",
-            "value": "24.6 mm/hr Severe Storm Band",
-            "metricName": "Precipitation Intensity",
-            "audioNarrative": "Total precipitation overlay atop simulated cloud optical thickness. Severe storm cells generate intense rain bursts exceeding 24 millimeters per hour, elevating flash flood hazards.",
-            "dominantFreqRange": "80 Hz - 3500 Hz",
-            "intensity": 0.85
+          "frameIndex": 0,
+          "filename": "geos_precipitation_clouds_5149.png",
+          "label": "Total Precipitation & Cloud Optical Depth",
+          "value": "24.6 mm/hr Severe Storm Band",
+          "metricName": "Precipitation Intensity",
+          "audioNarrative": "This satellite imagery overlays active precipitation rates atop atmospheric cloud optical thickness, pinpointing severe convective storm systems and monsoon troughs. The metric measures precipitation intensity spanning from light drizzle at 0.1 mm/hr up to flash flood cloudbursts exceeding 30 mm/hr. The colorbar maps rainfall severity against cloud cover: the monochrome white and translucent gray background shows cloud optical depth, where brighter white indicates denser cloud cover; cool aqua and soft green show light, steady rainfall (0.1 to 2.5 mm/hr); bright yellow and orange indicate moderate to heavy convective downpours (5 to 15 mm/hr); while intense red, crimson, and deep violet cores demarcate severe storm cells, tropical cyclones, and deluge rain bands exceeding 20 to 30+ mm/hr capable of triggering catastrophic flash flooding.",
+          "dominantFreqRange": "80 Hz - 3500 Hz",
+          "intensity": 0.85
         }
-    ]
-},
-{
-    "id": "geos-near-surface-humidity",
-    "title": "GEOS-FP Near-Surface Humidity",
-    "subtitle": "NASA SVS 5150: Specific Humidity (Q2M) in g/kg",
-    "nasaResourceUrl": "https://svs.gsfc.nasa.gov/5150/",
-    "nasaSvsId": "SVS-5150",
-    "category": "Atmospheric Moisture & Water Vapor Dynamics",
-    "description": "This daily-updated visualization shows near-surface humidity data from the last two weeks through the present day. Weather models begin their forecasts by integrating observations from ground stations, aircraft, balloons, and a growing constellation of Earth observing satellites to estimate the most realistic atmospheric state. The Goddard Earth Observing System Forward Processing (GEOS-FP) system is a research model maintained by NASA\u2019s Global Modeling and Assimilation Office to demonstrate innovative new ways to use satellite data to improve predictions of weather, air quality, and greenhouse gases and to help NASA collect new observations of our home planet.\n\nNear-surface humidity, also known as specific humidity (Q2M), measures the actual amount of water vapor present in the air near Earth's surface. This measurement tells us the exact mass of water vapor per unit of air mass, typically measured in grams per kilogram (g/kg). It is calculated using atmospheric temperature and pressure data and remains relatively constant even as temperature changes throughout the day. Near-surface Humidity patterns reveal how moisture moves through the atmosphere via weather systems, ocean evaporation, and land surface processes. Understanding near-surface humidity is crucial for predicting weather patterns, agricultural conditions, and air quality, as it directly influences cloud formation, precipitation development, and the transport of atmospheric pollutants.",
-    "sonificationProfile": {
+      ]
+    },
+    {
+      "id": "geos-near-surface-humidity",
+      "title": "GEOS-FP Near-Surface Humidity",
+      "subtitle": "NASA SVS 5150: Specific Humidity (Q2M) in g/kg",
+      "nasaResourceUrl": "https://svs.gsfc.nasa.gov/5150/",
+      "nasaSvsId": "SVS-5150",
+      "category": "Atmospheric Moisture & Water Vapor Dynamics",
+      "description": "This atmospheric moisture visualization displays near-surface specific humidity, or Q2M, measuring the actual mass of water vapor per kilogram of air. The metric spans from bone-dry conditions at 0 g/kg up to hyper-saturated tropical moisture corridors exceeding 24 g/kg. The colorbar illustrates atmospheric water vapor content: pale desert yellow and light tan signify arid, moisture-starved air masses (0 to 3 g/kg) characteristic of subtropical deserts and polar ice; mint green and light cyan denote moderate continental humidity (4 to 10 g/kg); rich turquoise and cobalt blue highlight deep moisture transport (12 to 18 g/kg); and dark indigo to saturated violet plumes trace atmospheric rivers and tropical convergence zones surpassing 20 to 24+ g/kg that supply fuel for cyclonic storms and heavy rainfall.",
+      "sonificationProfile": {
         "scale": "Mixolydian Mode / Vaporous Harmonics (G, A, B, C, D, E, F)",
         "baseFrequency": "196.00 Hz (G3)",
         "timbre": "Warm oceanic vapor drones, shimmering moisture resonance, and lush ambient chorus filtering",
         "mappingRule": "Specific humidity Q2M (g/kg) controls chorus depth, sub-surface moisture resonance, and shimmer harmonic overtones; arid zones trigger stark, dry acoustic plucks.",
         "spatialMode": "Ocean evaporation plumes track tropical atmospheric moisture corridors West to East."
-    },
-    "frames": [
+      },
+      "frames": [
         {
-            "frameIndex": 0,
-            "filename": "geos_near_surface_humidity_5150.png",
-            "label": "Global Specific Humidity Q2M Field",
-            "value": "16.8 g/kg Tropical Moisture Zone",
-            "metricName": "Specific Humidity (Q2M)",
-            "audioNarrative": "Near-surface specific humidity measured in grams per kilogram. High tropical water vapor concentrations sustain storm development and monsoon moisture transport.",
-            "dominantFreqRange": "110 Hz - 3200 Hz",
-            "intensity": 0.78
+          "frameIndex": 0,
+          "filename": "geos_near_surface_humidity_5150.png",
+          "label": "Global Specific Humidity Q2M Field",
+          "value": "16.8 g/kg Tropical Moisture Zone",
+          "metricName": "Specific Humidity (Q2M)",
+          "audioNarrative": "This atmospheric moisture visualization displays near-surface specific humidity, or Q2M, measuring the actual mass of water vapor per kilogram of air. The metric spans from bone-dry conditions at 0 g/kg up to hyper-saturated tropical moisture corridors exceeding 24 g/kg. The colorbar illustrates atmospheric water vapor content: pale desert yellow and light tan signify arid, moisture-starved air masses (0 to 3 g/kg) characteristic of subtropical deserts and polar ice; mint green and light cyan denote moderate continental humidity (4 to 10 g/kg); rich turquoise and cobalt blue highlight deep moisture transport (12 to 18 g/kg); and dark indigo to saturated violet plumes trace atmospheric rivers and tropical convergence zones surpassing 20 to 24+ g/kg that supply fuel for cyclonic storms and heavy rainfall.",
+          "dominantFreqRange": "110 Hz - 3200 Hz",
+          "intensity": 0.78
         }
-    ]
-}
+      ]
+    }
   ]
 };
