@@ -73,11 +73,11 @@
                 </div>
 
                 <!-- Visualizer Workspace: Canvas + Live Analysis + Transmitter -->
-                <div class="visualizer-grid" style="margin-top:16px;">
+                <div class="visualizer-grid">
                     <!-- Left: Canvas & Video Player -->
-                    <div>
+                    <div class="visualizer-col-left">
                         <div class="canvas-wrapper">
-                            <canvas id="imageCanvas" width="600" height="380"></canvas>
+                            <canvas id="imageCanvas" width="460" height="240"></canvas>
                             <video id="uploadedVideo" controls autoplay loop muted playsinline style="display:none;"></video>
                             <div id="probeHud" class="probe-hud">Probe: Standby - Upload an image or video to probe pixels</div>
                         </div>
@@ -89,11 +89,41 @@
 
                     <!-- Right: Analysis & Sound Transmitter -->
                     <div class="analysis-panel">
+                        <!-- Acoustic Image Data Transmitter Box (Placed first for instant accessibility) -->
+                        <div class="sound-signal-box">
+                            <div class="signal-label">2. Acoustic Telemetry Transmission:</div>
+                            
+                            <!-- Hidden codeword input kept in DOM for silent signal trigger -->
+                            <input type="hidden" id="soundSignalMessage" value="">
+
+                            <!-- Acoustic Sonification Metrics HUD -->
+                            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:8px 10px; margin-bottom:8px; font-size:0.75rem; color:#334155;">
+                                <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                                    <span style="color:#64748b;">Carrier Protocol:</span>
+                                    <span style="font-weight:600; color:#0369a1;">Acoustic FSK Sonification</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                                    <span style="color:#64748b;">Optical Payload:</span>
+                                    <span id="payloadInfo" style="font-weight:600; color:#0f172a;">Awaiting Visual Input</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between;">
+                                    <span style="color:#64748b;">Sonification Status:</span>
+                                    <span id="encodingStatus" style="font-weight:600; color:#64748b;">Standby</span>
+                                </div>
+                            </div>
+
+                            <button id="btnTransmitImageSound" type="button" class="btn-transmit-sound" onclick="transmitImageSignal()">
+                                <span>🔊 TRANSMIT IMAGE DATA VIA SOUND</span>
+                            </button>
+
+                            <div id="txStatusAlert" class="tx-status-alert"></div>
+                        </div>
+
                         <!-- Image Telemetry Metrics -->
                         <div class="metric-card">
                             <div class="metric-header">Visual Spectrum & Telemetry</div>
-                            <div id="metricFilename" style="font-size:0.88rem; font-weight:700; color:#1e293b; margin-bottom:6px; word-break:break-all;">
-                                Standby - Awaiting Image Upload
+                            <div id="metricFilename" style="font-size:0.82rem; font-weight:700; color:#1e293b; margin-bottom:6px; word-break:break-all;">
+                                Standby - Awaiting Image / Video Upload
                             </div>
 
                             <div class="rgb-bars">
@@ -113,40 +143,6 @@
                                     <span id="valBlue" style="width:30px; text-align:right;">0</span>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Acoustic Image Data Transmitter Box -->
-                        <div class="sound-signal-box">
-                            <div class="signal-label">2. Acoustic Image Data Transmission:</div>
-                            
-                            <!-- Hidden codeword input kept in DOM for silent signal trigger -->
-                            <input type="hidden" id="soundSignalMessage" value="">
-
-                            <!-- Acoustic Sonification Metrics HUD -->
-                            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:10px 12px; margin-bottom:12px; font-size:0.77rem; color:#334155;">
-                                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                                    <span style="color:#64748b;">Carrier Protocol:</span>
-                                    <span style="font-weight:600; color:#0369a1;">Acoustic FSK Sonification</span>
-                                </div>
-                                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                                    <span style="color:#64748b;">Optical Payload:</span>
-                                    <span id="payloadInfo" style="font-weight:600; color:#0f172a;">Awaiting Image Input</span>
-                                </div>
-                                <div style="display:flex; justify-content:space-between;">
-                                    <span style="color:#64748b;">Sonification Status:</span>
-                                    <span id="encodingStatus" style="font-weight:600; color:#64748b;">Standby</span>
-                                </div>
-                            </div>
-
-                            <div style="font-size:0.75rem; color:#475569; margin-bottom:12px; line-height:1.4;">
-                                Converts visual raster matrices into high-frequency acoustic data streams, transmitted directly through laptop speakers to the mobile receiver app.
-                            </div>
-
-                            <button id="btnTransmitImageSound" type="button" class="btn-transmit-sound" onclick="transmitImageSignal()">
-                                <span>🔊 TRANSMIT IMAGE DATA VIA SOUND</span>
-                            </button>
-
-                            <div id="txStatusAlert" class="tx-status-alert"></div>
                         </div>
 
                         <!-- Dynamic Scientific Context Card -->
@@ -455,12 +451,12 @@
                     
                     // Match canvas aspect ratio
                     var aspect = img.height / img.width;
-                    var maxW = 600;
+                    var maxW = 460;
                     var w = maxW;
                     var h = Math.round(maxW * aspect);
-                    if (h > 380) {
-                        h = 380;
-                        w = Math.round(380 / aspect);
+                    if (h > 240) {
+                        h = 240;
+                        w = Math.round(240 / aspect);
                     }
                     canvas.width = w;
                     canvas.height = h;
