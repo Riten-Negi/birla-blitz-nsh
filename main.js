@@ -21,10 +21,13 @@ function updatePeerInfo() {
     var framesToAnalyze = Module._getFramesToAnalyze();
 
     if (framesToAnalyze > 0) {
-        peerInfo.innerHTML=
-            "Analyzing Rx data: <progress value=" + (framesToAnalyze - framesLeftToAnalyze) +
-            " max=" + (framesToRecord) + "></progress>";
-        peerReceive.innerHTML= "";
+        if (peerInfo) {
+            peerInfo.innerHTML=
+                "Analyzing Rx data: <progress value=" + (framesToAnalyze - framesLeftToAnalyze) +
+                " max=" + (framesToRecord) + "></progress>";
+        }
+        var pRecv = document.getElementById('peerReceive') || (typeof peerReceive !== 'undefined' ? peerReceive : null);
+        if (pRecv) pRecv.innerHTML = "";
     } else if (framesLeftToRecord > Math.max(0, 0.05*framesToRecord)) {
         firstTimeFail = true;
         peerInfo.innerHTML=
