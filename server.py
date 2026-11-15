@@ -20,6 +20,25 @@ class QuietHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=BASE_DIR, **kwargs)
 
+    def do_GET(self):
+        if self.path in ("/shutdown", "/stop", "/exit"):
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(b"<html><head><title>Server Stopped</title></head><body style='font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif; text-align:center; padding:60px 20px; background:#f8fafc; color:#1e293b;'><div style='max-width:500px; margin:0 auto; background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:30px; box-shadow:0 4px 10px rgba(0,0,0,0.05);'><h2 style='color:#16a34a; margin-top:0;'>&#10004; Transmitter Server Stopped</h2><p style='color:#64748b; font-size:14px;'>The Birla Blitz local transmitter server on port 8000 has been shut down cleanly and all network sockets have been released.</p><p style='font-size:12px; color:#94a3b8; margin-bottom:0;'>You can safely close this browser tab.</p></div></body></html>")
+            def kill_server():
+                time.sleep(0.5)
+                os._exit(0)
+            threading.Thread(target=kill_server, daemon=True).start()
+            return
+        super().do_GET()
+
+    def end_headers(self):
+        self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+        self.send_header("Pragma", "no-cache")
+        self.send_header("Expires", "0")
+        super().end_headers()
+
     def log_message(self, format, *args):
         # Keep logs clean
         if "200" not in str(args) and "304" not in str(args):
@@ -52,7 +71,12 @@ def main():
     print("4. The laptop speaker emits the acoustic burst, and your phone's microphone")
     print("   hears and instantly decrypts it into text & triggers secret NASA data!")
     print("=" * 72)
-    print("Press Ctrl+C to stop.\n")
+    print("CONTROLS TO STOP THE SERVER:")
+    print("  * Press [Ctrl+C] in this terminal window to stop")
+    print("  * Click 'Stop Server' in the web interface")
+    print(f"  * Or run stop.bat anytime")
+    print("=" * 72)
+    print("\n[ACTIVE] Server listening on http://localhost:8000/index.html ...\n")
     sys.stdout.flush()
 
     threading.Thread(target=open_browser, args=(HTTP_PORT,), daemon=True).start()

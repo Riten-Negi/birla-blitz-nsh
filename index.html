@@ -7,7 +7,96 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
 
         <link rel="shortcut icon" href="favicon.ico">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css?v=2.2">
+        <style>
+            /* Critical Viewport & Grid Overrides */
+            html, body {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+            }
+            .station-wrapper {
+                max-width: 960px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                overflow-x: hidden !important;
+                margin: 16px auto !important;
+                padding: 0 16px !important;
+            }
+            .station-card {
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+            }
+            .visualizer-grid {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr) !important;
+                gap: 16px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                align-items: start !important;
+                overflow: hidden !important;
+            }
+            .visualizer-col-left {
+                min-width: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                overflow: hidden !important;
+                box-sizing: border-box !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            .canvas-wrapper {
+                position: relative !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 240px !important;
+                max-height: 240px !important;
+                min-height: 200px !important;
+                background: #0f172a !important;
+                border-radius: 8px !important;
+                overflow: hidden !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                border: 1px solid #334155 !important;
+                box-sizing: border-box !important;
+            }
+            #uploadedVideo {
+                max-width: 100% !important;
+                max-height: 240px !important;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: contain !important;
+                border-radius: 6px !important;
+                background: #000 !important;
+                box-sizing: border-box !important;
+                outline: none !important;
+            }
+            #imageCanvas {
+                max-width: 100% !important;
+                max-height: 240px !important;
+                width: auto !important;
+                height: 100% !important;
+                object-fit: contain !important;
+                box-sizing: border-box !important;
+            }
+            .analysis-panel {
+                min-width: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 12px !important;
+            }
+            @media (max-width: 768px) {
+                .visualizer-grid {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+        </style>
     </head>
     <body>
         <div id="sound"></div>
@@ -26,8 +115,9 @@
                 <!-- Engine Init & Status LEDs -->
                 <table style="width:100%; margin-bottom:12px; background:#f8fafc; border-radius:8px;">
                     <tr>
-                        <td align="center" style="width:20%; border:none;">
-                            <button onClick="doInit()" id="butInit" style="padding:8px 18px; font-weight:700; background:#2563eb; color:white; border:none; border-radius:6px; cursor:pointer;" disabled>Initialize Engine</button>
+                        <td align="center" style="width:25%; border:none;">
+                            <button onClick="doInit()" id="butInit" style="padding:8px 16px; font-weight:700; background:#2563eb; color:white; border:none; border-radius:6px; cursor:pointer;" disabled>Initialize Engine</button>
+                            <button onclick="stopServer()" style="padding:6px 10px; font-size:11px; font-weight:600; background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; border-radius:6px; cursor:pointer; margin-left:6px;" title="Shut down the local transmitter server">🛑 Stop Server</button>
                         </td>
                         <td align="center" style="border:none;">
                             <div style="display:flex; justify-content:center; gap:24px; align-items:center;">
@@ -73,12 +163,12 @@
                 </div>
 
                 <!-- Visualizer Workspace: Canvas + Live Analysis + Transmitter -->
-                <div class="visualizer-grid">
+                <div class="visualizer-grid" style="display:grid; grid-template-columns:minmax(0, 1.05fr) minmax(0, 0.95fr); gap:16px; width:100%; max-width:100%; box-sizing:border-box; overflow:hidden;">
                     <!-- Left: Canvas & Video Player -->
-                    <div class="visualizer-col-left">
-                        <div class="canvas-wrapper">
-                            <canvas id="imageCanvas" width="460" height="240"></canvas>
-                            <video id="uploadedVideo" controls autoplay loop muted playsinline style="display:none;"></video>
+                    <div class="visualizer-col-left" style="min-width:0; max-width:100%; width:100%; overflow:hidden; box-sizing:border-box;">
+                        <div class="canvas-wrapper" style="position:relative; width:100%; max-width:100%; height:240px; max-height:240px; min-height:200px; background:#0f172a; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; border:1px solid #334155; box-sizing:border-box;">
+                            <canvas id="imageCanvas" width="460" height="240" style="max-width:100%; max-height:240px; object-fit:contain;"></canvas>
+                            <video id="uploadedVideo" controls autoplay loop muted playsinline style="display:none; width:100%; max-width:100%; height:100%; max-height:240px; object-fit:contain; border-radius:6px; background:#000; outline:none; box-sizing:border-box;"></video>
                             <div id="probeHud" class="probe-hud">Probe: Standby - Upload an image or video to probe pixels</div>
                         </div>
                         <div style="font-size:0.75rem; color:#64748b; margin-top:6px; display:flex; justify-content:space-between;">
@@ -440,6 +530,11 @@
                     }
                 }
                 canvas.style.display = "block";
+                canvas.style.width = "100%";
+                canvas.style.maxWidth = "100%";
+                canvas.style.height = "100%";
+                canvas.style.maxHeight = "240px";
+                canvas.style.objectFit = "contain";
 
                 currentLoadedImageName = filename || "image.png";
                 document.getElementById("metricFilename").textContent = currentLoadedImageName;
@@ -503,6 +598,11 @@
 
                 currentVideoUrl = URL.createObjectURL(file);
                 uploadedVideo.style.display = "block";
+                uploadedVideo.style.width = "100%";
+                uploadedVideo.style.maxWidth = "100%";
+                uploadedVideo.style.height = "100%";
+                uploadedVideo.style.maxHeight = "240px";
+                uploadedVideo.style.objectFit = "contain";
                 uploadedVideo.src = currentVideoUrl;
                 uploadedVideo.muted = true;
                 uploadedVideo.loop = true;
@@ -1009,6 +1109,25 @@
                         encodingStatus.innerHTML = `<span style="color:#059669; font-weight:600;">● Transmission Complete (Ready)</span>`;
                     }
                 }, 2500);
+            }
+
+            // Server Shutdown Function
+            function stopServer() {
+                if (confirm("Are you sure you want to stop the transmitter server?")) {
+                    fetch('/shutdown').then(function() {
+                        document.body.innerHTML = `
+                            <div style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif; text-align:center; padding:80px 20px; background:#f8fafc; min-height:100vh;">
+                                <div style="max-width:520px; margin:0 auto; background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:36px; box-shadow:0 6px 16px rgba(0,0,0,0.06);">
+                                    <h2 style="color:#16a34a; margin-top:0;">✔ Transmitter Server Stopped</h2>
+                                    <p style="color:#475569; font-size:14px; line-height:1.5;">The local Birla Blitz server has been shut down cleanly and port 8000 has been released.</p>
+                                    <p style="font-size:12px; color:#94a3b8; margin-bottom:0;">You can safely close this browser window or re-launch anytime with <code>run.bat</code>.</p>
+                                </div>
+                            </div>
+                        `;
+                    }).catch(function() {
+                        alert("Server stopped or disconnected.");
+                    });
+                }
             }
 
             // Initialize in standby mode on load
